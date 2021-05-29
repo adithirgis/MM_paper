@@ -72,7 +72,7 @@ while(draw <= 100) {
     dplyr::select(Road_ID, Mean_BC) %>%
     mutate_at(c('Road_ID'), as.numeric) %>%
     group_by(Road_ID) %>%
-    summarise(Median_BC = median(Mean_BC))         
+    summarise(Median_BC = median(Mean_BC, na.rm = TRUE))         
   sh <- left_join(road_sf, Final_df, by = "Road_ID")
   sh$UID <- paste0("MAL2_", sh$Road_ID)
   View(sh)

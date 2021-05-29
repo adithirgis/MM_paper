@@ -352,20 +352,22 @@ boot_var <- function(BC_c, na.rm = FALSE) {
 
 R2_NRMSE_function <- function(each_file, Final_reference, la, fi) {
   Final_ref <- Final_reference %>%
-    dplyr::select(Road_ID, "Final_Median" = fi) %>%
+    dplyr::select(Road_ID, "Final_Median" = fi) %>% # add fi
     mutate_at(c('Road_ID'), as.numeric)
   my_spdf <- readOGR(each_file)
   my_spdf <- spTransform(my_spdf, CRS("+proj=utm +zone=43 ellps=WGS84"))
   my_spdf <- st_as_sf(my_spdf) 
   my_spdf$geometry <- NULL
   spdf <- my_spdf %>%
-    dplyr::select(Road_ID, "N_Median" = la) %>%
+    dplyr::select(Road_ID, "N_Median" = la) %>% # add la
     mutate_at(c('Road_ID'), as.numeric)
   # Join both tables for easy calculations 
   Final <- left_join(Final_ref, spdf, by = "Road_ID") 
   # To calculate R squared
   sum <- summary(lm(Final_Median ~ N_Median, data = Final))
   R_squared <- sum$r.squared
+  sum_f <- sum$fstatistic[[1]]
+  
   # To calculate RMSE: Observed - expected square the difference
   Final$rmsq <- (Final$N_Median - Final$Final_Median) ^ 2
   # To calculate RMSE: Mean of the squared difference between observed and 
@@ -379,6 +381,7 @@ R2_NRMSE_function <- function(each_file, Final_reference, la, fi) {
   # Sum total and then divide by the number of rows than the mean uniformity 
   # about the number of observations
   y_bar1 <- (mean(Final$N_Median, na.rm = TRUE))   
+  nrmse_mean_not_sum <- rmse1 / y_bar1
   # the mean uniformity abot the number of observations
   # To calculate min/max; na.rm = TRUE ignores the NA values 
   y_max <- (max(Final$N_Median, na.rm = TRUE))
@@ -390,7 +393,7 @@ R2_NRMSE_function <- function(each_file, Final_reference, la, fi) {
   layer_N <- as.numeric(as.character(layer_N))
   # Make a new data frame of the variables 
   new_df <- data.frame(N, layer_N, y_bar, y_bar1, rmse, rmse1, rang, 
-                       R_squared, y_min, y_max)
+                       R_squared, y_min, y_max, sum_f, nrmse_mean_not_sum)
 }
 
 

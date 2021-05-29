@@ -67,12 +67,12 @@ while(draw <= 100) {
   Final_df <- R %>%
     dplyr::select(Road_ID, Mean_CPC) %>%
     group_by(Road_ID) %>%
-    summarise(Median_CPC = median(Mean_CPC))         
+    summarise(Median_CPC = median(Mean_CPC, na.rm = TRUE))         
   Final_df <- R %>%
     dplyr::select(Road_ID, Mean_CPC) %>%
     mutate_at(c('Road_ID'), as.numeric) %>%
     group_by(Road_ID) %>%
-    summarise(Median_CPC = median(Mean_CPC))         
+    summarise(Median_CPC = median(Mean_CPC, na.rm = TRUE))         
   sh <- left_join(road_sf, Final_df, by = "Road_ID")
   sh$UID <- paste0("MAL1_", sh$Road_ID)
   View(sh)
