@@ -1,0 +1,197 @@
+---
+title: "Black Carbon"
+author: "Adithi R Upadhya, ILK Labs"
+date: "2021-05-27"
+output: 
+  html_document:
+    df_print: paged
+    fig_width: 13
+    fig_height: 8
+    toc: true
+    code_folding: hide
+    theme: lumen
+theme: yeti
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+getwd()
+here::here()
+theme_ts <- list(theme_classic(),
+                 theme(legend.text = element_text(size = 18),
+                       plot.title = element_text(size = 14, face = "bold"),
+                       axis.title = element_text(size = 20, face = "bold"),
+                       axis.text = element_text(size = 18, face = "bold"),
+                       panel.border = element_rect(colour = "black",
+                                                   fill = NA, size = 1.2),
+                       strip.background = element_blank(), strip.text = element_blank()))
+reg_eqn <- function(x){
+  R_sq <- round(as.numeric(x$r.squared), digits = 2)
+  int <- round(coef(x)[1], digits = 2)
+  slope <- round(coef(x)[2], digits = 2)
+  eqn <- paste("y = ", slope, "x + ( ", int, ")")
+  return(eqn)
+}
+
+```
+
+## Black Carbon[^1] time of day correction factor
+
+[^1]: Black Carbon mentioned here means loading corrected Black Carbon.
+
+-   Selected Study area here is ***Malleshwaram***.
+-   The concentrations varied, introducing a bias due to diurnal variations and urban background variations.
+-   To remove this bias we corrected the concentrations using a multiplicative factor derived by ambient measurements made by AE33 (Magee Scientific model) at the Ambient site (CSTEP).
+-   The ambient concentrations were higher during the morning rush hours and decreased during the afternoon, owing to the dynamic boundary layer variations.
+-   The correction factor was generated using the BC data derived from the channel 6 of AE33 data by calculating the daytime median concentrations (corresponding to the monitoring period), then at hourly basis we derived the correction factor using the ratio of hourly median and daily median.
+-   This multiplicative factor (monthly mean) is used for 'hour of the day correction' and is detailed in Apte et al., (2011).
+-   The correction factor was applied to the mobile measurements of black carbon by AE51 alone, since ambient UFP's and CO2 measurements were not available.
+-   The mean change in BC concentrations after applying the hour of the day correction factor was \~ 9 %.
+-   The monthly median values of CF or the correction factors are shown below.
+
+![Fig 1: BC- Diurnal Correction Factor: Median of each hour of the day in a month/ Median of the corresponding day](WWW/Graph.png)
+
+## Black Carbon vs Black Carbon Corrected using the correction factor
+
+```{r message = FALSE, warning = FALSE}
+MAL1_sec <- read.csv("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL1/MAL1_sec.csv", sep = ",") %>%
+  select(date, BC_NR_LC, BC_CF, BC_c, Road_type)
+
+MAL2_sec <- read.csv("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL2/MAL2_sec.csv", sep = ",") %>%
+  select(date, BC_NR_LC, BC_CF, BC_c, Road_type)
+
+MAL <- rbind(MAL1_sec, MAL2_sec)
+
+
+m <- lm(BC_c ~ BC_NR_LC, MAL)
+s <- summary(m)
+r <- round(s$adj.r.squared, digits = 2)
+MAL$diffSq <- (MAL$BC_c - MAL$BC_NR_LC) ^ 2
+mean_diff_sqr <- mean(MAL$diffSq, na.rm = TRUE)
+MAL_u <- rbind(data.frame("value" = m$model$BC_c), data.frame("value" = m$model$BC_NR_LC))
+nrmse <- round((sqrt(mean_diff_sqr) / mean(MAL_u$value, na.rm = TRUE)) * 100, digits = 2)
+rmse <- round(sqrt(mean_diff_sqr), digits = 2)
+n <- nrow(data.frame(m$fitted.values))  
+
+scatter_plot <- ggplot(data = MAL, aes(x = BC_NR_LC, y = BC_c)) +
+  geom_abline(slope = 1, intercept = 0, color = "black", size = 0.8, linetype = "dashed") +
+  geom_point(size = 1.2, color = "red") + 
+  geom_smooth(method = lm, size = 1.4, se = FALSE, formula = y ~ x, color = "steelblue") + scale_x_continuous(limits = c(0, 2000)) + scale_y_continuous(limits = c(0, 2000)) + 
+  labs(x = "BC", y = "CF applied BC")  + theme_ts +
+  annotate("text", size = 6, label = expr(paste("N: ", !!n, "; ", R^{2}, ": ", !!r)), x = 500, y = 1700) +
+  annotate("text", size = 6, label = expr(paste(PM[2.5], " one-hour average")), x = 500, y = 1800) +
+  annotate("text", size = 6, label = expr(paste("RMSE: ", !!rmse, " ", mu, "g ", ~m^{-3})), x = 500, y = 1500) +  
+  annotate("text", size = 6, label = expr(paste("NRMSE: ", !!nrmse, "%")), x = 500, y = 1400) +
+  annotate("text", size = 6, label = expr(paste(!!reg_eqn(s))), x = 500, y = 1600)
+
+scatter_plot
+```
+
+
+## Ambient and Mobile data
+
+- We collected mobile data at 1 s, so here we picked up 1 percentile values from each hour (eg- in 1 hour we have 3600 values we picked up 1 percentile values or ~ 36 values), averaged it to minute and compared it with each minute of ambient data. 
+
+
+
+```{r message = FALSE, warning = FALSE}
+setwd("D:/Dropbox/APMfull/Colocation CSTEP/CSTEP_co-location_2020/Exp_9_2020_01_15/AE33_CSTEP")
+ae33_cstep <- data.frame()
+dir <- "D:/Dropbox/APMfull/Colocation CSTEP/CSTEP_co-location_2020/Exp_9_2020_01_15/AE33_CSTEP/"
+dat_list <- list.files(dir, pattern = "\\.dat$")
+### For all shapefiles in a folder
+for(i in seq_along(dat_list))ae33_cstep <- rbind(ae33_cstep, 
+                                                 data.frame(read.table(dat_list[i], 
+                                                                       header = TRUE, 
+                                                                       skip = 4)))
+ae33_cstep$date <- with(ae33_cstep, as.POSIXct(paste(as.Date(Date.yyyy.MM.dd.., 
+                                                             format = '%Y/%m/%d',
+                                                             tz = "Asia/Kolkata"), 
+                                                     Time.hh.mm.ss..)))
+ae33_cstep1 <- ae33_cstep 
+ae33_cstep <- ae33_cstep %>%
+  mutate(AE33_cstep = BC6. / 1000,
+         UVPM_cstep = BC1. / 1000,
+         Date = as.Date(date, format = '%Y-%m-%d', tz ="Asia/Kolkata"),
+         hour = as.numeric(as.character(format(date, "%H"))),
+         month = as.numeric(as.character(format(date, "%m")))) %>%
+  filter(hour <= 13 & hour >= 9) %>%
+  filter(Status. == 0 | Status. == 256 | Status. == 128) %>%
+  select(date, Date, AE33_cstep, UVPM_cstep, month) 
+ae33_cstep <- subset(ae33_cstep, AE33_cstep > 0)
+
+
+ae33_cstep <- ae33_cstep %>%
+  filter(Date != as.Date("2019-08-13") & Date != as.Date("2019-08-18") &
+           Date != as.Date("2019-08-14") & Date != as.Date("2019-08-19") &
+           Date != as.Date("2019-08-20") & Date != as.Date("2019-08-21") &
+           Date != as.Date("2019-08-30") & Date != as.Date("2019-08-31") &
+           Date != as.Date("2019-09-01") & Date != as.Date("2019-09-02"))
+ae33_cstep_jan <- subset(ae33_cstep, Date >= as.Date("2020-01-01"))
+ae33_cstep_jan$month <- case_when(ae33_cstep_jan$month == "1" ~ "Jan",
+                                  ae33_cstep_jan$month == "2" ~ "Feb",
+                                  TRUE ~ as.character(ae33_cstep_jan$month))
+ae33_cstep$month <- case_when(ae33_cstep$month == "7" ~ "Jul",
+                              ae33_cstep$month == "8" ~ "Aug",
+                              ae33_cstep$month == "9" ~ "Sep",
+                              ae33_cstep$month == "10" ~ "Oct",
+                              ae33_cstep$month == "11" ~ "Nov",
+                              ae33_cstep$month == "12" ~ "Dec",
+                              ae33_cstep$month == "1" ~ "Jan",
+                              ae33_cstep$month == "2" ~ "Feb",
+                              TRUE ~ as.character(ae33_cstep$month))
+ae33_cstep <- rbind(ae33_cstep, ae33_cstep_jan)
+
+
+MAL <- MAL %>%
+  filter(!is.na(BC_NR_LC)) %>%
+  mutate(hour = format(strptime(date, "%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:00:00"),
+         hour = as.POSIXct(hour, format = "%Y-%m-%d %H:%M:%S", tz = "Asia/Kolkata")) %>%
+  group_by(hour) %>%
+  mutate_if(is.numeric, funs(q1 = quantile(., .01), 
+                             n = sum(!is.na(.))), na.rm = TRUE) %>%
+  mutate(BC_LC = ifelse(BC_NR_LC <= BC_NR_LC_q1, BC_NR_LC, NA),
+         BC_Fc = ifelse(BC_c <= BC_c_q1, BC_c, NA))
+
+MAL_sub <- MAL %>%
+  select(date, hour, BC_LC, BC_Fc) %>%
+  filter(!is.na(BC_LC)) %>%
+  group_by(hour) %>%
+  mutate_if(is.numeric, funs(n = sum(!is.na(.))), na.rm = TRUE) %>%
+  mutate(date = lubridate::ceiling_date(as.POSIXct(date, 
+                                                   format = "%Y-%m-%d %H:%M:%S", 
+                                                   tz = "Asia/Kolkata"), "minutes")) %>%
+  select(date, BC_LC, BC_Fc) %>%
+  group_by(date) %>%
+  summarise_all(funs(median, mean, sd, IQR), na.rm = TRUE) %>%
+  left_join(ae33_cstep, by = "date") %>%
+  filter(!is.na(AE33_cstep)) %>%
+  select(date, BC_LC_mean, BC_Fc_mean, BC_LC_median, BC_Fc_median, AE33_cstep, UVPM_cstep)
+  
+
+m <- lm(BC_LC_mean ~ AE33_cstep, MAL_sub)
+s <- summary(m)
+r <- round(s$adj.r.squared, digits = 2)
+MAL_sub$diffSq <- (MAL_sub$BC_LC_mean - MAL_sub$AE33_cstep) ^ 2
+mean_diff_sqr <- mean(MAL_sub$diffSq, na.rm = TRUE)
+MAL_su <- rbind(data.frame("value" = m$model$BC_LC_mean), data.frame("value" = m$model$AE33_cstep))
+nrmse <- round((sqrt(mean_diff_sqr) / mean(MAL_su$value, na.rm = TRUE)) * 100, digits = 2)
+rmse <- round(sqrt(mean_diff_sqr), digits = 2)
+n <- nrow(data.frame(m$fitted.values))  
+
+scatter_plot1 <- ggplot(data = MAL_sub, aes(x = AE33_cstep, y = BC_LC_mean)) + 
+  geom_abline(slope = 1, intercept = 0, color = "black", size = 0.8, linetype = "dashed") +
+  geom_point(size = 1.2, color = "red") + 
+  geom_smooth(method = lm, size = 1.4, se = FALSE, formula = y ~ x, color = "steelblue") +
+  scale_x_continuous(limits = c(0, 35)) + scale_y_continuous(limits = c(0, 35)) + 
+  labs(x = "AE33 (ambient)", y = "1 percentile BC (mobile)")  + theme_ts +
+  annotate("text", size = 8, label = expr(paste("N: ", !!n, "; ", R^{2}, ": ", !!r)), x = 5, y = 23) +
+  annotate("text", size = 8, label = expr(paste(PM[2.5], " one-hour average")), x = 5, y = 26) +
+  annotate("text", size = 8, label = expr(paste("RMSE: ", !!rmse, " ", mu, "g ", ~m^{-3})), x = 5, y = 17) +  
+  annotate("text", size = 8, label = expr(paste("NRMSE: ", !!nrmse, "%")), x = 5, y = 14) +
+  annotate("text", size = 8, label = expr(paste(!!reg_eqn(s))), x = 5, y = 20)
+
+scatter_plot1
+```
+
