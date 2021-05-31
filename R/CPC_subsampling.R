@@ -49,8 +49,8 @@ while(draw <= 100) {
     base_road_df[, num_obs := Reduce(`+`, lapply(.SD,function(x) !is.na(x)))] 
     base_road_df$num_obs <- as.numeric(as.character(base_road_df$num_obs))
     base_road_df$Magic_num <- base_road_df$num_obs - 3
-    newdata_N <- subset(base_road_df, Magic_num == 2)  # input the N here
-    base_road_df <- subset(base_road_df, Magic_num != 2)# input the N here
+    newdata_N <- subset(base_road_df, Magic_num == 12)  # input the N here
+    base_road_df <- subset(base_road_df, Magic_num != 12)# input the N here
     row_no_road <- as.numeric(as.character(nrow(base_road_df)))
     setDT(big_data_N)
     setDT(newdata_N)
@@ -66,10 +66,6 @@ while(draw <= 100) {
   names(R) <- c("Road_ID", "Date", "Mean_CPC")
   Final_df <- R %>%
     dplyr::select(Road_ID, Mean_CPC) %>%
-    group_by(Road_ID) %>%
-    summarise(Median_CPC = median(Mean_CPC, na.rm = TRUE))         
-  Final_df <- R %>%
-    dplyr::select(Road_ID, Mean_CPC) %>%
     mutate_at(c('Road_ID'), as.numeric) %>%
     group_by(Road_ID) %>%
     summarise(Median_CPC = median(Mean_CPC, na.rm = TRUE))         
@@ -78,7 +74,7 @@ while(draw <= 100) {
   View(sh)
   shp_final <- st_as_sf(sh) 
   shp_final <- as(shp_final, 'Spatial')
-  layer  <- paste("2", draw, sep = "_") 
+  layer  <- paste("12", draw, sep = "_") 
   writeOGR(shp_final, dsn, layer, driver = "ESRI Shapefile")
   draw <- as.numeric(as.character(draw + 1))
 }

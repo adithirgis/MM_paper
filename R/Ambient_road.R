@@ -1,3 +1,4 @@
+source("D:/Dropbox/ILKConsultancy/MM_paper/R/Paper_functions.R")
 setwd("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL1/Final_layers")
 dir <- "D:/Dropbox/APMfull/MAL_CNG_Paper/MAL1/Final_layers"
 shp_list <- list.files(dir, pattern = "\\.shp$")

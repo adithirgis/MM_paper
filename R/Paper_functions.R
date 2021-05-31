@@ -380,8 +380,9 @@ R2_NRMSE_function <- function(each_file, Final_reference, la, fi) {
   y_bar  <- (sum(Final$N_Median, na.rm = TRUE)) / row_no_ref  
   # Sum total and then divide by the number of rows than the mean uniformity 
   # about the number of observations
-  y_bar1 <- (mean(Final$N_Median, na.rm = TRUE))   
-  nrmse_mean_not_sum <- rmse1 / y_bar1
+  y_bar1 <- (mean(Final$N_Median, na.rm = TRUE))  
+  y_bar2 <- (mean(Final$Final_Median, na.rm = TRUE)) 
+  nrmse_mean_not_sum <- rmse1 / y_bar2
   # the mean uniformity abot the number of observations
   # To calculate min/max; na.rm = TRUE ignores the NA values 
   y_max <- (max(Final$N_Median, na.rm = TRUE))
@@ -393,7 +394,7 @@ R2_NRMSE_function <- function(each_file, Final_reference, la, fi) {
   layer_N <- as.numeric(as.character(layer_N))
   # Make a new data frame of the variables 
   new_df <- data.frame(N, layer_N, y_bar, y_bar1, rmse, rmse1, rang, 
-                       R_squared, y_min, y_max, sum_f, nrmse_mean_not_sum)
+                       R_squared, y_min, y_max, sum_f, nrmse_mean_not_sum, y_bar2)
 }
 
 
