@@ -322,6 +322,33 @@ f <- function(x) {
   r
 }
 
+boot_var_med <- function(BC_c, na.rm = FALSE) {
+  if (na.rm) BC_c <- na.omit(BC_c)
+  y <- as.vector(as.numeric(as.character(BC_c))) 
+  data_all <- data.frame()
+  len <- length(y)
+  M <- 10000
+  b <- 1
+  result_vec <- vector(length = M)
+  for(b in 1:M) {
+    bc_sample <- sample(y, size = length(y), replace = TRUE)
+    mn <- median(bc_sample, na.rm = TRUE)
+    result_vec[b] <- mn
+  }
+  std_dev <- sd(result_vec, na.rm = TRUE)
+  std_er <- st(y, na.rm = TRUE)
+  mn_y <- median(y, na.rm = TRUE)
+  mnd_re <- median(result_vec, na.rm = TRUE)
+  mn_re <- mean(result_vec, na.rm = TRUE)
+  lower_bound <- (quantile(result_vec, probs = c(0.025), na.rm = TRUE))[[1]]
+  upper_bound <- (quantile(result_vec, probs = c(0.975), na.rm = TRUE))[[1]]
+  ymin <- mn_y - 1.96*(std_er)
+  ymax <- mn_y + 1.96*(std_er)
+  data_sample <- data.frame(len, mn_y, mn_re, mnd_re, std_dev, std_er, lower_bound, upper_bound,
+                            ymin, ymax)
+  return(data_sample)
+}
+
 
 ### Bootstrap function
 boot_var <- function(BC_c, na.rm = FALSE) {

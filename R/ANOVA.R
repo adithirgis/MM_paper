@@ -1,0 +1,548 @@
+source("D:/Dropbox/ILKConsultancy/MM_paper/R/Paper_functions.R")
+library(extrafont)
+library(DescTools)
+library(tidyr)
+ICC_table <- data.frame()
+
+setwd("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL2")
+q <- fread("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL2/All_rides_MAL2_30m.csv", sep = ",", 
+           header = TRUE)
+q$Road_ID <- paste0("MAL2_", q$Road_ID)
+loop <- q %>%
+  mutate_at(c('Road_ID'), as.factor)
+q_high <- q %>%
+  filter(Road_type == "Highway")
+q_art <- q %>%
+  filter(Road_type == "Arterial")
+q_resi <- q %>%
+  filter(Road_type == "Residential")
+
+loop_BC_c <- loop %>%
+  dplyr::select(Road_ID, Road_type, ends_with("_BC_c")) %>%
+  pivot_longer(!c(Road_ID, Road_type), names_to = "date", values_to = "BC_c") %>%
+  mutate(date = substr(date, 1, 18))
+loop_BC_c$BC_c <- log10(loop_BC_c$BC_c)
+loop_BC_c <- loop_BC_c %>% 
+  filter_if(~is.numeric(.), all_vars(!is.infinite(.)))
+res.aov <- aov(BC_c ~ Road_ID, data = loop_BC_c)
+ICC_BC_c <- (summary(res.aov)[1][[1]][[3]][[1]] / 
+               (summary(res.aov)[1][[1]][[3]][[1]] + 
+                  summary(res.aov)[1][[1]][[3]][[2]]))
+
+loop_BC_c_highway <- loop_BC_c %>%
+  filter(Road_type == "Highway")
+res_aov_high <- aov(BC_c ~ Road_ID, data = loop_BC_c_highway)
+ICC_BC_c_high <- (summary(res_aov_high)[1][[1]][[3]][[1]] / 
+                    (summary(res_aov_high)[1][[1]][[3]][[1]] + 
+                       summary(res_aov_high)[1][[1]][[3]][[2]]))
+
+
+loop_BC_c_arterial <- loop_BC_c %>%
+  filter(Road_type == "Arterial")
+res_aov_art <- aov(BC_c ~ Road_ID, data = loop_BC_c_arterial)
+ICC_BC_c_art <- (summary(res_aov_art)[1][[1]][[3]][[1]] / 
+                   (summary(res_aov_art)[1][[1]][[3]][[1]] + 
+                      summary(res_aov_art)[1][[1]][[3]][[2]]))
+
+
+loop_BC_c_resi <- loop_BC_c %>%
+  filter(Road_type == "Residential")
+res_aov_res <- aov(BC_c ~ Road_ID, data = loop_BC_c_resi)
+ICC_BC_c_res <- (summary(res_aov_res)[1][[1]][[3]][[1]] / 
+                   (summary(res_aov_res)[1][[1]][[3]][[1]] + 
+                      summary(res_aov_res)[1][[1]][[3]][[2]]))
+
+# loop_BC_c2 <- loop_BC_c_resi %>%
+#   dplyr::select(Road_ID, Road_type, date, BC_c) %>%
+#   pivot_wider(names_from = c(Road_ID, Road_type), values_from = BC_c) %>%
+#   unnest(everything())
+
+# loop_BC_c1 <- loop_BC_c %>%
+#   nest(data = -c(Road_type)) %>%
+#   mutate(aov_model = map(data, ~aov(BC_c ~ Road_ID, data = .),
+#                          tidy_aov = map(aov, ~broom::tidy(.)))) %>%
+#   pull(tidy_aov)
+
+loop_CO2_c <- loop %>%
+  dplyr::select(Road_ID, Road_type, ends_with("_CO2_c")) %>%
+  pivot_longer(!c(Road_ID, Road_type), names_to = "date", values_to = "CO2_c") %>%
+  mutate(date = substr(date, 1, 18))
+loop_CO2_c$CO2_c <- as.numeric(as.character(log10(loop_CO2_c$CO2_c)))
+loop_CO2_c <- loop_CO2_c %>% 
+  filter_if(~is.numeric(.), all_vars(!is.infinite(.)))
+res.aov <- aov(CO2_c ~ Road_ID, data = loop_CO2_c)
+ICC_CO2_c <- (summary(res.aov)[1][[1]][[3]][[1]] / 
+                (summary(res.aov)[1][[1]][[3]][[1]] + 
+                   summary(res.aov)[1][[1]][[3]][[2]]))
+
+loop_CO2_c_highway <- loop_CO2_c %>%
+  filter(Road_type == "Highway")
+loop_CO2_c_highway <- subset(loop_CO2_c, Road_type == "Highway")
+res_aov_high <- aov(CO2_c ~ Road_ID, data = loop_CO2_c_highway)
+ICC_CO2_c_high <- (summary(res_aov_high)[1][[1]][[3]][[1]] / 
+                     (summary(res_aov_high)[1][[1]][[3]][[1]] + 
+                        summary(res_aov_high)[1][[1]][[3]][[2]]))
+
+loop_CO2_c_arterial <- loop_CO2_c %>%
+  filter(Road_type == "Arterial")
+res_aov_art <- aov(CO2_c ~ Road_ID, data = loop_CO2_c_arterial)
+summary(res_aov_art)
+ICC_CO2_c_art <- (summary(res_aov_art)[1][[1]][[3]][[1]] / 
+                    (summary(res_aov_art)[1][[1]][[3]][[1]] + 
+                       summary(res_aov_art)[1][[1]][[3]][[2]]))
+
+loop_CO2_c_resi <- loop_CO2_c %>%
+  filter(Road_type == "Residential")
+res_aov_res <- aov(CO2_c ~ Road_ID, data = loop_CO2_c_resi)
+ICC_CO2_c_res <- (summary(res_aov_res)[1][[1]][[3]][[1]] / 
+                    (summary(res_aov_res)[1][[1]][[3]][[1]] + 
+                       summary(res_aov_res)[1][[1]][[3]][[2]]))
+
+
+loop_CPC <- loop %>%
+  dplyr::select(Road_ID, Road_type, ends_with("_CPC")) %>%
+  pivot_longer(!c(Road_ID, Road_type), names_to = "date", values_to = "CPC") %>%
+  mutate(date = substr(date, 1, 18)) 
+loop_CPC$CPC <- log10(loop_CPC$CPC)
+loop_CPC <- loop_CPC %>% 
+  filter_if(~is.numeric(.), all_vars(!is.infinite(.)))
+res.aov <- aov(CPC ~ Road_ID, data = loop_CPC)
+ICC_CPC <- (summary(res.aov)[1][[1]][[3]][[1]] / 
+              (summary(res.aov)[1][[1]][[3]][[1]] + 
+                 summary(res.aov)[1][[1]][[3]][[2]]))
+
+loop_CPC_highway <- loop_CPC %>%
+  filter(Road_type == "Highway")
+res_aov_high <- aov(CPC ~ Road_ID, data = loop_CPC_highway)
+ICC_CPC_high <- (summary(res_aov_high)[1][[1]][[3]][[1]] / 
+                   (summary(res_aov_high)[1][[1]][[3]][[1]] + 
+                      summary(res_aov_high)[1][[1]][[3]][[2]]))
+
+loop_CPC_arterial <- loop_CPC %>%
+  filter(Road_type == "Arterial")
+res_aov_art <- aov(CPC ~ Road_ID, data = loop_CPC_arterial)
+ICC_CPC_art <- (summary(res_aov_art)[1][[1]][[3]][[1]] / 
+                  (summary(res_aov_art)[1][[1]][[3]][[1]] + 
+                     summary(res_aov_art)[1][[1]][[3]][[2]]))
+
+loop_CPC_resi <- loop_CPC %>%
+  filter(Road_type == "Residential")
+res_aov_res <- aov(CPC ~ Road_ID, data = loop_CPC_resi)
+ICC_CPC_res <- (summary(res_aov_res)[1][[1]][[3]][[1]] / 
+                  (summary(res_aov_res)[1][[1]][[3]][[1]] + 
+                     summary(res_aov_res)[1][[1]][[3]][[2]]))
+
+ICC_table_MAL2 <- data.frame(Area = c("MAL2", "MAL2", "MAL2"), Pollutant = c("BC", "UFPs", "CO2"),
+                             ICC = c(ICC_BC_c, ICC_CPC, ICC_CO2_c), 
+                             ICC_Highway = c(ICC_BC_c_high, ICC_CPC_high, ICC_CO2_c_high),
+                             ICC_Arterial = c(ICC_BC_c_art, ICC_CPC_art, ICC_CO2_c_art),
+                             ICC_Residential = c(ICC_BC_c_res, ICC_CPC_res, ICC_CO2_c_res))
+ICC_table <- rbind(ICC_table, ICC_table_MAL2)
+beepr::beep()
+write.csv(ICC_table, "D:/Dropbox/APMfull/MAL_CNG_Paper/MAL2/ICC_log10.csv")
+
+
+
+############################### MAL1 ###########################################
+
+setwd("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL1")
+q <- fread("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL1/All_rides_MAL1_30m.csv", sep = ",", 
+           header = TRUE)
+q$Road_ID <- paste0("MAL1_", q$Road_ID)
+loop <- q %>%
+  mutate_at(c('Road_ID'), as.factor)
+q_high <- q %>%
+  filter(Road_type == "Highway")
+q_art <- q %>%
+  filter(Road_type == "Arterial")
+q_resi <- q %>%
+  filter(Road_type == "Residential")
+
+loop_BC_c <- loop %>%
+  dplyr::select(Road_ID, Road_type, ends_with("_BC_c")) %>%
+  pivot_longer(!c(Road_ID, Road_type), names_to = "date", values_to = "BC_c") %>%
+  mutate(date = substr(date, 1, 18))
+loop_BC_c$BC_c <- log10(loop_BC_c$BC_c)
+loop_BC_c <- loop_BC_c %>% 
+  filter_if(~is.numeric(.), all_vars(!is.infinite(.)))
+res.aov <- aov(BC_c ~ Road_ID, data = loop_BC_c)
+ICC_BC_c <- (summary(res.aov)[1][[1]][[3]][[1]] / 
+               (summary(res.aov)[1][[1]][[3]][[1]] + 
+                  summary(res.aov)[1][[1]][[3]][[2]]))
+
+loop_BC_c_highway <- loop_BC_c %>%
+  filter(Road_type == "Highway")
+res_aov_high <- aov(BC_c ~ Road_ID, data = loop_BC_c_highway)
+ICC_BC_c_high <- (summary(res_aov_high)[1][[1]][[3]][[1]] / 
+                    (summary(res_aov_high)[1][[1]][[3]][[1]] + 
+                       summary(res_aov_high)[1][[1]][[3]][[2]]))
+
+
+loop_BC_c_arterial <- loop_BC_c %>%
+  filter(Road_type == "Arterial")
+res_aov_art <- aov(BC_c ~ Road_ID, data = loop_BC_c_arterial)
+ICC_BC_c_art <- (summary(res_aov_art)[1][[1]][[3]][[1]] / 
+                   (summary(res_aov_art)[1][[1]][[3]][[1]] + 
+                      summary(res_aov_art)[1][[1]][[3]][[2]]))
+
+
+loop_BC_c_resi <- loop_BC_c %>%
+  filter(Road_type == "Residential")
+res_aov_res <- aov(BC_c ~ Road_ID, data = loop_BC_c_resi)
+ICC_BC_c_res <- (summary(res_aov_res)[1][[1]][[3]][[1]] / 
+                   (summary(res_aov_res)[1][[1]][[3]][[1]] + 
+                      summary(res_aov_res)[1][[1]][[3]][[2]]))
+
+
+loop_CO2_c <- loop %>%
+  dplyr::select(Road_ID, Road_type, ends_with("_CO2_c")) %>%
+  pivot_longer(!c(Road_ID, Road_type), names_to = "date", values_to = "CO2_c") %>%
+  mutate(date = substr(date, 1, 18))
+loop_CO2_c$CO2_c <- as.numeric(as.character(log10(loop_CO2_c$CO2_c)))
+loop_CO2_c <- loop_CO2_c %>% 
+  filter_if(~is.numeric(.), all_vars(!is.infinite(.)))
+res.aov <- aov(CO2_c ~ Road_ID, data = loop_CO2_c)
+ICC_CO2_c <- (summary(res.aov)[1][[1]][[3]][[1]] / 
+                (summary(res.aov)[1][[1]][[3]][[1]] + 
+                   summary(res.aov)[1][[1]][[3]][[2]]))
+
+loop_CO2_c_highway <- loop_CO2_c %>%
+  filter(Road_type == "Highway")
+loop_CO2_c_highway <- subset(loop_CO2_c, Road_type == "Highway")
+res_aov_high <- aov(CO2_c ~ Road_ID, data = loop_CO2_c_highway)
+ICC_CO2_c_high <- (summary(res_aov_high)[1][[1]][[3]][[1]] / 
+                     (summary(res_aov_high)[1][[1]][[3]][[1]] + 
+                        summary(res_aov_high)[1][[1]][[3]][[2]]))
+
+loop_CO2_c_arterial <- loop_CO2_c %>%
+  filter(Road_type == "Arterial")
+res_aov_art <- aov(CO2_c ~ Road_ID, data = loop_CO2_c_arterial)
+summary(res_aov_art)
+ICC_CO2_c_art <- (summary(res_aov_art)[1][[1]][[3]][[1]] / 
+                    (summary(res_aov_art)[1][[1]][[3]][[1]] + 
+                       summary(res_aov_art)[1][[1]][[3]][[2]]))
+
+loop_CO2_c_resi <- loop_CO2_c %>%
+  filter(Road_type == "Residential")
+res_aov_res <- aov(CO2_c ~ Road_ID, data = loop_CO2_c_resi)
+ICC_CO2_c_res <- (summary(res_aov_res)[1][[1]][[3]][[1]] / 
+                    (summary(res_aov_res)[1][[1]][[3]][[1]] + 
+                       summary(res_aov_res)[1][[1]][[3]][[2]]))
+
+
+loop_CPC <- loop %>%
+  dplyr::select(Road_ID, Road_type, ends_with("_CPC")) %>%
+  pivot_longer(!c(Road_ID, Road_type), names_to = "date", values_to = "CPC") %>%
+  mutate(date = substr(date, 1, 18)) 
+loop_CPC$CPC <- log10(loop_CPC$CPC)
+loop_CPC <- loop_CPC %>% 
+  filter_if(~is.numeric(.), all_vars(!is.infinite(.)))
+res.aov <- aov(CPC ~ Road_ID, data = loop_CPC)
+ICC_CPC <- (summary(res.aov)[1][[1]][[3]][[1]] / 
+              (summary(res.aov)[1][[1]][[3]][[1]] + 
+                 summary(res.aov)[1][[1]][[3]][[2]]))
+
+loop_CPC_highway <- loop_CPC %>%
+  filter(Road_type == "Highway")
+res_aov_high <- aov(CPC ~ Road_ID, data = loop_CPC_highway)
+ICC_CPC_high <- (summary(res_aov_high)[1][[1]][[3]][[1]] / 
+                   (summary(res_aov_high)[1][[1]][[3]][[1]] + 
+                      summary(res_aov_high)[1][[1]][[3]][[2]]))
+
+loop_CPC_arterial <- loop_CPC %>%
+  filter(Road_type == "Arterial")
+res_aov_art <- aov(CPC ~ Road_ID, data = loop_CPC_arterial)
+ICC_CPC_art <- (summary(res_aov_art)[1][[1]][[3]][[1]] / 
+                  (summary(res_aov_art)[1][[1]][[3]][[1]] + 
+                     summary(res_aov_art)[1][[1]][[3]][[2]]))
+
+loop_CPC_resi <- loop_CPC %>%
+  filter(Road_type == "Residential")
+res_aov_res <- aov(CPC ~ Road_ID, data = loop_CPC_resi)
+ICC_CPC_res <- (summary(res_aov_res)[1][[1]][[3]][[1]] / 
+                  (summary(res_aov_res)[1][[1]][[3]][[1]] + 
+                     summary(res_aov_res)[1][[1]][[3]][[2]]))
+
+ICC_table_MAL1 <- data.frame(Area = c("MAL1", "MAL1", "MAL1"), Pollutant = c("BC", "UFPs", "CO2"),
+                             ICC = c(ICC_BC_c, ICC_CPC, ICC_CO2_c), 
+                             ICC_Highway = c(ICC_BC_c_high, ICC_CPC_high, ICC_CO2_c_high),
+                             ICC_Arterial = c(ICC_BC_c_art, ICC_CPC_art, ICC_CO2_c_art),
+                             ICC_Residential = c(ICC_BC_c_res, ICC_CPC_res, ICC_CO2_c_res))
+ICC_table <- rbind(ICC_table, ICC_table_MAL1)
+beepr::beep()
+write.csv(ICC_table, "D:/Dropbox/APMfull/MAL_CNG_Paper/MAL1/ICC_log10.csv")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+########################### without log10 ######################################
+
+ICC_table <- data.frame()
+
+setwd("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL2")
+q <- fread("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL2/All_rides_MAL2_30m.csv", sep = ",", 
+           header = TRUE)
+q$Road_ID <- paste0("MAL2_", q$Road_ID)
+loop <- q %>%
+  mutate_at(c('Road_ID'), as.factor)
+q_high <- q %>%
+  filter(Road_type == "Highway")
+q_art <- q %>%
+  filter(Road_type == "Arterial")
+q_resi <- q %>%
+  filter(Road_type == "Residential")
+
+loop_BC_c <- loop %>%
+  dplyr::select(Road_ID, Road_type, ends_with("_BC_c")) %>%
+  pivot_longer(!c(Road_ID, Road_type), names_to = "date", values_to = "BC_c") %>%
+  mutate(date = substr(date, 1, 18))
+loop_BC_c <- loop_BC_c %>% 
+  filter_if(~is.numeric(.), all_vars(!is.infinite(.)))
+res.aov <- aov(BC_c ~ Road_ID, data = loop_BC_c)
+ICC_BC_c <- (summary(res.aov)[1][[1]][[3]][[1]] / 
+               (summary(res.aov)[1][[1]][[3]][[1]] + 
+                  summary(res.aov)[1][[1]][[3]][[2]]))
+
+loop_BC_c_highway <- loop_BC_c %>%
+  filter(Road_type == "Highway")
+res_aov_high <- aov(BC_c ~ Road_ID, data = loop_BC_c_highway)
+ICC_BC_c_high <- (summary(res_aov_high)[1][[1]][[3]][[1]] / 
+                    (summary(res_aov_high)[1][[1]][[3]][[1]] + 
+                       summary(res_aov_high)[1][[1]][[3]][[2]]))
+
+
+loop_BC_c_arterial <- loop_BC_c %>%
+  filter(Road_type == "Arterial")
+res_aov_art <- aov(BC_c ~ Road_ID, data = loop_BC_c_arterial)
+ICC_BC_c_art <- (summary(res_aov_art)[1][[1]][[3]][[1]] / 
+                   (summary(res_aov_art)[1][[1]][[3]][[1]] + 
+                      summary(res_aov_art)[1][[1]][[3]][[2]]))
+
+
+loop_BC_c_resi <- loop_BC_c %>%
+  filter(Road_type == "Residential")
+res_aov_res <- aov(BC_c ~ Road_ID, data = loop_BC_c_resi)
+ICC_BC_c_res <- (summary(res_aov_res)[1][[1]][[3]][[1]] / 
+                   (summary(res_aov_res)[1][[1]][[3]][[1]] + 
+                      summary(res_aov_res)[1][[1]][[3]][[2]]))
+
+loop_CO2_c <- loop %>%
+  dplyr::select(Road_ID, Road_type, ends_with("_CO2_c")) %>%
+  pivot_longer(!c(Road_ID, Road_type), names_to = "date", values_to = "CO2_c") %>%
+  mutate(date = substr(date, 1, 18))
+loop_CO2_c <- loop_CO2_c %>% 
+  filter_if(~is.numeric(.), all_vars(!is.infinite(.)))
+res.aov <- aov(CO2_c ~ Road_ID, data = loop_CO2_c)
+ICC_CO2_c <- (summary(res.aov)[1][[1]][[3]][[1]] / 
+                (summary(res.aov)[1][[1]][[3]][[1]] + 
+                   summary(res.aov)[1][[1]][[3]][[2]]))
+
+loop_CO2_c_highway <- loop_CO2_c %>%
+  filter(Road_type == "Highway")
+loop_CO2_c_highway <- subset(loop_CO2_c, Road_type == "Highway")
+res_aov_high <- aov(CO2_c ~ Road_ID, data = loop_CO2_c_highway)
+ICC_CO2_c_high <- (summary(res_aov_high)[1][[1]][[3]][[1]] / 
+                     (summary(res_aov_high)[1][[1]][[3]][[1]] + 
+                        summary(res_aov_high)[1][[1]][[3]][[2]]))
+
+loop_CO2_c_arterial <- loop_CO2_c %>%
+  filter(Road_type == "Arterial")
+res_aov_art <- aov(CO2_c ~ Road_ID, data = loop_CO2_c_arterial)
+summary(res_aov_art)
+ICC_CO2_c_art <- (summary(res_aov_art)[1][[1]][[3]][[1]] / 
+                    (summary(res_aov_art)[1][[1]][[3]][[1]] + 
+                       summary(res_aov_art)[1][[1]][[3]][[2]]))
+
+loop_CO2_c_resi <- loop_CO2_c %>%
+  filter(Road_type == "Residential")
+res_aov_res <- aov(CO2_c ~ Road_ID, data = loop_CO2_c_resi)
+ICC_CO2_c_res <- (summary(res_aov_res)[1][[1]][[3]][[1]] / 
+                    (summary(res_aov_res)[1][[1]][[3]][[1]] + 
+                       summary(res_aov_res)[1][[1]][[3]][[2]]))
+
+
+loop_CPC <- loop %>%
+  dplyr::select(Road_ID, Road_type, ends_with("_CPC")) %>%
+  pivot_longer(!c(Road_ID, Road_type), names_to = "date", values_to = "CPC") %>%
+  mutate(date = substr(date, 1, 18)) 
+loop_CPC <- loop_CPC %>% 
+  filter_if(~is.numeric(.), all_vars(!is.infinite(.)))
+res.aov <- aov(CPC ~ Road_ID, data = loop_CPC)
+ICC_CPC <- (summary(res.aov)[1][[1]][[3]][[1]] / 
+              (summary(res.aov)[1][[1]][[3]][[1]] + 
+                 summary(res.aov)[1][[1]][[3]][[2]]))
+
+loop_CPC_highway <- loop_CPC %>%
+  filter(Road_type == "Highway")
+res_aov_high <- aov(CPC ~ Road_ID, data = loop_CPC_highway)
+ICC_CPC_high <- (summary(res_aov_high)[1][[1]][[3]][[1]] / 
+                   (summary(res_aov_high)[1][[1]][[3]][[1]] + 
+                      summary(res_aov_high)[1][[1]][[3]][[2]]))
+
+loop_CPC_arterial <- loop_CPC %>%
+  filter(Road_type == "Arterial")
+res_aov_art <- aov(CPC ~ Road_ID, data = loop_CPC_arterial)
+ICC_CPC_art <- (summary(res_aov_art)[1][[1]][[3]][[1]] / 
+                  (summary(res_aov_art)[1][[1]][[3]][[1]] + 
+                     summary(res_aov_art)[1][[1]][[3]][[2]]))
+
+loop_CPC_resi <- loop_CPC %>%
+  filter(Road_type == "Residential")
+res_aov_res <- aov(CPC ~ Road_ID, data = loop_CPC_resi)
+ICC_CPC_res <- (summary(res_aov_res)[1][[1]][[3]][[1]] / 
+                  (summary(res_aov_res)[1][[1]][[3]][[1]] + 
+                     summary(res_aov_res)[1][[1]][[3]][[2]]))
+
+ICC_table_MAL2 <- data.frame(Area = c("MAL2", "MAL2", "MAL2"), Pollutant = c("BC", "UFPs", "CO2"),
+                             ICC = c(ICC_BC_c, ICC_CPC, ICC_CO2_c), 
+                             ICC_Highway = c(ICC_BC_c_high, ICC_CPC_high, ICC_CO2_c_high),
+                             ICC_Arterial = c(ICC_BC_c_art, ICC_CPC_art, ICC_CO2_c_art),
+                             ICC_Residential = c(ICC_BC_c_res, ICC_CPC_res, ICC_CO2_c_res))
+ICC_table <- rbind(ICC_table, ICC_table_MAL2)
+beepr::beep()
+write.csv(ICC_table, "D:/Dropbox/APMfull/MAL_CNG_Paper/MAL2/ICC.csv")
+
+
+
+############################### without log MAL1 ###############################
+
+q <- fread("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL1/All_rides_MAL1_30m.csv", sep = ",", 
+           header = TRUE)
+q$Road_ID <- paste0("MAL1_", q$Road_ID)
+loop <- q %>%
+  mutate_at(c('Road_ID'), as.factor)
+q_high <- q %>%
+  filter(Road_type == "Highway")
+q_art <- q %>%
+  filter(Road_type == "Arterial")
+q_resi <- q %>%
+  filter(Road_type == "Residential")
+
+loop_BC_c <- loop %>%
+  dplyr::select(Road_ID, Road_type, ends_with("_BC_c")) %>%
+  pivot_longer(!c(Road_ID, Road_type), names_to = "date", values_to = "BC_c") %>%
+  mutate(date = substr(date, 1, 18))
+loop_BC_c <- loop_BC_c %>% 
+  filter_if(~is.numeric(.), all_vars(!is.infinite(.)))
+res.aov <- aov(BC_c ~ Road_ID, data = loop_BC_c)
+ICC_BC_c <- (summary(res.aov)[1][[1]][[3]][[1]] / 
+               (summary(res.aov)[1][[1]][[3]][[1]] + 
+                  summary(res.aov)[1][[1]][[3]][[2]]))
+
+loop_BC_c_highway <- loop_BC_c %>%
+  filter(Road_type == "Highway")
+res_aov_high <- aov(BC_c ~ Road_ID, data = loop_BC_c_highway)
+ICC_BC_c_high <- (summary(res_aov_high)[1][[1]][[3]][[1]] / 
+                    (summary(res_aov_high)[1][[1]][[3]][[1]] + 
+                       summary(res_aov_high)[1][[1]][[3]][[2]]))
+
+
+loop_BC_c_arterial <- loop_BC_c %>%
+  filter(Road_type == "Arterial")
+res_aov_art <- aov(BC_c ~ Road_ID, data = loop_BC_c_arterial)
+ICC_BC_c_art <- (summary(res_aov_art)[1][[1]][[3]][[1]] / 
+                   (summary(res_aov_art)[1][[1]][[3]][[1]] + 
+                      summary(res_aov_art)[1][[1]][[3]][[2]]))
+
+
+loop_BC_c_resi <- loop_BC_c %>%
+  filter(Road_type == "Residential")
+res_aov_res <- aov(BC_c ~ Road_ID, data = loop_BC_c_resi)
+ICC_BC_c_res <- (summary(res_aov_res)[1][[1]][[3]][[1]] / 
+                   (summary(res_aov_res)[1][[1]][[3]][[1]] + 
+                      summary(res_aov_res)[1][[1]][[3]][[2]]))
+
+
+loop_CO2_c <- loop %>%
+  dplyr::select(Road_ID, Road_type, ends_with("_CO2_c")) %>%
+  pivot_longer(!c(Road_ID, Road_type), names_to = "date", values_to = "CO2_c") %>%
+  mutate(date = substr(date, 1, 18))
+loop_CO2_c <- loop_CO2_c %>% 
+  filter_if(~is.numeric(.), all_vars(!is.infinite(.)))
+res.aov <- aov(CO2_c ~ Road_ID, data = loop_CO2_c)
+ICC_CO2_c <- (summary(res.aov)[1][[1]][[3]][[1]] / 
+                (summary(res.aov)[1][[1]][[3]][[1]] + 
+                   summary(res.aov)[1][[1]][[3]][[2]]))
+
+loop_CO2_c_highway <- loop_CO2_c %>%
+  filter(Road_type == "Highway")
+loop_CO2_c_highway <- subset(loop_CO2_c, Road_type == "Highway")
+res_aov_high <- aov(CO2_c ~ Road_ID, data = loop_CO2_c_highway)
+ICC_CO2_c_high <- (summary(res_aov_high)[1][[1]][[3]][[1]] / 
+                     (summary(res_aov_high)[1][[1]][[3]][[1]] + 
+                        summary(res_aov_high)[1][[1]][[3]][[2]]))
+
+loop_CO2_c_arterial <- loop_CO2_c %>%
+  filter(Road_type == "Arterial")
+res_aov_art <- aov(CO2_c ~ Road_ID, data = loop_CO2_c_arterial)
+summary(res_aov_art)
+ICC_CO2_c_art <- (summary(res_aov_art)[1][[1]][[3]][[1]] / 
+                    (summary(res_aov_art)[1][[1]][[3]][[1]] + 
+                       summary(res_aov_art)[1][[1]][[3]][[2]]))
+
+loop_CO2_c_resi <- loop_CO2_c %>%
+  filter(Road_type == "Residential")
+res_aov_res <- aov(CO2_c ~ Road_ID, data = loop_CO2_c_resi)
+ICC_CO2_c_res <- (summary(res_aov_res)[1][[1]][[3]][[1]] / 
+                    (summary(res_aov_res)[1][[1]][[3]][[1]] + 
+                       summary(res_aov_res)[1][[1]][[3]][[2]]))
+
+
+loop_CPC <- loop %>%
+  dplyr::select(Road_ID, Road_type, ends_with("_CPC")) %>%
+  pivot_longer(!c(Road_ID, Road_type), names_to = "date", values_to = "CPC") %>%
+  mutate(date = substr(date, 1, 18)) 
+loop_CPC <- loop_CPC %>% 
+  filter_if(~is.numeric(.), all_vars(!is.infinite(.)))
+res.aov <- aov(CPC ~ Road_ID, data = loop_CPC)
+ICC_CPC <- (summary(res.aov)[1][[1]][[3]][[1]] / 
+              (summary(res.aov)[1][[1]][[3]][[1]] + 
+                 summary(res.aov)[1][[1]][[3]][[2]]))
+
+loop_CPC_highway <- loop_CPC %>%
+  filter(Road_type == "Highway")
+res_aov_high <- aov(CPC ~ Road_ID, data = loop_CPC_highway)
+ICC_CPC_high <- (summary(res_aov_high)[1][[1]][[3]][[1]] / 
+                   (summary(res_aov_high)[1][[1]][[3]][[1]] + 
+                      summary(res_aov_high)[1][[1]][[3]][[2]]))
+
+loop_CPC_arterial <- loop_CPC %>%
+  filter(Road_type == "Arterial")
+res_aov_art <- aov(CPC ~ Road_ID, data = loop_CPC_arterial)
+ICC_CPC_art <- (summary(res_aov_art)[1][[1]][[3]][[1]] / 
+                  (summary(res_aov_art)[1][[1]][[3]][[1]] + 
+                     summary(res_aov_art)[1][[1]][[3]][[2]]))
+
+loop_CPC_resi <- loop_CPC %>%
+  filter(Road_type == "Residential")
+res_aov_res <- aov(CPC ~ Road_ID, data = loop_CPC_resi)
+ICC_CPC_res <- (summary(res_aov_res)[1][[1]][[3]][[1]] / 
+                  (summary(res_aov_res)[1][[1]][[3]][[1]] + 
+                     summary(res_aov_res)[1][[1]][[3]][[2]]))
+
+ICC_table_MAL1 <- data.frame(Area = c("MAL1", "MAL1", "MAL1"), Pollutant = c("BC", "UFPs", "CO2"),
+                             ICC = c(ICC_BC_c, ICC_CPC, ICC_CO2_c), 
+                             ICC_Highway = c(ICC_BC_c_high, ICC_CPC_high, ICC_CO2_c_high),
+                             ICC_Arterial = c(ICC_BC_c_art, ICC_CPC_art, ICC_CO2_c_art),
+                             ICC_Residential = c(ICC_BC_c_res, ICC_CPC_res, ICC_CO2_c_res))
+ICC_table <- rbind(ICC_table, ICC_table_MAL1)
+beepr::beep()
+write.csv(ICC_table, "D:/Dropbox/APMfull/MAL_CNG_Paper/MAL1/ICC.csv")

@@ -13,20 +13,21 @@ library(data.table)
 setwd("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL2/Final_layers")
 draw <- 1
 dsn   <- "D:/Dropbox/APMfull/MAL_CNG_Paper/MAL2/BC_subsampled_layers"
+shapefile_roads <- readOGR("D:/Dropbox/APMfull/MAL_CNG_Paper/Roads/MAL2_F_Road_type.shp", 
+                           layer = "MAL2_F_Road_type")
+shapefile_roads <- spTransform(shapefile_roads, CRS("+proj=utm +zone=43 ellps=WGS84"))
+road_sf <- st_as_sf(shapefile_roads)
+road_sf <- data.frame(road_sf)
+files <- list.files("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL2/Final_layers", 
+                    pattern = "\\.shp$")
+
 while(draw <= 100) {   
-  shapefile_roads <- readOGR("D:/Dropbox/APMfull/MAL_CNG_Paper/Roads/MAL2_F_Road_type.shp", 
-                             layer = "MAL2_F_Road_type")
-  shapefile_roads <- spTransform(shapefile_roads, CRS("+proj=utm +zone=43 ellps=WGS84"))
-  road_sf <- st_as_sf(shapefile_roads)
-  road_sf <- data.frame(road_sf)
   road_df <- road_sf %>%
     dplyr::select(Road_ID) %>%
     mutate_at(c('Road_ID'), as.numeric)
   base_road_df <- road_df %>%
     mutate(num_obs = 0, Magic_num = 0) %>%
     mutate_at(c('Road_ID'), as.numeric)
-  files <- list.files("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL2/Final_layers", 
-                      pattern = "\\.shp$")
   row_no_road <- as.numeric(as.character(nrow(base_road_df)))
   per <- floor((5 / 100) * row_no_road)   ## change for lesser then 95 percent 
   big_data_N <- data.frame()
@@ -80,5 +81,5 @@ while(draw <= 100) {
   shp_final <- as(shp_final, 'Spatial')
   layer  <- paste("2", draw, sep = "_") 
   writeOGR(shp_final, dsn, layer, driver = "ESRI Shapefile")
-  draw <- as.numeric(as.character(draw + 1))
+  draw <- as.numeric(as.character(draw)) + 1
 }
