@@ -381,20 +381,21 @@ R2_NRMSE_function <- function(each_file, Final_reference, la, fi) {
   Final_ref <- Final_reference %>%
     dplyr::select(Road_ID, "Final_Median" = fi) %>% # add fi
     mutate_at(c('Road_ID'), as.numeric)
-  my_spdf <- readOGR(each_file)
-  my_spdf <- spTransform(my_spdf, CRS("+proj=utm +zone=43 ellps=WGS84"))
+  my_spdf <- st_read(each_file)
+  my_spdf <- st_transform(my_spdf, crs = "+proj=utm +zone=43 ellps=WGS84")
   my_spdf <- st_as_sf(my_spdf) 
   my_spdf$geometry <- NULL
   spdf <- my_spdf %>%
     dplyr::select(Road_ID, "N_Median" = la) %>% # add la
     mutate_at(c('Road_ID'), as.numeric)
+  names(spdf) <- c("Road_ID", "N_Median", "geometry")  ## here change or remove
+  spdf$geometry <- NULL
   # Join both tables for easy calculations 
   Final <- left_join(Final_ref, spdf, by = "Road_ID") 
   # To calculate R squared
   sum <- summary(lm(Final_Median ~ N_Median, data = Final))
   R_squared <- sum$r.squared
   sum_f <- sum$fstatistic[[1]]
-  
   # To calculate RMSE: Observed - expected square the difference
   Final$rmsq <- (Final$N_Median - Final$Final_Median) ^ 2
   # To calculate RMSE: Mean of the squared difference between observed and 
@@ -428,13 +429,15 @@ R2_NRMSE_function <- function(each_file, Final_reference, la, fi) {
 # Med_BC in Final reference Layer and the other Median BC is from each layer
 Residual_function <- function(shp, la, Final_Reference, fi, Area, para) {
   # Each shapefile converted to a dataframe my_spdf: my spatial data frame 
-  my_spdf <- readOGR(shp)
-  my_spdf <- spTransform(my_spdf, CRS("+proj=utm +zone=43 ellps=WGS84"))
+  my_spdf <- st_read(shp)
+  my_spdf <- st_transform(my_spdf, crs = "+proj=utm +zone=43 ellps=WGS84")
   my_spdf_sf <- st_as_sf(my_spdf) 
   my_spdf_sf$geometry <- NULL
   spdf <- my_spdf_sf %>%
     dplyr::select(Road_ID, "N_Median" = la) %>%   
     mutate_at(c('Road_ID', 'N_Median'), as.numeric)
+  names(spdf) <- c("Road_ID", "N_Median", "geometry")  ## here change or remove
+  spdf$geometry <- NULL
   # Make a dataframe with both the reference and each rides data to get the 
   # difference also called as residual and convert it into a shapefile using 
   # any one of the shapefiles
@@ -447,3 +450,14 @@ Residual_function <- function(shp, la, Final_Reference, fi, Area, para) {
     mutate(!!Residual_C := N_Median - Reference_Median,
            UID = paste0(Area, Road_ID)) 
 }
+
+theme_ARU <- list(theme_classic(),
+                  theme(legend.text = element_text(size = 14),
+                        legend.title = element_blank(),
+                        plot.title = element_text(size = 18, face = "bold", hjust = 0.5), 
+                        plot.subtitle = element_text(size = 13, face = "bold", hjust = 0.5), 
+                        axis.title = element_text(size = 18, colour = "black", face = "bold"),
+                        axis.text = element_text(size = 18, colour = "black", face = "bold"),
+                        panel.border = element_rect(colour = "black", fill = NA, size = 1), 
+                        legend.position = "right",
+                        strip.background = element_blank(), strip.text = element_blank()))
