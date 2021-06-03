@@ -436,8 +436,6 @@ Residual_function <- function(shp, la, Final_Reference, fi, Area, para) {
   spdf <- my_spdf_sf %>%
     dplyr::select(Road_ID, "N_Median" = la) %>%   
     mutate_at(c('Road_ID', 'N_Median'), as.numeric)
-  names(spdf) <- c("Road_ID", "N_Median", "geometry")  ## here change or remove
-  spdf$geometry <- NULL
   # Make a dataframe with both the reference and each rides data to get the 
   # difference also called as residual and convert it into a shapefile using 
   # any one of the shapefiles

@@ -13,7 +13,7 @@ Final_Reference <- data.frame(Final_Reference)
 Final_Reference <- Final_Reference %>%
   dplyr::select(Road_ID, everything()) %>%
   mutate_at(c('Road_ID'), as.numeric)
-Final_Reference$geometry <- NULL
+
 
 for (shp in (shp_list)) {
   Residual_layer <- Residual_function(shp, "Median_CPC", Final_Reference, "CPC_md", "MAL1_", "CPC") 
