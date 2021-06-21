@@ -388,8 +388,6 @@ R2_NRMSE_function <- function(each_file, Final_reference, la, fi) {
   spdf <- my_spdf %>%
     dplyr::select(Road_ID, "N_Median" = la) %>% # add la
     mutate_at(c('Road_ID'), as.numeric)
-  names(spdf) <- c("Road_ID", "N_Median", "geometry")  ## here change or remove
-  spdf$geometry <- NULL
   # Join both tables for easy calculations 
   Final <- left_join(Final_ref, spdf, by = "Road_ID") 
   # To calculate R squared

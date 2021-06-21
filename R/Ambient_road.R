@@ -110,7 +110,7 @@ ae33_cstep$size_f1 <- factor(ae33_cstep$month, levels = c('Jul', 'Aug', 'Sep', '
                                                           'Nov', 'Dec', 'Jan', 'Feb'))
 
 p3 <- ggplot(ae33_cstep, aes(size_f1, AE33_cstep))+ 
-  labs(x = "", y = expression(paste("BC" ," (", mu, "g",~m^{-3}, ")")))+
+  labs(x = "", y = expression(paste("BC" ," (", mu, "g",~m^{-3}, ")"))) +
   scale_y_continuous(limits = c(0, 15), expand = c(0, 0),breaks = seq(0, 10, by = 5)) +
   theme_ARU +
   annotate("text", label = "Ambient", x = "Sep", y = 14, size = 12, face = "bold")
