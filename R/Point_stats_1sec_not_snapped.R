@@ -16,10 +16,19 @@ MAL1_sec <- read.csv("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL1/MAL1_sec.csv", sep =
 MAL2_sec <- read.csv("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL2/MAL2_sec.csv", sep = ",", 
                      header = TRUE) %>%
   mutate(Area = "MAL2") 
+CBD_sec <- read.csv("D:/Dropbox/APMfull/MAL_CNG_Paper/CBD/CBD_sec.csv", sep = ",", 
+                     header = TRUE) %>%
+  mutate(Area = "CBD")
+KAN_sec <- read.csv("D:/Dropbox/APMfull/MAL_CNG_Paper/KAN/KAN_sec.csv", sep = ",", 
+                     header = TRUE) %>%
+  mutate(Area = "KAN") 
 Final_sec <- rbind(MAL1_sec, MAL2_sec)
 Final_sec1 <- Final_sec %>%
+  mutate(Area = "MAL")
+Final_all <- rbind(MAL1_sec, MAL2_sec, CBD_sec, KAN_sec, Final_sec1)
+Final_all_2 <- Final_all %>%
   mutate(Area = "All")
-Final_sec2 <- rbind(Final_sec, Final_sec1)
+Final_sec2 <- rbind(Final_all, Final_all_2)
 Final_sec_stats1 <- Final_sec2 %>%
   dplyr::select(Area, Road_type, BC, BC_NR, BC_NR_LC, BC_c, CO2, CO2_c, CPC, 
                 PM2_5, RH, PM_c, Speed, BC_CF, PM_CF) %>%
@@ -37,5 +46,5 @@ Final_sec_stats2 <- Final_sec2 %>%
                      q75 = quantile(., .75), q90 = quantile(., .9), 
                      n = sum(!is.na(.))), na.rm = TRUE)
 Final_sec_stats <- rbind(Final_sec_stats1, Final_sec_stats2)
-write.csv(Final_sec_stats, "D:/Dropbox/APMfull/MAL_CNG_Paper/Points_stats.csv")
+write.csv(Final_sec_stats, "D:/Dropbox/APMfull/MAL_CNG_Paper/MAL_Points_stats.csv")
 beepr::beep()

@@ -5,16 +5,16 @@ extrafont::loadfonts(device = "win")
 library(DescTools)
 
 
-setwd("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL1/Final_layers")
+setwd("D:/Dropbox/APMfull/MAL_CNG_Paper/CBD/Final_layers")
 
-shapefile_roads <- st_read("D:/Dropbox/APMfull/MAL_CNG_Paper/Roads/MAL1_F_Road_type.shp")
+shapefile_roads <- st_read("D:/Dropbox/APMfull/MAL_CNG_Paper/Roads/CBD_F_Road_type.shp")
 shapefile_roads <- st_transform(shapefile_roads, CRS("+proj=utm +zone=43 ellps=WGS84"))
 q <- st_as_sf(shapefile_roads)
 loop <- q %>%
   dplyr::select(Road_ID, UID, Road_type) %>%
   mutate_at(c('Road_ID'), as.numeric)
 loop$geometry <- NULL
-dir <- "D:/Dropbox/APMfull/MAL_CNG_Paper/MAL1/Final_layers"
+dir <- "D:/Dropbox/APMfull/MAL_CNG_Paper/CBD/Final_layers"
 fi <- list.files(dir, pattern = "\\.shp$")
 
 for (fo in (fi)) {
@@ -51,7 +51,7 @@ for (fo in (fi)) {
   loop <- left_join(loop, addr, by = c("Road_ID" = "Road_ID", "UID" = "UID", 
                                        "Road_type" = "Road_type"))
 }
-write.csv(loop, "D:/Dropbox/APMfull/MAL_CNG_Paper/MAL1/All_rides_MAL1_30m.csv")
+write.csv(loop, "D:/Dropbox/APMfull/MAL_CNG_Paper/CBD/All_rides_CBD_30m.csv")
 q <- q %>%
   mutate_at(c('Road_ID'), as.numeric)
 setDT(q)
@@ -133,44 +133,58 @@ Final_stats_layer <- Final %>%
 setDT(Final_stats_layer)
 setkey(Final_stats_layer, Road_ID)
 layer_final_df <- Final_stats_layer[q]
-layer_final_df$UID <- paste0("MAL1_", layer_final_df$Road_ID)
-write.csv(layer_final_df, "D:/Dropbox/APMfull/MAL_CNG_Paper/MAL1/Final_layer.csv")
-layer_final <- st_as_sf(layer_final_df) 
-layer_final <- as(layer_final, "Spatial")
-dsn <- "D:/Dropbox/APMfull/MAL_CNG_Paper/Final_layers"
-layer <- "Corrected_Final_MAL1_Layer"
-writeOGR(layer_final, dsn, layer, driver = "ESRI Shapefile", overwrite_layer = T)
+layer_final_df$UID <- paste0("CBD_", layer_final_df$Road_ID)
+write.csv(layer_final_df, "D:/Dropbox/APMfull/MAL_CNG_Paper/CBD/Final_layer.csv")
+# layer_final <- st_as_sf(layer_final_df) 
+# layer_final <- as(layer_final, "Spatial")
+# dsn <- "D:/Dropbox/APMfull/MAL_CNG_Paper/Final_layers"
+# layer <- "Corrected_Final_CBD_Layer"
+# writeOGR(layer_final, dsn, layer, driver = "ESRI Shapefile", overwrite_layer = T)
 
-beepr::beep()
 
-windowsFonts(Times = windowsFont("Comic Sans MS"))
-theme_ARU <- list(theme_minimal(),
-                  labs(x = "Road Segment ID"),
-                  geom_errorbar(size = 0.05, colour = "#DCDCDC"),
-                  geom_point(size = 0.05),
-                  theme(legend.text = element_text(size = 18),
-                        text = element_text(family = 'Times'),
-                        plot.title = element_text(size = 18, face = "bold"),
-                        plot.subtitle = element_text(size = 13),
-                        axis.title = element_text(size = 18),
-                        axis.text = element_text(size = 16, face = "bold"),
-                        panel.border = element_rect(colour = "black",
-                                                    fill = NA, size = 1.2)))
 
-icc_BC <- loop %>%
-  select("Road_ID",  ends_with("_BC_c_md")) %>% 
-  pivot_longer(!Road_ID, names_to = "Ride_day", values_to = "BC") %>% 
-  mutate(Ride_day = as.factor(Ride_day)) %>% 
-  group_by(Road_ID) %>% 
-  summarise(mean_bc = mean(BC, na.rm = TRUE),
-            sd_bc = sd(BC, na.rm = TRUE)) %>% 
-  ggplot(aes(x = Road_ID, y = mean_bc,
-             ymin = mean_bc - 1.96 * (sd_bc / sqrt(nrow(loop))),
-             ymax = mean_bc + 1.96 * (sd_bc / sqrt(nrow(loop))))) +
-  theme_ARU +
-  labs(y = expression(paste("BC" ," (", mu, "g",~m^{-3}, ")")),
-       title = "Mean BC at each road segment in MAL1 over 22 rides",
-       subtitle = paste0("n = ", nrow(loop), " road segments, Error bars = 95% CI"))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# windowsFonts(Times = windowsFont("Comic Sans MS"))
+# theme_ARU <- list(theme_minimal(),
+#                   labs(x = "Road Segment ID"),
+#                   geom_errorbar(size = 0.05, colour = "#DCDCDC"),
+#                   geom_point(size = 0.05),
+#                   theme(legend.text = element_text(size = 18),
+#                         text = element_text(family = 'Times'),
+#                         plot.title = element_text(size = 18, face = "bold"),
+#                         plot.subtitle = element_text(size = 13),
+#                         axis.title = element_text(size = 18),
+#                         axis.text = element_text(size = 16, face = "bold"),
+#                         panel.border = element_rect(colour = "black",
+#                                                     fill = NA, size = 1.2)))
+
+# icc_BC <- loop %>%
+#   select("Road_ID",  ends_with("_BC_c_md")) %>% 
+#   pivot_longer(!Road_ID, names_to = "Ride_day", values_to = "BC") %>% 
+#   mutate(Ride_day = as.factor(Ride_day)) %>% 
+#   group_by(Road_ID) %>% 
+#   summarise(mean_bc = mean(BC, na.rm = TRUE),
+#             sd_bc = sd(BC, na.rm = TRUE)) %>% 
+#   ggplot(aes(x = Road_ID, y = mean_bc,
+#              ymin = mean_bc - 1.96 * (sd_bc / sqrt(nrow(loop))),
+#              ymax = mean_bc + 1.96 * (sd_bc / sqrt(nrow(loop))))) +
+#   theme_ARU +
+#   labs(y = expression(paste("BC" ," (", mu, "g",~m^{-3}, ")")),
+#        title = "Mean BC at each road segment in CBD over 22 rides",
+#        subtitle = paste0("n = ", nrow(loop), " road segments, Error bars = 95% CI"))
 
 beepr::beep()
 
@@ -179,8 +193,15 @@ mal1 <- read.csv("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL1/Final_layer.csv", sep = 
   select(UID, Road_type, name_x, Highway_US, PM2_5_md, BC_c_md, CPC_md, RH_md, CO2_c_md)
 mal2 <- read.csv("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL2/Final_layer.csv", sep = ",") %>%
   select(UID, Road_type, name_x, Highway_US, PM2_5_md, BC_c_md, CPC_md, RH_md, CO2_c_md)
+cbd <- read.csv("D:/Dropbox/APMfull/MAL_CNG_Paper/CBD/Final_layer.csv", sep = ",") %>%
+  select(UID, Road_type, name_x, Highway_US, PM2_5_md, BC_c_md, CPC_md, RH_md, CO2_c_md)
+kan <- read.csv("D:/Dropbox/APMfull/MAL_CNG_Paper/KAN/Final_layer.csv", sep = ",") %>%
+  select(UID, Road_type, name_x, Highway_US, PM2_5_md, BC_c_md, CPC_md, RH_md, CO2_c_md)
+
+all <- rbind(mal1, mal2, cbd, kan)
+names(all) <- c("UID", "Road_type", "Road_name", "Highway_US", "PM2.5", "BC", "UFPs", "RH", "CO2")
+write.csv(all, "D:/Dropbox/APMfull/MAL_CNG_Paper/Final_layer.csv")
 
 all <- rbind(mal1, mal2)
 names(all) <- c("UID", "Road_type", "Road_name", "Highway_US", "PM2.5", "BC", "UFPs", "RH", "CO2")
-
 write.csv(all, "D:/Dropbox/APMfull/MAL_CNG_Paper/MAL_Final_layer.csv")
