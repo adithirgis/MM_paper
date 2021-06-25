@@ -46,5 +46,5 @@ Final_sec_stats2 <- Final_sec2 %>%
                      q75 = quantile(., .75), q90 = quantile(., .9), 
                      n = sum(!is.na(.))), na.rm = TRUE)
 Final_sec_stats <- rbind(Final_sec_stats1, Final_sec_stats2)
-write.csv(Final_sec_stats, "D:/Dropbox/APMfull/MAL_CNG_Paper/MAL_Points_stats.csv")
+write.csv(Final_sec_stats, "D:/Dropbox/APMfull/MAL_CNG_Paper/Points_stats.csv")
 beepr::beep()
