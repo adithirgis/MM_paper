@@ -70,25 +70,28 @@ CBD <- fread("D:/Dropbox/APMfull/Phase_II/CBD/CBD_min.csv", sep = ",",
              header = TRUE) %>%
   dplyr::select(Road_type, "BC_c" = BC_c_mean, "CPC" = CPC_mean, "CO2_c" = CO2_c_mean,
                 "Speed" = Speed_mean, "BC_NR_LC" = BC_NR_LC_mean) %>%
-  mutate(Area = "CBD")
+  mutate(Area = "CBD") %>%
+  mutate(Speed = Speed * 3.6)
 KAN <- fread("D:/Dropbox/APMfull/Phase_II/KAN/KAN_min.csv", sep = ",", 
              header = TRUE) %>%
   dplyr::select(Road_type, "BC_c" = BC_c_mean, "CPC" = CPC_mean, "CO2_c" = CO2_c_mean,
                 "Speed" = Speed_mean, "BC_NR_LC" = BC_NR_LC_mean) %>%
-  mutate(Area = "KAN")
+  mutate(Area = "KAN") %>%
+  mutate(Speed = Speed * 3.6)
 MAL1 <- fread("D:/Dropbox/APMfull/Phase_II/MAL1/MAL1_min.csv", sep = ",", 
               header = TRUE) %>%
   dplyr::select(Road_type, "BC_c" = BC_c_mean, "CPC" = CPC_mean, "CO2_c" = CO2_c_mean,
                 "Speed" = Speed_mean, "BC_NR_LC" = BC_NR_LC_mean) %>%
-  mutate(Area = "MAL1")
+  mutate(Area = "MAL1") %>%
+  mutate(Speed = Speed * 3.6)
 MAL2 <- fread("D:/Dropbox/APMfull/Phase_II/MAL2/MAL2_min.csv", sep = ",", 
               header = TRUE) %>%
   dplyr::select(Road_type, "BC_c" = BC_c_mean, "CPC" = CPC_mean, "CO2_c" = CO2_c_mean,
                 "Speed" = Speed_mean, "BC_NR_LC" = BC_NR_LC_mean) %>%
-  mutate(Area = "MAL2")
-
-Final <- rbind(CBD, MAL1, MAL2, KAN) %>%
+  mutate(Area = "MAL2") %>%
   mutate(Speed = Speed * 3.6)
+
+Final <- rbind(CBD, MAL1, MAL2, KAN)
 
 Final_MAL <- rbind(MAL1, MAL2) %>%
   mutate(Area = "MAL")
@@ -205,3 +208,327 @@ plot31 <- ggplot(data = subset(Final_all, CO2_c != 0), aes(x = Speed, y = CO2_c)
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60))
 plot31
 ggsave(here("Plots", "CO2_all_All.jpg"), width = 30, height = 20, units = "cm")
+
+################################################################################
+
+
+
+
+plot3 <- ggplot(data = subset(Final_MAL, CO2_c != 0), aes(x = Speed, y = as.numeric(as.character(BC_NR_LC/CO2_c)), 
+                                                          colour = Road_type)) + 
+  geom_point(size = 2, alpha = 0.7) + scale_y_log10() +
+  labs(x = "Speed (km/h)", y = expression(paste("BC/", CO[2], "in log10 scale"))) + theme_ARU 
+plot3
+ggsave(here("Plots", "BC_CO2_point_MAL.jpg"), width = 30, height = 20, units = "cm")
+
+
+plot4 <- ggplot(data = subset(Final_MAL, CO2_c != 0), aes(x = Speed, y = as.numeric(as.character(CPC/CO2_c)))) + 
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x)),
+                limits = c(10^1, 10^5)) + geom_hex(bins = 30) + 
+  labs(x = "Speed (km/h)", y = expression(paste("UFPs/", CO[2]))) + theme_ARU + 
+  scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
+  scale_fill_viridis(option = "plasma", limits = c(0, 100)) 
+
+plot4 %+% annotate("text", x = 60, y = 10, label = "Highway", size = 7) %+% 
+  subset(Final_MAL, Road_type %in% c("Highway")) 
+ggsave(here("Plots", "UFPs_CO2_high_MAL.jpg"), width = 30, height = 20, units = "cm")
+
+plot4 %+% subset(Final_MAL, Road_type %in% c("Arterial")) %+%
+  annotate("text", x = 60, y = 10, label = "Arterial", size = 7)
+ggsave(here("Plots", "UFPs_CO2_art_MAL.jpg"), width = 30, height = 20, units = "cm")
+
+plot4 %+% subset(Final_MAL, Road_type %in% c("Residential")) %+%
+  annotate("text", x = 60, y = 10, label = "Residential", size = 7)
+ggsave(here("Plots", "UFPs_CO2_resi_MAL.jpg"), width = 30, height = 20, units = "cm")
+
+plot41 <- ggplot(subset(Final_MAL, CO2_c != 0), aes(x = Speed, y = as.numeric(as.character(CPC/CO2_c)))) + 
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x)),
+                limits = c(10^1, 10^5)) + geom_hex(bins = 35) + 
+  labs(x = "Speed (km/h)", y = expression(paste("UFPs/", CO[2]))) + theme_ARU + 
+  scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
+  scale_fill_viridis(option = "plasma", limits = c(0, 100)) 
+plot41
+ggsave(here("Plots", "UFPs_CO2_all_MAL.jpg"), width = 30, height = 20, units = "cm")
+
+
+plot5 <- ggplot(data = subset(Final_MAL, CO2_c != 0), aes(x = Speed, y = as.numeric(as.character(BC_NR_LC/CO2_c)))) + 
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x)),
+                limits = c(10^-2, 10^2)) + geom_hex(bins = 30) +
+  labs(x = "Speed (km/h)", y = expression(paste("BC/", CO[2]))) + theme_ARU +  
+  scale_fill_viridis(option = "plasma", limits = c(0, 100)) + 
+  scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) 
+
+plot5 %+% annotate("text", x = 60, y = 0.01, label = "Highway", size = 7) %+% 
+  subset(Final_MAL, Road_type %in% c("Highway")) 
+ggsave(here("Plots", "BC_CO2_high_MAL.jpg"), width = 30, height = 20, units = "cm")
+
+plot5 %+% subset(Final_MAL, Road_type %in% c("Arterial")) %+%
+  annotate("text", x = 60, y = 0.01, label = "Arterial", size = 7)
+ggsave(here("Plots", "BC_CO2_art_MAL.jpg"), width = 30, height = 20, units = "cm")
+
+plot5 %+% subset(Final_MAL, Road_type %in% c("Residential")) %+%
+  annotate("text", x = 60, y = 0.01, label = "Residential", size = 7)
+ggsave(here("Plots", "BC_CO2_resi_MAL.jpg"), width = 30, height = 20, units = "cm")
+
+
+plot51 <- ggplot(data = subset(Final_MAL, CO2_c != 0), aes(x = Speed, y = as.numeric(as.character(BC_NR_LC/CO2_c)))) + 
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x)),
+                limits = c(10^-2, 10^2)) + geom_hex(bins = 35) +
+  labs(x = "Speed (km/h)", y = expression(paste("BC/", CO[2]))) + theme_ARU +  
+  scale_fill_viridis(option = "plasma", limits = c(0, 100)) + 
+  scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60))
+plot51
+ggsave(here("Plots", "BC_CO2_all_MAL.jpg"), width = 30, height = 20, units = "cm")
+
+
+
+plot3 <- ggplot(data = subset(Final_MAL, CO2_c != 0), aes(x = Speed, y = CO2_c)) +
+  labs(x = "Speed (km/h)", y = expression(paste(CO[2], "ppm"))) + 
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x), 
+                labels = trans_format("log10", math_format(10^.x)),
+                limits = c(10^0, 10^4)) + geom_hex(bins = 35) +
+  theme_ARU + scale_fill_viridis(option = "plasma", limits = c(0, 100)) + 
+  scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60))
+
+
+plot3 %+% annotate("text", x = 60, y = 1, label = "Highway", size = 7) %+% 
+  subset(Final_MAL, Road_type %in% c("Highway"))
+ggsave(here("Plots", "CO2_high_MAL.jpg"), width = 30, height = 20, units = "cm")
+
+plot3 %+% subset(Final_MAL, Road_type %in% c("Arterial")) %+%
+  annotate("text", x = 60, y = 1, label = "Arterial", size = 7)
+ggsave(here("Plots", "CO2_art_MAL.jpg"), width = 30, height = 20, units = "cm")
+
+plot3 %+% subset(Final_MAL, Road_type %in% c("Residential")) %+%
+  annotate("text", x = 60, y = 1, label = "Residential", size = 7)
+ggsave(here("Plots", "CO2_resi_MAL.jpg"), width = 30, height = 20, units = "cm")
+
+plot31 <- ggplot(data = subset(Final_MAL, CO2_c != 0), aes(x = Speed, y = CO2_c)) +
+  labs(x = "Speed (km/h)", y = expression(paste(CO[2], "ppm"))) + 
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x), 
+                labels = trans_format("log10", math_format(10^.x)),
+                limits = c(10^0, 10^4)) + geom_hex(bins = 45) +
+  theme_ARU + scale_fill_viridis(option = "plasma", limits = c(0, 100)) + 
+  scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60))
+plot31
+ggsave(here("Plots", "CO2_all_MAL.jpg"), width = 30, height = 20, units = "cm")
+
+
+################################################################################
+
+
+plot3 <- ggplot(data = subset(KAN, CO2_c != 0), aes(x = Speed, y = as.numeric(as.character(BC_NR_LC/CO2_c)), 
+                                                    colour = Road_type)) + 
+  geom_point(size = 2, alpha = 0.7) + scale_y_log10() +
+  labs(x = "Speed (km/h)", y = expression(paste("BC/", CO[2], "in log10 scale"))) + theme_ARU 
+plot3
+ggsave(here("Plots", "BC_CO2_point_KAN.jpg"), width = 30, height = 20, units = "cm")
+
+
+plot4 <- ggplot(data = subset(KAN, CO2_c != 0), aes(x = Speed, y = as.numeric(as.character(CPC/CO2_c)))) + 
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x)),
+                limits = c(10^1, 10^5)) + geom_hex(bins = 30) + 
+  labs(x = "Speed (km/h)", y = expression(paste("UFPs/", CO[2]))) + theme_ARU + 
+  scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
+  scale_fill_viridis(option = "plasma", limits = c(0, 60)) 
+
+plot4 %+% annotate("text", x = 60, y = 10, label = "Highway", size = 7) %+% 
+  subset(KAN, Road_type %in% c("Highway")) 
+ggsave(here("Plots", "UFPs_CO2_high_KAN.jpg"), width = 30, height = 20, units = "cm")
+
+plot4 %+% subset(KAN, Road_type %in% c("Arterial")) %+%
+  annotate("text", x = 60, y = 10, label = "Arterial", size = 7)
+ggsave(here("Plots", "UFPs_CO2_art_KAN.jpg"), width = 30, height = 20, units = "cm")
+
+plot4 %+% subset(KAN, Road_type %in% c("Residential")) %+%
+  annotate("text", x = 60, y = 10, label = "Residential", size = 7)
+ggsave(here("Plots", "UFPs_CO2_resi_KAN.jpg"), width = 30, height = 20, units = "cm")
+
+plot41 <- ggplot(subset(KAN, CO2_c != 0), aes(x = Speed, y = as.numeric(as.character(CPC/CO2_c)))) + 
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x)),
+                limits = c(10^1, 10^5)) + geom_hex(bins = 30) + 
+  labs(x = "Speed (km/h)", y = expression(paste("UFPs/", CO[2]))) + theme_ARU + 
+  scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
+  scale_fill_viridis(option = "plasma", limits = c(0, 60)) 
+plot41
+ggsave(here("Plots", "UFPs_CO2_all_KAN.jpg"), width = 30, height = 20, units = "cm")
+
+
+plot5 <- ggplot(data = subset(KAN, CO2_c != 0), aes(x = Speed, y = as.numeric(as.character(BC_NR_LC/CO2_c)))) + 
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x)),
+                limits = c(10^-2, 10^2)) + geom_hex(bins = 30) +
+  labs(x = "Speed (km/h)", y = expression(paste("BC/", CO[2]))) + theme_ARU +  
+  scale_fill_viridis(option = "plasma", limits = c(0, 50)) + 
+  scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) 
+
+plot5 %+% annotate("text", x = 60, y = 0.01, label = "Highway", size = 7) %+% 
+  subset(KAN, Road_type %in% c("Highway")) 
+ggsave(here("Plots", "BC_CO2_high_KAN.jpg"), width = 30, height = 20, units = "cm")
+
+plot5 %+% subset(KAN, Road_type %in% c("Arterial")) %+%
+  annotate("text", x = 60, y = 0.01, label = "Arterial", size = 7)
+ggsave(here("Plots", "BC_CO2_art_KAN.jpg"), width = 30, height = 20, units = "cm")
+
+plot5 %+% subset(KAN, Road_type %in% c("Residential")) %+%
+  annotate("text", x = 60, y = 0.01, label = "Residential", size = 7)
+ggsave(here("Plots", "BC_CO2_resi_KAN.jpg"), width = 30, height = 20, units = "cm")
+
+
+
+plot51 <- ggplot(data = subset(KAN, CO2_c != 0), aes(x = Speed, y = as.numeric(as.character(BC_NR_LC/CO2_c)))) + 
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x)),
+                limits = c(10^-2, 10^2)) + geom_hex(bins = 35) +
+  labs(x = "Speed (km/h)", y = expression(paste("BC/", CO[2]))) + theme_ARU +  
+  scale_fill_viridis(option = "plasma", limits = c(0, 50)) + 
+  scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60))
+plot51
+ggsave(here("Plots", "BC_CO2_all_KAN.jpg"), width = 30, height = 20, units = "cm")
+
+
+
+plot3 <- ggplot(data = subset(KAN, CO2_c != 0), aes(x = Speed, y = CO2_c)) +
+  labs(x = "Speed (km/h)", y = expression(paste(CO[2], "ppm"))) + 
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x), 
+                labels = trans_format("log10", math_format(10^.x)),
+                limits = c(10^0, 10^4)) + geom_hex(bins = 30) +
+  theme_ARU + scale_fill_viridis(option = "plasma", limits = c(0, 100)) + 
+  scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60))
+
+
+plot3 %+% annotate("text", x = 60, y = 1, label = "Highway", size = 7) %+% 
+  subset(KAN, Road_type %in% c("Highway"))
+ggsave(here("Plots", "CO2_high_KAN.jpg"), width = 30, height = 20, units = "cm")
+
+plot3 %+% subset(KAN, Road_type %in% c("Arterial")) %+%
+  annotate("text", x = 60, y = 1, label = "Arterial", size = 7)
+ggsave(here("Plots", "CO2_art_KAN.jpg"), width = 30, height = 20, units = "cm")
+
+plot3 %+% subset(KAN, Road_type %in% c("Residential")) %+%
+  annotate("text", x = 60, y = 1, label = "Residential", size = 7)
+ggsave(here("Plots", "CO2_resi_KAN.jpg"), width = 30, height = 20, units = "cm")
+
+plot31 <- ggplot(data = subset(KAN, CO2_c != 0), aes(x = Speed, y = CO2_c)) +
+  labs(x = "Speed (km/h)", y = expression(paste(CO[2], "ppm"))) + 
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x), 
+                labels = trans_format("log10", math_format(10^.x)),
+                limits = c(10^0, 10^4)) + geom_hex(bins = 30) +
+  theme_ARU + scale_fill_viridis(option = "plasma", limits = c(0, 100)) + 
+  scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60))
+plot31
+ggsave(here("Plots", "CO2_all_KAN.jpg"), width = 30, height = 20, units = "cm")
+
+
+################################################################################
+
+plot3 <- ggplot(data = subset(CBD, CO2_c != 0), aes(x = Speed, y = as.numeric(as.character(BC_NR_LC/CO2_c)), 
+                                                    colour = Road_type)) + 
+  geom_point(size = 2, alpha = 0.7) + scale_y_log10() +
+  labs(x = "Speed (km/h)", y = expression(paste("BC/", CO[2], "in log10 scale"))) + theme_ARU 
+plot3
+ggsave(here("Plots", "BC_CO2_point_CBD.jpg"), width = 30, height = 20, units = "cm")
+
+
+plot4 <- ggplot(data = subset(CBD, CO2_c != 0), aes(x = Speed, y = as.numeric(as.character(CPC/CO2_c)))) + 
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x)),
+                limits = c(10^1, 10^5)) + geom_hex(bins = 35) + 
+  labs(x = "Speed (km/h)", y = expression(paste("UFPs/", CO[2]))) + theme_ARU + 
+  scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
+  scale_fill_viridis(option = "plasma", limits = c(0, 60)) 
+
+plot4 %+% annotate("text", x = 60, y = 10, label = "Highway", size = 7) %+% 
+  subset(CBD, Road_type %in% c("Highway")) 
+ggsave(here("Plots", "UFPs_CO2_high_CBD.jpg"), width = 30, height = 20, units = "cm")
+
+plot4 %+% subset(CBD, Road_type %in% c("Arterial")) %+%
+  annotate("text", x = 60, y = 10, label = "Arterial", size = 7)
+ggsave(here("Plots", "UFPs_CO2_art_CBD.jpg"), width = 30, height = 20, units = "cm")
+
+# plot4 %+% subset(CBD, Road_type %in% c("Residential")) %+%
+#   annotate("text", x = 60, y = 10, label = "Residential", size = 7)
+# ggsave(here("Plots", "UFPs_CO2_resi_CBD.jpg"), width = 30, height = 20, units = "cm")
+
+plot41 <- ggplot(subset(CBD, CO2_c != 0), aes(x = Speed, y = as.numeric(as.character(CPC/CO2_c)))) + 
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x)),
+                limits = c(10^1, 10^5)) + geom_hex(bins = 35) + 
+  labs(x = "Speed (km/h)", y = expression(paste("UFPs/", CO[2]))) + theme_ARU + 
+  scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
+  scale_fill_viridis(option = "plasma", limits = c(0, 60)) 
+plot41
+ggsave(here("Plots", "UFPs_CO2_all_CBD.jpg"), width = 30, height = 20, units = "cm")
+
+
+plot5 <- ggplot(data = subset(CBD, CO2_c != 0), aes(x = Speed, y = as.numeric(as.character(BC_NR_LC/CO2_c)))) + 
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x)),
+                limits = c(10^-2, 10^2)) + geom_hex(bins = 30) +
+  labs(x = "Speed (km/h)", y = expression(paste("BC/", CO[2]))) + theme_ARU +  
+  scale_fill_viridis(option = "plasma", limits = c(0, 70)) + 
+  scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) 
+
+plot5 %+% annotate("text", x = 60, y = 0.01, label = "Highway", size = 7) %+% 
+  subset(CBD, Road_type %in% c("Highway")) 
+ggsave(here("Plots", "BC_CO2_high_CBD.jpg"), width = 30, height = 20, units = "cm")
+
+plot5 %+% subset(CBD, Road_type %in% c("Arterial")) %+%
+  annotate("text", x = 60, y = 0.01, label = "Arterial", size = 7)
+ggsave(here("Plots", "BC_CO2_art_CBD.jpg"), width = 30, height = 20, units = "cm")
+
+# plot5 %+% subset(CBD, Road_type %in% c("Residential")) %+%
+#   annotate("text", x = 60, y = 0.01, label = "Residential", size = 7)
+# ggsave(here("Plots", "BC_CO2_resi_CBD.jpg"), width = 30, height = 20, units = "cm")
+
+
+
+plot51 <- ggplot(data = subset(CBD, CO2_c != 0), aes(x = Speed, y = as.numeric(as.character(BC_NR_LC/CO2_c)))) + 
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x)),
+                limits = c(10^-2, 10^2)) + geom_hex(bins = 30) +
+  labs(x = "Speed (km/h)", y = expression(paste("BC/", CO[2]))) + theme_ARU +  
+  scale_fill_viridis(option = "plasma", limits = c(0, 70)) + 
+  scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60))
+plot51
+ggsave(here("Plots", "BC_CO2_all_CBD.jpg"), width = 30, height = 20, units = "cm")
+
+
+
+plot3 <- ggplot(data = subset(CBD, CO2_c != 0), aes(x = Speed, y = CO2_c)) +
+  labs(x = "Speed (km/h)", y = expression(paste(CO[2], "ppm"))) + 
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x), 
+                labels = trans_format("log10", math_format(10^.x)),
+                limits = c(10^0, 10^4)) + geom_hex(bins = 30) +
+  theme_ARU + scale_fill_viridis(option = "plasma", limits = c(0, 70)) + 
+  scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60))
+
+
+plot3 %+% annotate("text", x = 60, y = 1, label = "Highway", size = 7) %+% 
+  subset(CBD, Road_type %in% c("Highway"))
+ggsave(here("Plots", "CO2_high_CBD.jpg"), width = 30, height = 20, units = "cm")
+
+plot3 %+% subset(CBD, Road_type %in% c("Arterial")) %+%
+  annotate("text", x = 60, y = 1, label = "Arterial", size = 7)
+ggsave(here("Plots", "CO2_art_CBD.jpg"), width = 30, height = 20, units = "cm")
+
+# plot3 %+% subset(CBD, Road_type %in% c("Residential")) %+%
+#   annotate("text", x = 60, y = 1, label = "Residential", size = 7)
+# ggsave(here("Plots", "CO2_resi_CBD.jpg"), width = 30, height = 20, units = "cm")
+
+plot31 <- ggplot(data = subset(CBD, CO2_c != 0), aes(x = Speed, y = CO2_c)) +
+  labs(x = "Speed (km/h)", y = expression(paste(CO[2], "ppm"))) + 
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x), 
+                labels = trans_format("log10", math_format(10^.x)),
+                limits = c(10^0, 10^4)) + geom_hex(bins = 30) +
+  theme_ARU + scale_fill_viridis(option = "plasma", limits = c(0, 70)) + 
+  scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60))
+plot31
+ggsave(here("Plots", "CO2_all_CBD.jpg"), width = 30, height = 20, units = "cm")
+
