@@ -448,37 +448,37 @@ ggsave(here("Plots", "BC_MAL2_MC_Rsq.jpg"), width = 30, height = 20, units = "cm
 
 MAL_BC <- rbind(MAL1_BC, MAL2_BC)
 
-plo1 <- ggplot(MAL_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 
+plo2 <- ggplot(MAL_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 
                              y = as.numeric(as.character(R.Squared)))) + 
   scale_y_continuous(limits = c(0, 1)) + geom_point(colour = "blue", size = 0.8) +
   scale_x_continuous(limits = c(0, 22)) + xlab("N: No of unique drive days") +
   ylab("R Squared") + theme_MC + stat_smooth(method = "loess", colour = "red")
 
 
-plo1
+plo2
 ggsave(here("Plots", "BC_MAL_MC_Rsq_smooth.jpg"), width = 30, height = 20, units = "cm")
 
-plo1 <- ggplot(MAL_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 
+plo3 <- ggplot(MAL_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 
                              y = as.numeric(as.character(R.Squared)))) + 
   scale_y_continuous(limits = c(0, 1)) +
   scale_x_continuous(limits = c(0, 22)) + xlab("N: No of unique drive days") +
   ylab("R Squared") + theme_MC + stat_smooth(method = "loess", colour = "red")
 
 
-plo1
+plo3
 ggsave(here("Plots", "BC_MAL_MC_Rsq.jpg"), width = 30, height = 20, units = "cm")
 
 
 All_BC <- rbind(MAL1_BC, MAL2_BC, KAN_BC, CBD_BC)
 
-plo1 <- ggplot(All_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 
+plo4 <- ggplot(All_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 
                              y = as.numeric(as.character(R.Squared)))) + 
   scale_y_continuous(limits = c(0, 1)) + geom_point(colour = "blue", size = 0.8) +
   scale_x_continuous(limits = c(0, 22)) + xlab("N: No of unique drive days") +
   ylab("R Squared") + theme_MC 
 
 
-plo1
+plo4
 ggsave(here("Plots", "BC_All_MC_Rsq_smooth.jpg"), width = 30, height = 20, units = "cm")
 
 plo1 <- ggplot(All_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 
@@ -584,24 +584,24 @@ plo1
 ggsave(here("Plots", "BC_MAL2_MC_NRMSE.jpg"), width = 30, height = 20, units = "cm")
 
 
-plo1 <- ggplot(MAL_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 
+plo6 <- ggplot(MAL_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 
                              y = as.numeric(as.character(NRMSE)))) + 
   scale_y_continuous() + geom_point(colour = "blue", size = 0.8) +
   scale_x_continuous(limits = c(0, 22)) + xlab("N: No of unique drive days") +
   ylab("NRMSE") + theme_MC + stat_smooth(method = "loess", colour = "red")
 
 
-plo1
+plo6
 ggsave(here("Plots", "BC_MAL_MC_NRMSE_smooth.jpg"), width = 30, height = 20, units = "cm")
 
-plo1 <- ggplot(MAL_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 
+plo7 <- ggplot(MAL_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 
                              y = as.numeric(as.character(NRMSE)))) + 
   scale_y_continuous() +
   scale_x_continuous(limits = c(0, 22)) + xlab("N: No of unique drive days") +
   ylab("NRMSE") + theme_MC + stat_smooth(method = "loess", colour = "red")
 
 
-plo1
+plo7
 ggsave(here("Plots", "BC_MAL_MC_NRMSE.jpg"), width = 30, height = 20, units = "cm")
 
 
