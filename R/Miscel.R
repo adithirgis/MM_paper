@@ -55,5 +55,14 @@ mal_sumry <- mal %>%
     
   
 
+MAL1 <- read.csv("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL1/Final_layer.csv", sep = ",") 
+MAL2 <- read.csv("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL2/Final_layer.csv", sep = ",")
 
+MAL <- rbind(MAL1, MAL2)
+
+MAL_gsd <- MAL %>%
+  dplyr::select(Road_type, contains(c("BC_LC_", "CPC_", "CO2_c_"))) %>%
+  dplyr::select(Road_type, contains("GS")) %>%
+  group_by(Road_type) %>%
+  summarise_all(funs(mean), na.rm = TRUE)
 
