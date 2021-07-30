@@ -27,17 +27,17 @@ cbd$Rod_typ <- cbd$Road_type
 fin <- bind(mal1, mal2)
 fin_df <- st_as_sf(fin)
 layer_final <- as(fin_df, "Spatial")
-# dsn <- "D:/Dropbox/APMfull/MAL_CNG_Paper/Final_layers/Combined_layers"
-# layer <- "Corrected_Final_MAL_Layer"
-# writeOGR(layer_final, dsn, layer, driver = "ESRI Shapefile", overwrite_layer = T)
+dsn <- "D:/Dropbox/APMfull/MAL_CNG_Paper/Final_layers/Combined_layers"
+layer <- "Corrected_Final_MAL_Layer"
+writeOGR(layer_final, dsn, layer, driver = "ESRI Shapefile", overwrite_layer = T)
 
 
 fin <- bind(kan, cbd, mal1, mal2)
 fin_df <- st_as_sf(fin)
 layer_final <- as(fin_df, "Spatial")
-# dsn <- "D:/Dropbox/APMfull/MAL_CNG_Paper/Final_layers/Combined_layers"
-# layer <- "Corrected_Final_Layer"
-# writeOGR(layer_final, dsn, layer, driver = "ESRI Shapefile", overwrite_layer = T)
+dsn <- "D:/Dropbox/APMfull/MAL_CNG_Paper/Final_layers/Combined_layers"
+layer <- "Corrected_Final_Layer"
+writeOGR(layer_final, dsn, layer, driver = "ESRI Shapefile", overwrite_layer = T)
 
 
 
@@ -70,7 +70,7 @@ Final_stats2 <- fin %>%
                      q75 = quantile(., .75), q90 = quantile(., .9), 
                      n = sum(!is.na(.))), na.rm = TRUE)
 Final_stats <- rbind(Final_stats1, Final_stats2)
-# write.csv(Final_stats, "D:/Dropbox/APMfull/MAL_CNG_Paper/layer30m_stats.csv")
+write.csv(Final_stats, "D:/Dropbox/APMfull/MAL_CNG_Paper/layer30m_stats.csv")
 
 fin_df_all$Road_type <- factor(fin_df_all$Road_type, levels = c("Highway", "Arterial",
                                                                 "Residential"))
