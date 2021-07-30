@@ -127,7 +127,7 @@ plot4 <- ggplot(data = subset(Final_all, CO2_c != 0), aes(x = Speed, y = as.nume
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^1, 10^5)) + geom_hex(bins = 30) + 
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("UFPs" ," (", "#", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
+       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
   scale_fill_viridis(option = "plasma", limits = c(0, 200)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
@@ -150,7 +150,7 @@ plot41 <- ggplot(subset(Final_all, CO2_c != 0), aes(x = Speed,
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^1, 10^5)) + geom_hex(bins = 35) + 
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("UFPs" ," (", "#", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
+       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
   scale_fill_viridis(option = "plasma", limits = c(0, 200)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
@@ -252,7 +252,7 @@ plot4 <- ggplot(data = subset(Final_MAL, CO2_c != 0), aes(x = Speed,
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^1, 10^5)) + geom_hex(bins = 30) + 
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("UFPs" ," (", "#", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
+       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
   scale_fill_viridis(option = "plasma", limits = c(0, 100)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
@@ -275,7 +275,7 @@ plot41 <- ggplot(subset(Final_MAL, CO2_c != 0), aes(x = Speed,
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^1, 10^5)) + geom_hex(bins = 35) + 
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("UFPs" ," (", "#", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
+       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
   scale_fill_viridis(option = "plasma", limits = c(0, 100)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) 
@@ -376,7 +376,7 @@ plot4 <- ggplot(data = subset(KAN, CO2_c != 0), aes(x = Speed,
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^1, 10^5)) + geom_hex(bins = 30) + 
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("UFPs" ," (", "#", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
+       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
   scale_fill_viridis(option = "plasma", limits = c(0, 60)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
@@ -398,7 +398,7 @@ plot41 <- ggplot(subset(KAN, CO2_c != 0), aes(x = Speed, y = as.numeric(as.chara
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^1, 10^5)) + geom_hex(bins = 30) + 
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("UFPs" ," (", "#", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
+       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
   scale_fill_viridis(option = "plasma", limits = c(0, 60)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) 
@@ -498,7 +498,7 @@ plot4 <- ggplot(data = subset(CBD, CO2_c != 0), aes(x = Speed, y = as.numeric(as
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^1, 10^5)) + geom_hex(bins = 35) + 
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("UFPs" ," (", "#", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
+       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
   scale_fill_viridis(option = "plasma", limits = c(0, 60)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) 
@@ -520,7 +520,7 @@ plot41 <- ggplot(subset(CBD, CO2_c != 0), aes(x = Speed, y = as.numeric(as.chara
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^1, 10^5)) + geom_hex(bins = 35) + 
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("UFPs" ," (", "#", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
+       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
   scale_fill_viridis(option = "plasma", limits = c(0, 60)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) 
