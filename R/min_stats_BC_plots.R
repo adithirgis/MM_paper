@@ -132,16 +132,19 @@ plot4 <- ggplot(data = subset(Final_all, CO2_c != 0), aes(x = Speed, y = as.nume
   scale_fill_viridis(option = "plasma", limits = c(0, 200)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
 
-plot4 %+% annotate("text", x = 60, y = 10, label = "Highway", size = 10) %+% 
-  subset(Final_all, Road_type %in% c("Highway")) 
+plot4 %+% annotate("text", x = 60, y = 10, label = "Highway", size = 20) %+% 
+  subset(Final_all, Road_type %in% c("Highway")) +
+  annotate(geom = 'text', label = 'a)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "UFPs_CO2_high_All.jpg"), width = 45, height = 30, units = "cm")
 
 plot4 %+% subset(Final_all, Road_type %in% c("Arterial")) %+%
-  annotate("text", x = 60, y = 10, label = "Arterial", size = 10)
+  annotate("text", x = 60, y = 10, label = "Arterial", size = 20) +
+  annotate(geom = 'text', label = 'b)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "UFPs_CO2_art_All.jpg"), width = 45, height = 30, units = "cm")
 
 plot4 %+% subset(Final_all, Road_type %in% c("Residential")) %+%
-  annotate("text", x = 60, y = 10, label = "Residential", size = 10)
+  annotate("text", x = 60, y = 10, label = "Residential", size = 20) +
+  annotate(geom = 'text', label = 'c)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "UFPs_CO2_resi_All.jpg"), width = 45, height = 30, units = "cm")
 
 plot41 <- ggplot(subset(Final_all, CO2_c != 0), aes(x = Speed, 
@@ -153,7 +156,8 @@ plot41 <- ggplot(subset(Final_all, CO2_c != 0), aes(x = Speed,
        y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
   scale_fill_viridis(option = "plasma", limits = c(0, 200)) + 
-  theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
+  theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) +
+  annotate(geom = 'text', label = 'd)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plot41
 ggsave(here("Plots", "UFPs_CO2_all_All.jpg"), width = 45, height = 30, units = "cm")
 
@@ -169,16 +173,19 @@ plot5 <- ggplot(data = subset(Final_all, CO2_c != 0), aes(x = Speed,
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) 
 
-plot5 %+% annotate("text", x = 60, y = 0.01, label = "Highway", size = 10) %+% 
-  subset(Final_all, Road_type %in% c("Highway")) 
+plot5 %+% annotate("text", x = 60, y = 0.01, label = "Highway", size = 20) %+% 
+  subset(Final_all, Road_type %in% c("Highway")) +
+  annotate(geom = 'text', label = 'a)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "BC_CO2_high_All.jpg"), width = 45, height = 30, units = "cm")
 
 plot5 %+% subset(Final_all, Road_type %in% c("Arterial")) %+%
-  annotate("text", x = 60, y = 0.01, label = "Arterial", size = 10)
+  annotate("text", x = 60, y = 0.01, label = "Arterial", size = 20) +
+  annotate(geom = 'text', label = 'b)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "BC_CO2_art_All.jpg"), width = 45, height = 30, units = "cm")
 
 plot5 %+% subset(Final_all, Road_type %in% c("Residential")) %+%
-  annotate("text", x = 60, y = 0.01, label = "Residential", size = 10)
+  annotate("text", x = 60, y = 0.01, label = "Residential", size = 20) +
+  annotate(geom = 'text', label = 'c)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "BC_CO2_resi_All.jpg"), width = 45, height = 30, units = "cm")
 
 
@@ -192,7 +199,8 @@ plot51 <- ggplot(data = subset(Final_all, CO2_c != 0), aes(x = Speed,
        y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU +  
   scale_fill_viridis(option = "plasma", limits = c(0, 150)) + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) + 
-  theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
+  theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) +
+  annotate(geom = 'text', label = 'd)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plot51
 ggsave(here("Plots", "BC_CO2_all_All.jpg"), width = 45, height = 30, units = "cm")
 
@@ -209,16 +217,19 @@ plot3 <- ggplot(data = subset(Final_all, CO2_c != 0), aes(x = Speed, y = CO2_c))
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
 
 
-plot3 %+% annotate("text", x = 60, y = 1, label = "Highway", size = 10) %+% 
-  subset(Final_all, Road_type %in% c("Highway"))
+plot3 %+% annotate("text", x = 60, y = 1, label = "Highway", size = 20) %+% 
+  subset(Final_all, Road_type %in% c("Highway")) +
+  annotate(geom = 'text', label = 'a)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "CO2_high_All.jpg"), width = 45, height = 30, units = "cm")
 
 plot3 %+% subset(Final_all, Road_type %in% c("Arterial")) %+%
-  annotate("text", x = 60, y = 1, label = "Arterial", size = 10)
+  annotate("text", x = 60, y = 1, label = "Arterial", size = 20) +
+  annotate(geom = 'text', label = 'b)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "CO2_art_All.jpg"), width = 45, height = 30, units = "cm")
 
 plot3 %+% subset(Final_all, Road_type %in% c("Residential")) %+%
-  annotate("text", x = 60, y = 1, label = "Residential", size = 10)
+  annotate("text", x = 60, y = 1, label = "Residential", size = 20) +
+  annotate(geom = 'text', label = 'c)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "CO2_resi_All.jpg"), width = 45, height = 30, units = "cm")
 
 plot31 <- ggplot(data = subset(Final_all, CO2_c != 0), aes(x = Speed, y = CO2_c)) +
@@ -228,7 +239,8 @@ plot31 <- ggplot(data = subset(Final_all, CO2_c != 0), aes(x = Speed, y = CO2_c)
                 limits = c(10^0, 10^4)) + geom_hex(bins = 45) +
   theme_ARU + scale_fill_viridis(option = "plasma", limits = c(0, 150)) + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) + 
-  theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
+  theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) +
+  annotate(geom = 'text', label = 'd)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plot31
 ggsave(here("Plots", "CO2_all_All.jpg"), width = 45, height = 30, units = "cm")
 
@@ -257,16 +269,19 @@ plot4 <- ggplot(data = subset(Final_MAL, CO2_c != 0), aes(x = Speed,
   scale_fill_viridis(option = "plasma", limits = c(0, 100)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
 
-plot4 %+% annotate("text", x = 60, y = 10, label = "Highway", size = 10) %+% 
-  subset(Final_MAL, Road_type %in% c("Highway")) 
+plot4 %+% annotate("text", x = 60, y = 10, label = "Highway", size = 20) %+% 
+  subset(Final_MAL, Road_type %in% c("Highway")) +
+  annotate(geom = 'text', label = 'a)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20) 
 ggsave(here("Plots", "UFPs_CO2_high_MAL.jpg"), width = 45, height = 30, units = "cm")
 
 plot4 %+% subset(Final_MAL, Road_type %in% c("Arterial")) %+%
-  annotate("text", x = 60, y = 10, label = "Arterial", size = 10)
+  annotate("text", x = 60, y = 10, label = "Arterial", size = 20) +
+  annotate(geom = 'text', label = 'b)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "UFPs_CO2_art_MAL.jpg"), width = 45, height = 30, units = "cm")
 
 plot4 %+% subset(Final_MAL, Road_type %in% c("Residential")) %+%
-  annotate("text", x = 60, y = 10, label = "Residential", size = 10)
+  annotate("text", x = 60, y = 10, label = "Residential", size = 20) +
+  annotate(geom = 'text', label = 'c)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "UFPs_CO2_resi_MAL.jpg"), width = 45, height = 30, units = "cm")
 
 plot41 <- ggplot(subset(Final_MAL, CO2_c != 0), aes(x = Speed, 
@@ -278,7 +293,8 @@ plot41 <- ggplot(subset(Final_MAL, CO2_c != 0), aes(x = Speed,
        y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
   scale_fill_viridis(option = "plasma", limits = c(0, 100)) + 
-  theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) 
+  theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) +
+  annotate(geom = 'text', label = 'd)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plot41
 ggsave(here("Plots", "UFPs_CO2_all_MAL.jpg"), width = 45, height = 30, units = "cm")
 
@@ -294,16 +310,19 @@ plot5 <- ggplot(data = subset(Final_MAL, CO2_c != 0), aes(x = Speed,
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
 
-plot5 %+% annotate("text", x = 60, y = 0.01, label = "Highway", size = 10) %+% 
-  subset(Final_MAL, Road_type %in% c("Highway")) 
+plot5 %+% annotate("text", x = 60, y = 0.01, label = "Highway", size = 20) %+% 
+  subset(Final_MAL, Road_type %in% c("Highway")) +
+  annotate(geom = 'text', label = 'a)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20) 
 ggsave(here("Plots", "BC_CO2_high_MAL.jpg"), width = 45, height = 30, units = "cm")
 
 plot5 %+% subset(Final_MAL, Road_type %in% c("Arterial")) %+%
-  annotate("text", x = 60, y = 0.01, label = "Arterial", size = 10)
+  annotate("text", x = 60, y = 0.01, label = "Arterial", size = 20) +
+  annotate(geom = 'text', label = 'b)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "BC_CO2_art_MAL.jpg"), width = 45, height = 30, units = "cm")
 
 plot5 %+% subset(Final_MAL, Road_type %in% c("Residential")) %+%
-  annotate("text", x = 60, y = 0.01, label = "Residential", size = 10)
+  annotate("text", x = 60, y = 0.01, label = "Residential", size = 20) +
+  annotate(geom = 'text', label = 'c)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "BC_CO2_resi_MAL.jpg"), width = 45, height = 30, units = "cm")
 
 
@@ -316,7 +335,8 @@ plot51 <- ggplot(data = subset(Final_MAL, CO2_c != 0), aes(x = Speed,
        y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU +  
   scale_fill_viridis(option = "plasma", limits = c(0, 100)) + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) + 
-  theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
+  theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) +
+  annotate(geom = 'text', label = 'd)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plot51
 ggsave(here("Plots", "BC_CO2_all_MAL.jpg"), width = 45, height = 30, units = "cm")
 
@@ -333,16 +353,19 @@ plot3 <- ggplot(data = subset(Final_MAL, CO2_c != 0), aes(x = Speed, y = CO2_c))
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
 
 
-plot3 %+% annotate("text", x = 60, y = 1, label = "Highway", size = 10) %+% 
-  subset(Final_MAL, Road_type %in% c("Highway"))
+plot3 %+% annotate("text", x = 60, y = 1, label = "Highway", size = 20) %+% 
+  subset(Final_MAL, Road_type %in% c("Highway")) +
+  annotate(geom = 'text', label = 'a)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "CO2_high_MAL.jpg"), width = 45, height = 30, units = "cm")
 
 plot3 %+% subset(Final_MAL, Road_type %in% c("Arterial")) %+%
-  annotate("text", x = 60, y = 1, label = "Arterial", size = 10)
+  annotate("text", x = 60, y = 1, label = "Arterial", size = 20) +
+  annotate(geom = 'text', label = 'b)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "CO2_art_MAL.jpg"), width = 45, height = 30, units = "cm")
 
 plot3 %+% subset(Final_MAL, Road_type %in% c("Residential")) %+%
-  annotate("text", x = 60, y = 1, label = "Residential", size = 10)
+  annotate("text", x = 60, y = 1, label = "Residential", size = 20) +
+  annotate(geom = 'text', label = 'c)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "CO2_resi_MAL.jpg"), width = 45, height = 30, units = "cm")
 
 plot31 <- ggplot(data = subset(Final_MAL, CO2_c != 0), aes(x = Speed, y = CO2_c)) +
@@ -353,7 +376,8 @@ plot31 <- ggplot(data = subset(Final_MAL, CO2_c != 0), aes(x = Speed, y = CO2_c)
                 limits = c(10^0, 10^4)) + geom_hex(bins = 45) +
   theme_ARU + scale_fill_viridis(option = "plasma", limits = c(0, 100)) + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) + 
-  theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
+  theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) +
+  annotate(geom = 'text', label = 'd)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plot31
 ggsave(here("Plots", "CO2_all_MAL.jpg"), width = 45, height = 30, units = "cm")
 
@@ -381,16 +405,19 @@ plot4 <- ggplot(data = subset(KAN, CO2_c != 0), aes(x = Speed,
   scale_fill_viridis(option = "plasma", limits = c(0, 60)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
 
-plot4 %+% annotate("text", x = 60, y = 10, label = "Highway", size = 10) %+% 
-  subset(KAN, Road_type %in% c("Highway")) 
+plot4 %+% annotate("text", x = 60, y = 10, label = "Highway", size = 20) %+% 
+  subset(KAN, Road_type %in% c("Highway")) +
+  annotate(geom = 'text', label = 'a)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20) 
 ggsave(here("Plots", "UFPs_CO2_high_KAN.jpg"), width = 45, height = 30, units = "cm")
 
 plot4 %+% subset(KAN, Road_type %in% c("Arterial")) %+%
-  annotate("text", x = 60, y = 10, label = "Arterial", size = 10)
+  annotate("text", x = 60, y = 10, label = "Arterial", size = 20) +
+  annotate(geom = 'text', label = 'b)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "UFPs_CO2_art_KAN.jpg"), width = 45, height = 30, units = "cm")
 
 plot4 %+% subset(KAN, Road_type %in% c("Residential")) %+%
-  annotate("text", x = 60, y = 10, label = "Residential", size = 10)
+  annotate("text", x = 60, y = 10, label = "Residential", size = 20) +
+  annotate(geom = 'text', label = 'c)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "UFPs_CO2_resi_KAN.jpg"), width = 45, height = 30, units = "cm")
 
 plot41 <- ggplot(subset(KAN, CO2_c != 0), aes(x = Speed, y = as.numeric(as.character(CPC/CO2_c)))) + 
@@ -401,7 +428,8 @@ plot41 <- ggplot(subset(KAN, CO2_c != 0), aes(x = Speed, y = as.numeric(as.chara
        y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
   scale_fill_viridis(option = "plasma", limits = c(0, 60)) + 
-  theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) 
+  theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) +
+  annotate(geom = 'text', label = 'd)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plot41
 ggsave(here("Plots", "UFPs_CO2_all_KAN.jpg"), width = 45, height = 30, units = "cm")
 
@@ -417,16 +445,19 @@ plot5 <- ggplot(data = subset(KAN, CO2_c != 0), aes(x = Speed,
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
 
-plot5 %+% annotate("text", x = 60, y = 0.01, label = "Highway", size = 10) %+% 
-  subset(KAN, Road_type %in% c("Highway")) 
+plot5 %+% annotate("text", x = 60, y = 0.01, label = "Highway", size = 20) %+% 
+  subset(KAN, Road_type %in% c("Highway")) +
+  annotate(geom = 'text', label = 'a)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "BC_CO2_high_KAN.jpg"), width = 45, height = 30, units = "cm")
 
 plot5 %+% subset(KAN, Road_type %in% c("Arterial")) %+%
-  annotate("text", x = 60, y = 0.01, label = "Arterial", size = 10)
+  annotate("text", x = 60, y = 0.01, label = "Arterial", size = 20) +
+  annotate(geom = 'text', label = 'b)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "BC_CO2_art_KAN.jpg"), width = 45, height = 30, units = "cm")
 
 plot5 %+% subset(KAN, Road_type %in% c("Residential")) %+%
-  annotate("text", x = 60, y = 0.01, label = "Residential", size = 10)
+  annotate("text", x = 60, y = 0.01, label = "Residential", size = 20) +
+  annotate(geom = 'text', label = 'c)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "BC_CO2_resi_KAN.jpg"), width = 45, height = 30, units = "cm")
 
 
@@ -440,7 +471,8 @@ plot51 <- ggplot(data = subset(KAN, CO2_c != 0), aes(x = Speed,
        y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU +  
   scale_fill_viridis(option = "plasma", limits = c(0, 50)) + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) + 
-  theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
+  theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) +
+  annotate(geom = 'text', label = 'd)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plot51
 ggsave(here("Plots", "BC_CO2_all_KAN.jpg"), width = 45, height = 30, units = "cm")
 
@@ -457,16 +489,19 @@ plot3 <- ggplot(data = subset(KAN, CO2_c != 0), aes(x = Speed, y = CO2_c)) +
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
 
 
-plot3 %+% annotate("text", x = 60, y = 1, label = "Highway", size = 10) %+% 
-  subset(KAN, Road_type %in% c("Highway"))
+plot3 %+% annotate("text", x = 60, y = 1, label = "Highway", size = 20) %+% 
+  subset(KAN, Road_type %in% c("Highway")) +
+  annotate(geom = 'text', label = 'a)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "CO2_high_KAN.jpg"), width = 45, height = 30, units = "cm")
 
 plot3 %+% subset(KAN, Road_type %in% c("Arterial")) %+%
-  annotate("text", x = 60, y = 1, label = "Arterial", size = 10)
+  annotate("text", x = 60, y = 1, label = "Arterial", size = 20) +
+  annotate(geom = 'text', label = 'b)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "CO2_art_KAN.jpg"), width = 45, height = 30, units = "cm")
 
 plot3 %+% subset(KAN, Road_type %in% c("Residential")) %+%
-  annotate("text", x = 60, y = 1, label = "Residential", size = 10)
+  annotate("text", x = 60, y = 1, label = "Residential", size = 20) +
+  annotate(geom = 'text', label = 'c)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "CO2_resi_KAN.jpg"), width = 45, height = 30, units = "cm")
 
 plot31 <- ggplot(data = subset(KAN, CO2_c != 0), aes(x = Speed, y = CO2_c)) +
@@ -477,7 +512,8 @@ plot31 <- ggplot(data = subset(KAN, CO2_c != 0), aes(x = Speed, y = CO2_c)) +
                 limits = c(10^0, 10^4)) + geom_hex(bins = 30) +
   theme_ARU + scale_fill_viridis(option = "plasma", limits = c(0, 100)) + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) + 
-  theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
+  theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) +
+  annotate(geom = 'text', label = 'd)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plot31
 ggsave(here("Plots", "CO2_all_KAN.jpg"), width = 45, height = 30, units = "cm")
 
@@ -503,16 +539,18 @@ plot4 <- ggplot(data = subset(CBD, CO2_c != 0), aes(x = Speed, y = as.numeric(as
   scale_fill_viridis(option = "plasma", limits = c(0, 60)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) 
 
-plot4 %+% annotate("text", x = 60, y = 10, label = "Highway", size = 10) %+% 
-  subset(CBD, Road_type %in% c("Highway")) 
+plot4 %+% annotate("text", x = 60, y = 10, label = "Highway", size = 20) %+% 
+  subset(CBD, Road_type %in% c("Highway")) +
+  annotate(geom = 'text', label = 'a)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "UFPs_CO2_high_CBD.jpg"), width = 45, height = 30, units = "cm")
 
 plot4 %+% subset(CBD, Road_type %in% c("Arterial")) %+%
-  annotate("text", x = 60, y = 10, label = "Arterial", size = 10)
+  annotate("text", x = 60, y = 10, label = "Arterial", size = 20) +
+  annotate(geom = 'text', label = 'b)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "UFPs_CO2_art_CBD.jpg"), width = 45, height = 30, units = "cm")
 
 # plot4 %+% subset(CBD, Road_type %in% c("Residential")) %+%
-#   annotate("text", x = 60, y = 10, label = "Residential", size = 10)
+#   annotate("text", x = 60, y = 10, label = "Residential", size = 20)
 # ggsave(here("Plots", "UFPs_CO2_resi_CBD.jpg"), width = 45, height = 30, units = "cm")
 
 plot41 <- ggplot(subset(CBD, CO2_c != 0), aes(x = Speed, y = as.numeric(as.character(CPC/CO2_c)))) + 
@@ -523,7 +561,8 @@ plot41 <- ggplot(subset(CBD, CO2_c != 0), aes(x = Speed, y = as.numeric(as.chara
        y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
   scale_fill_viridis(option = "plasma", limits = c(0, 60)) + 
-  theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) 
+  theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) +
+  annotate(geom = 'text', label = 'c)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plot41
 ggsave(here("Plots", "UFPs_CO2_all_CBD.jpg"), width = 45, height = 30, units = "cm")
 
@@ -539,16 +578,18 @@ plot5 <- ggplot(data = subset(CBD, CO2_c != 0), aes(x = Speed,
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) 
 
-plot5 %+% annotate("text", x = 60, y = 0.01, label = "Highway", size = 10) %+% 
-  subset(CBD, Road_type %in% c("Highway")) 
+plot5 %+% annotate("text", x = 60, y = 0.01, label = "Highway", size = 20) %+% 
+  subset(CBD, Road_type %in% c("Highway")) +
+  annotate(geom = 'text', label = 'a)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "BC_CO2_high_CBD.jpg"), width = 45, height = 30, units = "cm")
 
 plot5 %+% subset(CBD, Road_type %in% c("Arterial")) %+%
-  annotate("text", x = 60, y = 0.01, label = "Arterial", size = 10)
+  annotate("text", x = 60, y = 0.01, label = "Arterial", size = 20) +
+  annotate(geom = 'text', label = 'b)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "BC_CO2_art_CBD.jpg"), width = 45, height = 30, units = "cm")
 
 # plot5 %+% subset(CBD, Road_type %in% c("Residential")) %+%
-#   annotate("text", x = 60, y = 0.01, label = "Residential", size = 10)
+#   annotate("text", x = 60, y = 0.01, label = "Residential", size = 20)
 # ggsave(here("Plots", "BC_CO2_resi_CBD.jpg"), width = 45, height = 30, units = "cm")
 
 
@@ -562,7 +603,8 @@ plot51 <- ggplot(data = subset(CBD, CO2_c != 0), aes(x = Speed,
        y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU +  
   scale_fill_viridis(option = "plasma", limits = c(0, 70)) + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) + 
-  theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
+  theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) +
+  annotate(geom = 'text', label = 'c)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plot51
 ggsave(here("Plots", "BC_CO2_all_CBD.jpg"), width = 45, height = 30, units = "cm")
 
@@ -579,16 +621,18 @@ plot3 <- ggplot(data = subset(CBD, CO2_c != 0), aes(x = Speed, y = CO2_c)) +
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
 
 
-plot3 %+% annotate("text", x = 60, y = 1, label = "Highway", size = 10) %+% 
-  subset(CBD, Road_type %in% c("Highway"))
+plot3 %+% annotate("text", x = 60, y = 1, label = "Highway", size = 20) %+% 
+  subset(CBD, Road_type %in% c("Highway")) +
+  annotate(geom = 'text', label = 'a)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "CO2_high_CBD.jpg"), width = 45, height = 30, units = "cm")
 
 plot3 %+% subset(CBD, Road_type %in% c("Arterial")) %+%
-  annotate("text", x = 60, y = 1, label = "Arterial", size = 10)
+  annotate("text", x = 60, y = 1, label = "Arterial", size = 20) +
+  annotate(geom = 'text', label = 'b)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "CO2_art_CBD.jpg"), width = 45, height = 30, units = "cm")
 
 # plot3 %+% subset(CBD, Road_type %in% c("Residential")) %+%
-#   annotate("text", x = 60, y = 1, label = "Residential", size = 10)
+#   annotate("text", x = 60, y = 1, label = "Residential", size = 20)
 # ggsave(here("Plots", "CO2_resi_CBD.jpg"), width = 45, height = 30, units = "cm")
 
 plot31 <- ggplot(data = subset(CBD, CO2_c != 0), aes(x = Speed, y = CO2_c)) +
@@ -599,7 +643,8 @@ plot31 <- ggplot(data = subset(CBD, CO2_c != 0), aes(x = Speed, y = CO2_c)) +
                 limits = c(10^0, 10^4)) + geom_hex(bins = 30) +
   theme_ARU + scale_fill_viridis(option = "plasma", limits = c(0, 70)) + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) + 
-  theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
+  theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) +
+  annotate(geom = 'text', label = 'c)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plot31
 ggsave(here("Plots", "CO2_all_CBD.jpg"), width = 45, height = 30, units = "cm")
 
