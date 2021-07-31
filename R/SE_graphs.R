@@ -67,7 +67,7 @@ ggplot(Ref2, aes(x = SE_median)) +
         axis.text = element_text(size = 40, colour = "black", face = "bold"),
         strip.text = element_text(size = 40, colour = "black", face = "bold")) +
   scale_y_continuous() + scale_x_continuous(limits = c(0, 1.25), breaks = c (0, 0.5, 1)) +
-  geom_text(aes(label = paste0("n = ", name)), x = 1.0, y = 900, colour = "black", size = 12)
+  geom_text(aes(label = paste0("n = ", name)), x = 1.0, y = 900, colour = "black", size = 15)
 
 
 Ref <- Ref %>%
@@ -84,7 +84,7 @@ ggplot(Ref, aes(x = SE_median)) +
         axis.text = element_text(size = 40, colour = "black",  face = "bold"),
         strip.text = element_text(size = 40, colour = "black", face = "bold")) +
   scale_y_continuous() +
-  geom_text(aes(label = paste0("n = ", name)), x = 1, y = 400, colour = "black", size = 12)
+  geom_text(aes(label = paste0("n = ", name)), x = 1, y = 400, colour = "black", size = 15)
 
 setwd("D:/Dropbox/ILKConsultancy/MM_paper")
 Ref <- Ref %>%
@@ -106,7 +106,8 @@ ggplot(Ref, aes(x = SE_median)) +
         strip.text = element_text(size = 40, colour = "black", face = "bold"),
         strip.text.x = element_blank()) +
   scale_y_continuous() +
-  geom_text(aes(label = paste0("n = ", name)), x = 0.6, y = 100, colour = "black", size = 12)
+  geom_text(aes(label = paste0("n = ", name)), x = 0.6, y = 100, colour = "black", size = 15)
+
 ggsave(here("Plots", "SE_CO2_MAL.jpg"), width = 30, height = 30, units = "cm")
 
 
@@ -127,7 +128,7 @@ ggplot(Ref, aes(x = SE_median)) +
         strip.text = element_text(size = 40, colour = "black", face = "bold"),
         strip.text.x = element_blank()) +
   scale_y_continuous() +
-  geom_text(aes(label = paste0("n = ", name)), x = 1, y = 400, colour = "black", size = 12)
+  geom_text(aes(label = paste0("n = ", name)), x = 1, y = 400, colour = "black", size = 15)
 ggsave(here("Plots", "SE_CO2_KAN.jpg"), width = 30, height = 30, units = "cm")
 
 
@@ -148,7 +149,7 @@ ggplot(Ref, aes(x = SE_median)) +
         strip.text = element_text(size = 40, colour = "black", face = "bold"),
         strip.text.x = element_blank()) +
   scale_y_continuous() +
-  geom_text(aes(label = paste0("n = ", name)), x = 0.4, y = 40, colour = "black", size = 12)
+  geom_text(aes(label = paste0("n = ", name)), x = 0.4, y = 40, colour = "black", size = 15)
 ggsave(here("Plots", "SE_CO2_CBD.jpg"), width = 30, height = 30, units = "cm")
 
 
@@ -224,7 +225,7 @@ ggplot(Ref2, aes(x = SE_median)) +
         axis.text = element_text(size = 40, colour = "black", face = "bold"),
         strip.text = element_text(size = 40, colour = "black", face = "bold")) +
   scale_y_continuous() + scale_x_continuous(limits = c(0, 1.25), breaks = c (0, 0.5, 1)) +
-  geom_text(aes(label = paste0("n = ", name)), x = 1.0, y = 900, colour = "black", size = 12)
+  geom_text(aes(label = paste0("n = ", name)), x = 1.0, y = 900, colour = "black", size = 15)
 
 
 Ref <- Ref %>%
@@ -242,7 +243,7 @@ ggplot(Ref, aes(x = SE_median)) +
         axis.text = element_text(size = 40, colour = "black",  face = "bold"),
         strip.text = element_text(size = 40, colour = "black", face = "bold")) +
   scale_y_continuous() +
-  geom_text(aes(label = paste0("n = ", name)), x = 1, y = 400, colour = "black", size = 12)
+  geom_text(aes(label = paste0("n = ", name)), x = 1, y = 400, colour = "black", size = 15)
 
 setwd("D:/Dropbox/ILKConsultancy/MM_paper")
 Ref <- Ref %>%
@@ -264,7 +265,7 @@ ggplot(Ref, aes(x = SE_median)) +
         strip.text = element_text(size = 40, colour = "black", face = "bold"),
         strip.text.x = element_blank()) +
   scale_y_continuous() +
-  geom_text(aes(label = paste0("n = ", name)), x = 1.25, y = 300, colour = "black", size = 12)
+  geom_text(aes(label = paste0("n = ", name)), x = 1.25, y = 300, colour = "black", size = 15)
 ggsave(here("Plots", "SE_BC_LC_MAL.jpg"), width = 30, height = 30, units = "cm")
 
 
@@ -285,7 +286,7 @@ ggplot(Ref, aes(x = SE_median)) +
         strip.text = element_text(size = 40, colour = "black", face = "bold"),
         strip.text.x = element_blank()) +
   scale_y_continuous() +
-  geom_text(aes(label = paste0("n = ", name)), x = 1.5, y = 300, colour = "black", size = 12)
+  geom_text(aes(label = paste0("n = ", name)), x = 1.5, y = 300, colour = "black", size = 15)
 ggsave(here("Plots", "SE_BC_LC_KAN.jpg"), width = 30, height = 30, units = "cm")
 
 
@@ -306,7 +307,7 @@ ggplot(Ref, aes(x = SE_median)) +
         strip.text = element_text(size = 40, colour = "black", face = "bold"),
         strip.text.x = element_blank()) +
   scale_y_continuous() +
-  geom_text(aes(label = paste0("n = ", name)), x = 0.75, y = 75, colour = "black", size = 12)
+  geom_text(aes(label = paste0("n = ", name)), x = 0.75, y = 75, colour = "black", size = 15)
 ggsave(here("Plots", "SE_BC_LC_CBD.jpg"), width = 30, height = 30, units = "cm")
 
 
@@ -381,7 +382,7 @@ ggplot(Ref2, aes(x = SE_median)) +
         axis.text = element_text(size = 40, colour = "black", face = "bold"),
         strip.text = element_text(size = 40, colour = "black", face = "bold")) +
   scale_y_continuous() + scale_x_continuous(limits = c(0, 1.25), breaks = c (0, 0.5, 1)) +
-  geom_text(aes(label = paste0("n = ", name)), x = 1.0, y = 900, colour = "black", size = 12)
+  geom_text(aes(label = paste0("n = ", name)), x = 1.0, y = 900, colour = "black", size = 15)
 
 
 Ref <- Ref %>%
@@ -421,7 +422,7 @@ ggplot(Ref, aes(x = SE_median)) +
         strip.text = element_text(size = 40, colour = "black", face = "bold"),
         strip.text.x = element_blank()) +
   scale_y_continuous() +
-  geom_text(aes(label = paste0("n = ", name)), x = 0.75, y = 150, colour = "black", size = 12)
+  geom_text(aes(label = paste0("n = ", name)), x = 0.75, y = 150, colour = "black", size = 15)
 ggsave(here("Plots", "SE_CPC_MAL.jpg"), width = 30, height = 30, units = "cm")
 
 
@@ -442,7 +443,7 @@ ggplot(Ref, aes(x = SE_median)) +
         strip.text = element_text(size = 40, colour = "black", face = "bold"),
         strip.text.x = element_blank()) +
   scale_y_continuous() +
-  geom_text(aes(label = paste0("n = ", name)), x = 0.6, y = 200, colour = "black", size = 12)
+  geom_text(aes(label = paste0("n = ", name)), x = 0.6, y = 200, colour = "black", size = 15)
 ggsave(here("Plots", "SE_CPC_KAN.jpg"), width = 30, height = 30, units = "cm")
 
 
@@ -463,5 +464,5 @@ ggplot(Ref, aes(x = SE_median)) +
         strip.text = element_text(size = 40, colour = "black", face = "bold"),
         strip.text.x = element_blank()) +
   scale_y_continuous() +
-  geom_text(aes(label = paste0("n = ", name)), x = 0.75, y = 100, colour = "black", size = 12)
+  geom_text(aes(label = paste0("n = ", name)), x = 0.75, y = 100, colour = "black", size = 15)
 ggsave(here("Plots", "SE_CPC_CBD.jpg"), width = 30, height = 30, units = "cm")
