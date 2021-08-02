@@ -36,7 +36,11 @@ Final_summ <- Final_sec1 %>%
   summarise(non_na_BC = sum(!is.na(BC)), 
             non_na_BC_NR = sum(!is.na(BC_NR)),
             non_na_BC_NR_LC = sum(!is.na(BC_NR_LC)))
+avd_speed_mal <- mean(Final_sec$Speed, na.rm = TRUE) * 3.6
 
+non_na_BC <- sum(!is.na(Final_sec$BC))
+non_na_CPC <- sum(!is.na(Final_sec$CPC))
+non_na_CO2_c <- sum(!is.na(Final_sec$CO2_c))
 # ((non_na_BC - non_na_BC_NR_LC) / non_na_BC) * 100
 
 mal1 <- read.csv("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL1/Final_layer.csv", sep = ",") %>%
@@ -156,6 +160,9 @@ loop_BC_LC <- loop_BC_LC %>%
 loop_BC_LC_sum <- loop_BC_LC %>%
   group_by(Road_ID, Road_type) %>%
   summarise(median_BC_LC = median(BC_LC, na.rm = TRUE))
+loop_BC_LC_sum_road <- loop_BC_LC_sum %>%
+  group_by(Road_type) %>%
+  summarise(mean_BC_LC = mean(median_BC_LC, na.rm = TRUE))
 res.aov <- aov(median_BC_LC ~ Road_type, data = loop_BC_LC_sum)
 summary(res.aov)
 TukeyHSD(res.aov)
@@ -169,6 +176,9 @@ loop_CO2_c <- loop_CO2_c %>%
 loop_CO2_c_sum <- loop_CO2_c %>%
   group_by(Road_ID, Road_type) %>%
   summarise(median_CO2_c = median(CO2_c, na.rm = TRUE))
+loop_CO2_c_sum_road <- loop_CO2_c_sum %>%
+  group_by(Road_type) %>%
+  summarise(mean_CO2_c = mean(median_CO2_c, na.rm = TRUE))
 res.aov1 <- aov(median_CO2_c ~ Road_type, data = loop_CO2_c_sum)
 summary(res.aov1)
 TukeyHSD(res.aov1)
@@ -182,6 +192,9 @@ loop_CPC <- loop_CPC %>%
 loop_CPC_sum <- loop_CPC %>%
   group_by(Road_ID, Road_type) %>%
   summarise(median_CPC = median(CPC, na.rm = TRUE))
+loop_CPC_sum_road <- loop_CPC_sum %>%
+  group_by(Road_type) %>%
+  summarise(mean_CPC = mean(median_CPC, na.rm = TRUE))
 res.aov2 <- aov(median_CPC ~ Road_type, data = loop_CPC_sum)
 summary(res.aov2)
 TukeyHSD(res.aov2)
