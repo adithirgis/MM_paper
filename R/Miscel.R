@@ -153,7 +153,10 @@ loop_BC_LC <- loop %>%
   mutate(date = substr(date, 1, 18))
 loop_BC_LC <- loop_BC_LC %>% 
   filter_if(~is.numeric(.), all_vars(!is.infinite(.)))
-res.aov <- aov(BC_LC ~ Road_type, data = loop_BC_LC)
+loop_BC_LC_sum <- loop_BC_LC %>%
+  group_by(Road_ID, Road_type) %>%
+  summarise(median_BC_LC = median(BC_LC, na.rm = TRUE))
+res.aov <- aov(median_BC_LC ~ Road_type, data = loop_BC_LC_sum)
 summary(res.aov)
 TukeyHSD(res.aov)
 
@@ -163,9 +166,12 @@ loop_CO2_c <- loop %>%
   mutate(date = substr(date, 1, 18))
 loop_CO2_c <- loop_CO2_c %>% 
   filter_if(~is.numeric(.), all_vars(!is.infinite(.)))
-res.aov <- aov(CO2_c ~ Road_type, data = loop_CO2_c)
-summary(res.aov)
-TukeyHSD(res.aov)
+loop_CO2_c_sum <- loop_CO2_c %>%
+  group_by(Road_ID, Road_type) %>%
+  summarise(median_CO2_c = median(CO2_c, na.rm = TRUE))
+res.aov1 <- aov(median_CO2_c ~ Road_type, data = loop_CO2_c_sum)
+summary(res.aov1)
+TukeyHSD(res.aov1)
 
 loop_CPC <- loop %>%
   dplyr::select(Road_ID, Road_type, ends_with("_CPC")) %>%
@@ -173,8 +179,11 @@ loop_CPC <- loop %>%
   mutate(date = substr(date, 1, 18)) 
 loop_CPC <- loop_CPC %>% 
   filter_if(~is.numeric(.), all_vars(!is.infinite(.)))
-res.aov <- aov(CPC ~ Road_type, data = loop_CPC)
-summary(res.aov)
-TukeyHSD(res.aov)
+loop_CPC_sum <- loop_CPC %>%
+  group_by(Road_ID, Road_type) %>%
+  summarise(median_CPC = median(CPC, na.rm = TRUE))
+res.aov2 <- aov(median_CPC ~ Road_type, data = loop_CPC_sum)
+summary(res.aov2)
+TukeyHSD(res.aov2)
 
 
