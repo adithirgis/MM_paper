@@ -3,10 +3,16 @@ setwd("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL1/Final_layers")
 dir <- "D:/Dropbox/APMfull/MAL_CNG_Paper/MAL1/Final_layers"
 shp_list <- list.files(dir, pattern = "\\.shp$")
 box_all <- data.frame()
-
+theme_ARU <- list(theme_classic(),
+                  stat_summary(fun.data = f, geom = "boxplot", width = 0.4, size = 1.5),  
+                  stat_summary(fun.y = mean, colour = "black", geom = "point", size = 2),
+                  theme(legend.text = element_text(size = 14), 
+                        axis.title = element_text(size = 28, face = "bold"), 
+                        axis.text = element_text(size = 28, colour = "black",face = "bold"),
+                        panel.border = element_rect(colour = "black", fill = NA, size = 1.2) 
+                  ))
 for (fo in shp_list) {
-  my_spdf <- readOGR(fo)
-  r <- st_as_sf(my_spdf) 
+  r <- st_read(fo)
   addr <- r %>%
     dplyr::select(UID, Rod_typ, BC_md, BC_CF_md, BC_NR_md, BC_NR_L_md, BC_c_md)
   w <- str_replace_all(substr(fo, 1, 10), "_", "-") 
@@ -21,8 +27,7 @@ shp_list <- list.files(dir, pattern = "\\.shp$")
 box1 <- data.frame()
 
 for (fo in shp_list) {
-  my_spdf <- readOGR(fo)
-  r <- st_as_sf(my_spdf) 
+  r <- st_read(fo)
   addr <- r %>%
     dplyr::select(UID, Rod_typ, BC_md, BC_CF_md, BC_NR_md, BC_NR_L_md, BC_c_md)
   w <- str_replace_all(substr(fo, 1, 10), "_", "-") 
@@ -51,7 +56,7 @@ box <- rbind(box, box_jan)
 box$size_f = factor(box$month, levels = c('Jul', 'Aug', 'Sep', 'Oct',
                                           'Nov', 'Dec', 'Jan', 'Feb'))
 
-p1 <- ggplot(box, aes(size_f, BC_c_md)) + 
+p1 <- ggplot(box, aes(size_f, BC_NR_L_md)) + 
   labs(x = "", y = "") + theme_ARU + theme(axis.text.x = element_blank()) +
   scale_y_continuous(limits = c(0, 180), expand = c(0, 0),breaks = seq(0, 150, by = 50)) + 
   annotate("text", label = "On Road", x = "Sep", y = 160, size = 12, face = "bold")
