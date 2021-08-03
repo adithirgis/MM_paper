@@ -2,6 +2,8 @@ source("D:/Dropbox/ILKConsultancy/MM_paper/R/Paper_functions.R")
 
 MAL1 <- st_read("D:/Dropbox/APMfull/MAL_CNG_Paper/Roads/MAL1_F_Road_type.shp")
 MAL2 <- st_read("D:/Dropbox/APMfull/MAL_CNG_Paper/Roads/MAL2_F_Road_type.shp")
+CBD <- st_read("D:/Dropbox/APMfull/MAL_CNG_Paper/Roads/CBD_F_Road_type.shp")
+KAN <- st_read("D:/Dropbox/APMfull/MAL_CNG_Paper/Roads/KAN_F_Road_type.shp")
 
 len_MAL1 <- sum(st_length(MAL1))
 len_MAL2 <- sum(st_length(MAL2))
@@ -15,6 +17,12 @@ MAL2_R <- MAL2 %>%
 MAL_R <- rbind(MAL1_R, MAL2_R)
 
 MAL_R %>%    
+  group_by(Road_type) %>%
+  summarise(n())
+KAN %>%    
+  group_by(Road_type) %>%
+  summarise(n())
+CBD %>%    
   group_by(Road_type) %>%
   summarise(n())
 MAL_R %>%    
@@ -69,6 +77,7 @@ MAL_gsd <- MAL %>%
   dplyr::select(Road_type, contains("GS")) %>%
   group_by(Road_type) %>%
   summarise_all(funs(mean), na.rm = TRUE)
+
 
 ############################### MAL ###########################################
 
@@ -350,4 +359,133 @@ res.aov2 <- aov(median_CPC ~ Road_type, data = loop_CPC_sum)
 summary(res.aov2)
 TukeyHSD(res.aov2)
 
+############################### CBD ###########################################
 
+q <- fread("D:/Dropbox/APMfull/MAL_CNG_Paper/CBD/All_rides_CBD_30m.csv", sep = ",", 
+           header = TRUE)
+q$Road_ID <- paste0("CBD_", q$Road_ID)
+
+loop <- q %>%
+  mutate_at(c('Road_ID'), as.factor)
+q_high <- q %>%
+  filter(Road_type == "Highway")
+q_art <- q %>%
+  filter(Road_type == "Arterial")
+q_resi <- q %>%
+  filter(Road_type == "Residential")
+
+loop_BC_LC <- loop %>%
+  dplyr::select(Road_ID, Road_type, ends_with("_BC_LC")) %>%
+  pivot_longer(!c(Road_ID, Road_type), names_to = "date", values_to = "BC_LC") %>%
+  mutate(date = substr(date, 1, 18))
+loop_BC_LC <- loop_BC_LC %>% 
+  filter_if(~is.numeric(.), all_vars(!is.infinite(.)))
+loop_BC_LC_sum <- loop_BC_LC %>%
+  group_by(Road_ID, Road_type) %>%
+  summarise(median_BC_LC = median(BC_LC, na.rm = TRUE))
+loop_BC_LC_sum_road <- loop_BC_LC_sum %>%
+  group_by(Road_type) %>%
+  summarise(mean_BC_LC = mean(median_BC_LC, na.rm = TRUE))
+loop_BC_LC_sum$median_BC_LC <- log(loop_BC_LC_sum$median_BC_LC)
+res.aov <- aov(median_BC_LC ~ Road_type, data = loop_BC_LC_sum)
+summary(res.aov)
+TukeyHSD(res.aov)
+
+loop_CO2_c <- loop %>%
+  dplyr::select(Road_ID, Road_type, ends_with("_CO2_c")) %>%
+  pivot_longer(!c(Road_ID, Road_type), names_to = "date", values_to = "CO2_c") %>%
+  mutate(date = substr(date, 1, 18))
+loop_CO2_c <- loop_CO2_c %>% 
+  filter_if(~is.numeric(.), all_vars(!is.infinite(.)))
+loop_CO2_c_sum <- loop_CO2_c %>%
+  group_by(Road_ID, Road_type) %>%
+  summarise(median_CO2_c = median(CO2_c, na.rm = TRUE))
+loop_CO2_c_sum_road <- loop_CO2_c_sum %>%
+  group_by(Road_type) %>%
+  summarise(mean_CO2_c = mean(median_CO2_c, na.rm = TRUE))
+loop_CO2_c_sum$median_CO2_c <- as.numeric(as.character(log(loop_CO2_c_sum$median_CO2_c)))
+res.aov1 <- aov(median_CO2_c ~ Road_type, data = loop_CO2_c_sum)
+summary(res.aov1)
+TukeyHSD(res.aov1)
+
+loop_CPC <- loop %>%
+  dplyr::select(Road_ID, Road_type, ends_with("_CPC")) %>%
+  pivot_longer(!c(Road_ID, Road_type), names_to = "date", values_to = "CPC") %>%
+  mutate(date = substr(date, 1, 18)) 
+loop_CPC <- loop_CPC %>% 
+  filter_if(~is.numeric(.), all_vars(!is.infinite(.)))
+loop_CPC_sum <- loop_CPC %>%
+  group_by(Road_ID, Road_type) %>%
+  summarise(median_CPC = median(CPC, na.rm = TRUE))
+loop_CPC_sum_road <- loop_CPC_sum %>%
+  group_by(Road_type) %>%
+  summarise(mean_CPC = mean(median_CPC, na.rm = TRUE))
+loop_CPC_sum$median_CPC <- log(loop_CPC_sum$median_CPC)
+res.aov2 <- aov(median_CPC ~ Road_type, data = loop_CPC_sum)
+summary(res.aov2)
+TukeyHSD(res.aov2)
+
+
+
+############################### without log CBD ###############################
+
+q <- fread("D:/Dropbox/APMfull/MAL_CNG_Paper/CBD/All_rides_CBD_30m.csv", sep = ",", 
+           header = TRUE)
+q$Road_ID <- paste0("CBD_", q$Road_ID)
+
+loop <- q %>%
+  mutate_at(c('Road_ID'), as.factor)
+q_high <- q %>%
+  filter(Road_type == "Highway")
+q_art <- q %>%
+  filter(Road_type == "Arterial")
+q_resi <- q %>%
+  filter(Road_type == "Residential")
+
+loop_BC_LC <- loop %>%
+  dplyr::select(Road_ID, Road_type, ends_with("_BC_LC")) %>%
+  pivot_longer(!c(Road_ID, Road_type), names_to = "date", values_to = "BC_LC") %>%
+  mutate(date = substr(date, 1, 18))
+loop_BC_LC <- loop_BC_LC %>% 
+  filter_if(~is.numeric(.), all_vars(!is.infinite(.)))
+loop_BC_LC_sum <- loop_BC_LC %>%
+  group_by(Road_ID, Road_type) %>%
+  summarise(median_BC_LC = median(BC_LC, na.rm = TRUE))
+loop_BC_LC_sum_road <- loop_BC_LC_sum %>%
+  group_by(Road_type) %>%
+  summarise(mean_BC_LC = mean(median_BC_LC, na.rm = TRUE))
+res.aov <- aov(median_BC_LC ~ Road_type, data = loop_BC_LC_sum)
+summary(res.aov)
+TukeyHSD(res.aov)
+
+loop_CO2_c <- loop %>%
+  dplyr::select(Road_ID, Road_type, ends_with("_CO2_c")) %>%
+  pivot_longer(!c(Road_ID, Road_type), names_to = "date", values_to = "CO2_c") %>%
+  mutate(date = substr(date, 1, 18))
+loop_CO2_c <- loop_CO2_c %>% 
+  filter_if(~is.numeric(.), all_vars(!is.infinite(.)))
+loop_CO2_c_sum <- loop_CO2_c %>%
+  group_by(Road_ID, Road_type) %>%
+  summarise(median_CO2_c = median(CO2_c, na.rm = TRUE))
+loop_CO2_c_sum_road <- loop_CO2_c_sum %>%
+  group_by(Road_type) %>%
+  summarise(mean_CO2_c = mean(median_CO2_c, na.rm = TRUE))
+res.aov1 <- aov(median_CO2_c ~ Road_type, data = loop_CO2_c_sum)
+summary(res.aov1)
+TukeyHSD(res.aov1)
+
+loop_CPC <- loop %>%
+  dplyr::select(Road_ID, Road_type, ends_with("_CPC")) %>%
+  pivot_longer(!c(Road_ID, Road_type), names_to = "date", values_to = "CPC") %>%
+  mutate(date = substr(date, 1, 18)) 
+loop_CPC <- loop_CPC %>% 
+  filter_if(~is.numeric(.), all_vars(!is.infinite(.)))
+loop_CPC_sum <- loop_CPC %>%
+  group_by(Road_ID, Road_type) %>%
+  summarise(median_CPC = median(CPC, na.rm = TRUE))
+loop_CPC_sum_road <- loop_CPC_sum %>%
+  group_by(Road_type) %>%
+  summarise(mean_CPC = mean(median_CPC, na.rm = TRUE))
+res.aov2 <- aov(median_CPC ~ Road_type, data = loop_CPC_sum)
+summary(res.aov2)
+TukeyHSD(res.aov2)
