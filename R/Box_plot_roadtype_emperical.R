@@ -249,7 +249,8 @@ plot <- ggplot(fin_df_all, aes(x = BC_NR_LC, y = as.numeric(CPC) / 1000)) +
        subtitle = expression(bold(paste(~x10^{3})))) +
   scale_y_continuous() +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) +  geom_hex(bins = 30) + 
-  scale_fill_viridis(option = "plasma", limits = c(0, 250)) 
+  scale_fill_viridis(option = "plasma", limits = c(0, 250)) + 
+  geom_smooth(aes(color = Road_type), method = lm, size = 2, se = TRUE, formula = y ~ x) 
 plot
 ggsave(here("Plots", "BC_vs_UFPs_All_hex.jpg"), width = 45, height = 30, units = "cm")
 
@@ -260,7 +261,8 @@ plot <- ggplot(data = subset(fin_df_all, Area == "KAN"), aes(x = BC_NR_LC, y = a
        subtitle = expression(bold(paste(~x10^{3})))) +
   scale_y_continuous() +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) +  geom_hex(bins = 30) + 
-  scale_fill_viridis(option = "plasma", limits = c(0, 250)) 
+  scale_fill_viridis(option = "plasma", limits = c(0, 250)) + 
+  geom_smooth(data = subset(fin_df_all, Area == "KAN"), aes(color = Road_type), method = lm, size = 2, se = TRUE, formula = y ~ x) 
 plot
 ggsave(here("Plots", "BC_vs_UFPs_KAN_hex.jpg"), width = 45, height = 30, units = "cm")
 
@@ -272,7 +274,8 @@ plot <- ggplot(data = subset(fin_df_all, Area == "CBD"), aes(x = BC_NR_LC, y = a
        subtitle = expression(bold(paste(~x10^{3})))) +
   scale_y_continuous() +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) +  geom_hex(bins = 30) + 
-  scale_fill_viridis(option = "plasma", limits = c(0, 250)) 
+  scale_fill_viridis(option = "plasma", limits = c(0, 250)) + 
+  geom_smooth(data = subset(fin_df_all, Area == "CBD"), aes(color = Road_type), method = lm, size = 2, se = TRUE, formula = y ~ x)  
 plot
 ggsave(here("Plots", "BC_vs_UFPs_CBD_hex.jpg"), width = 45, height = 30, units = "cm")
 
@@ -284,7 +287,8 @@ plot <- ggplot(data = subset(fin_df_all, Area == "MAL1" | Area == "MAL2"), aes(x
        subtitle = expression(bold(paste(~x10^{3})))) +
   scale_y_continuous() +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) +  geom_hex(bins = 30) + 
-  scale_fill_viridis(option = "plasma", limits = c(0, 250)) 
+  scale_fill_viridis(option = "plasma", limits = c(0, 250)) + 
+  geom_smooth(data = subset(fin_df_all, Area == "MAL1" | Area == "MAL2"), aes(color = Road_type), method = lm, size = 2, se = TRUE, formula = y ~ x)  
 plot
 ggsave(here("Plots", "BC_vs_UFPs_MAL_hex.jpg"), width = 45, height = 30, units = "cm")
 
