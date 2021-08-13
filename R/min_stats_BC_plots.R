@@ -648,3 +648,30 @@ plot31 <- ggplot(data = subset(CBD, CO2_c != 0), aes(x = Speed, y = CO2_c)) +
 plot31
 ggsave(here("Plots", "CO2_all_CBD.jpg"), width = 45, height = 30, units = "cm")
 
+
+
+Final_all_H <- Final_all %>%
+  filter(Road_type == "Highway") %>%
+  filter(CO2_c != 0) %>%
+  mutate(S_quartile = ntile(Speed, 100),
+         UFPs_CO2 = as.numeric(as.character(CPC/CO2_c))) %>%
+  mutate(S_quartile = S_quartile - 1) %>%
+  group_by(S_quartile) %>%
+  summarise(UFPs_CO2_m = mean(UFPs_CO2, na.rm = TRUE))
+
+plot4 <- ggplot(Final_all_H, aes(x = S_quartile, y = UFPs_CO2_m)) + 
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x)),
+                limits = c(10^1, 10^5)) + 
+  geom_line(data = subset(Final_all_H, (S_quartile <= 99 & S_quartile >= 1)), 
+            linetype = "dashed", size = 1, colour = "steelblue") + 
+  geom_line(data = subset(Final_all_H, (S_quartile <= 90 & S_quartile >= 10)), size = 1.5, colour = "steelblue") + 
+  geom_line(data = subset(Final_all_H, (S_quartile <= 75 & S_quartile >= 25)), size = 3, colour = "steelblue") +
+  geom_point(data = subset(Final_all_H, (S_quartile == 50)), size = 8, shape = 23, fill = "steelblue", color = "steelblue") +
+  labs(x = expression(bold(paste("Speed percentile (km", ~h^{-1}, ")"))), 
+       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + 
+  theme_ARU + 
+  scale_x_continuous(limits = c(0, 101), breaks = c(0, 20, 40, 60, 80, 100)) +
+  theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))  
+#   annotate("text", x = 60, y = 10, label = "Highway", size = 20) + 
+# annotate(geom = 'text', label = 'a)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
