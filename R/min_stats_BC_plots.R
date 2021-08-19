@@ -1,5 +1,7 @@
 source("D:/Dropbox/ILKConsultancy/MM_paper/R/Paper_functions.R")
 library(here)
+library(ggpubr)
+library(cowplot)
 
 MAL1_sec <- read.csv("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL1/MAL1_sec.csv", sep = ",", 
                      header = TRUE) %>%
@@ -151,7 +153,8 @@ plot4 %+% subset(Final_all, Road_type %in% c("Residential")) %+%
   annotate(geom = 'text', label = 'c)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 ggsave(here("Plots", "UFPs_CO2_resi_All.jpg"), width = 45, height = 30, units = "cm")
 
-plot41 <- ggplot(subset(Final_all, CO2_c != 0), aes(x = Speed, 
+cols <- c("Highway" = "maroon", "Arterial" = "orange", "Residential" = "steelblue")
+plot41 <- ggplot(data = subset(Final_all, CO2_c != 0), aes(x = Speed, 
                                                     y = as.numeric(as.character(CPC/CO2_c)))) + 
   scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
                 labels = trans_format("log10", math_format(10^.x)),
@@ -161,6 +164,8 @@ plot41 <- ggplot(subset(Final_all, CO2_c != 0), aes(x = Speed,
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
   scale_fill_viridis(option = "plasma", limits = c(0, 200)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) +
+  geom_rug(data = subset(Final_all, (CO2_c != 0)), aes(colour = Road_type)) +  
+  scale_color_manual(values = cols) +
   annotate(geom = 'text', label = 'd)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plot41
 ggsave(here("Plots", "UFPs_CO2_all_All.jpg"), width = 45, height = 30, units = "cm")
@@ -652,7 +657,6 @@ plot31 <- ggplot(data = subset(CBD, CO2_c != 0), aes(x = Speed, y = CO2_c)) +
 plot31
 ggsave(here("Plots", "CO2_all_CBD.jpg"), width = 45, height = 30, units = "cm")
 
-
 y_label_UFPs <- expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))
 y_label_BC <- expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", CO[2], " (ppm)")))
 cols <- c("Highway" = "maroon", "Arterial" = "orange", "Residential" = "steelblue", "All" = "black")
@@ -671,7 +675,7 @@ plot_min_speed <- function(Final, Area_type, CPC, S_quartile, UFPs_CO2, UFPs_CO2
   plot4 <- ggplot(Final_for_graph, aes(x = S_quartile, y = UFPs_CO2_m, colour = Road_type, fill = Road_type)) + 
     scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
                   labels = trans_format("log10", math_format(10^.x)),
-                  limits = c(10^1, 10^5)) + 
+                  limits = c(10^2, 10^4)) + 
     geom_line(data = subset(Final_for_graph, (S_quartile <= 99 & S_quartile > 1)), 
               linetype = "dashed", size = 1) + 
     geom_line(data = subset(Final_for_graph, (S_quartile <= 90 & S_quartile >= 10)), size = 1.5) + 
@@ -691,3 +695,55 @@ plot_min_speed <- function(Final, Area_type, CPC, S_quartile, UFPs_CO2, UFPs_CO2
 plot_min_speed(Final, "KAN", CPC, 
                S_quartile, UFPs_CO2, UFPs_CO2_m, 'a) Kannuru', y_label_UFPs)
 
+
+theme_ARU <- list(theme_classic(),
+                  theme(legend.text = element_text(size = 32, colour = "black", face = "bold"),
+                        legend.title = element_blank(),
+                        plot.title = element_text(size = 44, face = "bold", hjust = 0.5), 
+                        axis.title = element_text(size = 44, colour = "black", face = "bold"),
+                        axis.text = element_text(size = 40, colour = "black", face = "bold"),
+                        panel.border = element_rect(colour = "black", fill = NA, size = 1.2), 
+                        legend.position = "right",
+                        strip.background = element_blank(), strip.text = element_blank()))
+
+
+Final_all <- subset(Final_all, CO2_c != 0)
+Final_all$UFP_CO2 <- as.numeric(as.character(Final_all$CPC/Final_all$CO2_c))
+
+cols <- c("Highway" = "maroon", "Arterial" = "orange", "Residential" = "steelblue")
+plot41 <- ggplot(data = Final_all, aes(x = Speed, y = UFP_CO2)) + 
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x)),
+                limits = c(10^1, 10^5)) + geom_hex(bins = 35) + 
+  labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
+       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + 
+  theme_ARU + 
+  scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
+  scale_fill_viridis(option = "plasma", limits = c(0, 200)) + 
+  theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) +
+  annotate(geom = 'text', label = 'd)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
+plot41
+
+# geom_rug(data = subset(Final_all, (CO2_c != 0)), aes(colour = Road_type)) +  
+# scale_color_manual(values = cols) +
+
+
+xplot <- ggdensity(Final_all, "Speed", fill = "Road_type",
+                   palette = "jco") + theme_ARU 
+yplot <- ggdensity(Final_all, "UFP_CO2", fill = "Road_type", 
+                   palette = "jco") +   
+  scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x)),
+                limits = c(10^1, 10^5)) + theme_ARU +
+  rotate()
+
+
+
+sp <- plot41
+yplot <- yplot + clean_theme() + rremove("legend") 
+xplot <- xplot + clean_theme() + rremove("legend")
+
+library(ggpubr)
+library(cowplot)
+plot_grid(xplot, NULL, sp, yplot, ncol = 2, align = "hv", 
+          rel_widths = c(2, 1), rel_heights = c(1, 2))
