@@ -657,9 +657,14 @@ plot31 <- ggplot(data = subset(CBD, CO2_c != 0), aes(x = Speed, y = CO2_c)) +
 plot31
 ggsave(here("Plots", "CO2_all_CBD.jpg"), width = 45, height = 30, units = "cm")
 
+
+
+
+
 y_label_UFPs <- expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))
 y_label_BC <- expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", CO[2], " (ppm)")))
 cols <- c("Highway" = "maroon", "Arterial" = "orange", "Residential" = "steelblue", "All" = "black")
+
 plot_min_speed <- function(Final, Area_type, CPC, S_quartile, UFPs_CO2, UFPs_CO2_m, 
                            label_paper, y_label) {
   Final_for_graph <- Final %>%
@@ -669,31 +674,81 @@ plot_min_speed <- function(Final, Area_type, CPC, S_quartile, UFPs_CO2, UFPs_CO2
     group_by(Road_type) %>%
     mutate(S_quartile = ntile(Speed, 100)) %>%
     group_by(Road_type, S_quartile) %>%
-    summarise(UFPs_CO2_m = mean(UFPs_CO2, na.rm = TRUE))
+    summarise(UFPs_CO2_m = mean(UFPs_CO2, na.rm = TRUE),
+              Speed_m = mean(Speed, na.rm = TRUE))
   Final_for_graph$Road_type <- factor(Final_for_graph$Road_type, 
                                       levels = c("All", "Highway", "Arterial", "Residential"))
-  plot4 <- ggplot(Final_for_graph, aes(x = S_quartile, y = UFPs_CO2_m, colour = Road_type, fill = Road_type)) + 
+  plot4 <- ggplot(Final_for_graph, aes(x = Speed_m, y = UFPs_CO2_m, colour = Road_type, fill = Road_type)) + 
     scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
-                  labels = trans_format("log10", math_format(10^.x)),
-                  limits = c(10^2, 10^4)) + 
+                  labels = trans_format("log10", math_format(10^.x)), limits = c(10^2, 10^4)) + 
     geom_line(data = subset(Final_for_graph, (S_quartile <= 99 & S_quartile > 1)), 
               linetype = "dashed", size = 1) + 
     geom_line(data = subset(Final_for_graph, (S_quartile <= 90 & S_quartile >= 10)), size = 1.5) + 
     geom_line(data = subset(Final_for_graph, (S_quartile <= 75 & S_quartile >= 25)), size = 3) +
     geom_point(data = subset(Final_for_graph, (S_quartile == 50), colour = Road_type, fill = Road_type), 
                size = 8, shape = 23) +
-    labs(x = expression(bold(paste("Speed percentile (km", ~h^{-1}, ")"))), 
+    labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
          y = y_label) + 
     theme_ARU + scale_color_manual(values = cols) + scale_fill_manual(values = cols) + 
-    scale_x_continuous(limits = c(0, 101), breaks = c(0, 20, 40, 60, 80, 100)) +
     theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) + 
+    scale_x_continuous(limits = c(0, 62), breaks = c(0, 20, 40, 60)) +
     annotate(geom = 'text', label = label_paper, x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) 
   # annotate("text", x = 60, y = 10, label = "Highway", size = 20) + 
   plot4
 }
 
-plot_min_speed(Final, "KAN", CPC, 
-               S_quartile, UFPs_CO2, UFPs_CO2_m, 'a) Kannuru', y_label_UFPs)
+
+
+plot_min_speed(Final, "All", CPC, 
+               S_quartile, UFPs_CO2, UFPs_CO2_m, 'b) All', y_label_UFPs)
+ggsave(here("Plots", "UFPs_CO2_All.jpg"), width = 45, height = 30, units = "cm")
+
+plot_min_speed(Final, "MAL", CPC, 
+               S_quartile, UFPs_CO2, UFPs_CO2_m, 'b) MAL', y_label_UFPs)
+ggsave(here("Plots", "UFPs_CO2_MAL.jpg"), width = 45, height = 30, units = "cm")
+
+plot_min_speed <- function(Final, Area_type, BC_NR_LC, S_quartile, BC_CO2, BC_CO2_m, 
+                           label_paper, y_label) {
+  Final_for_graph <- Final %>%
+    filter(Area == Area_type) %>%
+    filter(CO2_c != 0) %>%
+    mutate(BC_CO2 = as.numeric(as.character(BC_NR_LC/CO2_c))) %>%
+    group_by(Road_type) %>%
+    mutate(S_quartile = ntile(Speed, 100)) %>%
+    group_by(Road_type, S_quartile) %>%
+    summarise(BC_CO2_m = mean(BC_CO2, na.rm = TRUE),
+              Speed_m = mean(Speed, na.rm = TRUE))
+  Final_for_graph$Road_type <- factor(Final_for_graph$Road_type, 
+                                      levels = c("All", "Highway", "Arterial", "Residential"))
+  plot4 <- ggplot(Final_for_graph, aes(x = Speed_m, y = BC_CO2_m, colour = Road_type, fill = Road_type)) + 
+    scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                  labels = trans_format("log10", math_format(10^.x)), limits = c(10^-1, 10^1)) + 
+    geom_line(data = subset(Final_for_graph, (S_quartile <= 99 & S_quartile > 1)), 
+              linetype = "dashed", size = 1) + 
+    geom_line(data = subset(Final_for_graph, (S_quartile <= 90 & S_quartile >= 10)), size = 1.5) + 
+    geom_line(data = subset(Final_for_graph, (S_quartile <= 75 & S_quartile >= 25)), size = 3) +
+    geom_point(data = subset(Final_for_graph, (S_quartile == 50), colour = Road_type, fill = Road_type), 
+               size = 8, shape = 23) +
+    labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
+         y = y_label) + 
+    theme_ARU + scale_color_manual(values = cols) + scale_fill_manual(values = cols) + 
+    theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) + 
+    scale_x_continuous(limits = c(0, 62), breaks = c(0, 20, 40, 60)) +
+    annotate(geom = 'text', label = label_paper, x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) 
+  # annotate("text", x = 60, y = 10, label = "Highway", size = 20) + 
+  plot4
+}
+
+plot_min_speed(Final, "All", BC_NR_LC, 
+               S_quartile, BC_CO2, BC_CO2_m, 'a) All', y_label_BC)
+ggsave(here("Plots", "BC_CO2_All.jpg"), width = 45, height = 30, units = "cm")
+
+plot_min_speed(Final, "MAL", BC_NR_LC, 
+               S_quartile, BC_CO2, BC_CO2_m, 'a) MAL', y_label_BC)
+ggsave(here("Plots", "BC_CO2_MAL.jpg"), width = 45, height = 30, units = "cm")
+
+
+
 
 
 theme_ARU <- list(theme_classic(),
@@ -726,24 +781,3 @@ plot41
 
 # geom_rug(data = subset(Final_all, (CO2_c != 0)), aes(colour = Road_type)) +  
 # scale_color_manual(values = cols) +
-
-
-xplot <- ggdensity(Final_all, "Speed", fill = "Road_type",
-                   palette = "jco") + theme_ARU 
-yplot <- ggdensity(Final_all, "UFP_CO2", fill = "Road_type", 
-                   palette = "jco") +   
-  scale_x_log10(breaks = trans_breaks("log10", function(x) 10^x),
-                labels = trans_format("log10", math_format(10^.x)),
-                limits = c(10^1, 10^5)) + theme_ARU +
-  rotate()
-
-
-
-sp <- plot41
-yplot <- yplot + clean_theme() + rremove("legend") 
-xplot <- xplot + clean_theme() + rremove("legend")
-
-library(ggpubr)
-library(cowplot)
-plot_grid(xplot, NULL, sp, yplot, ncol = 2, align = "hv", 
-          rel_widths = c(2, 1), rel_heights = c(1, 2))
