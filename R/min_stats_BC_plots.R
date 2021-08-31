@@ -1,6 +1,6 @@
 source("D:/Dropbox/ILKConsultancy/MM_paper/R/Paper_functions.R")
 library(here)
-library(ggpubr)
+library(ggside)
 library(cowplot)
 
 MAL1_sec <- read.csv("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL1/MAL1_sec.csv", sep = ",", 
@@ -748,36 +748,84 @@ plot_min_speed(Final, "MAL", BC_NR_LC,
 ggsave(here("Plots", "BC_CO2_MAL.jpg"), width = 45, height = 30, units = "cm")
 
 
-
-
-
 theme_ARU <- list(theme_classic(),
                   theme(legend.text = element_text(size = 32, colour = "black", face = "bold"),
                         legend.title = element_blank(),
                         plot.title = element_text(size = 44, face = "bold", hjust = 0.5), 
                         axis.title = element_text(size = 44, colour = "black", face = "bold"),
-                        axis.text = element_text(size = 40, colour = "black", face = "bold"),
+                        axis.text = element_text(size = 40, colour = "black"),
                         panel.border = element_rect(colour = "black", fill = NA, size = 1.2), 
                         legend.position = "right",
                         strip.background = element_blank(), strip.text = element_blank()))
 
+Final$Road_type <- factor(Final$Road_type, 
+                          levels = c("All", "Highway", "Arterial", "Residential"))
 
-Final_all <- subset(Final_all, CO2_c != 0)
-Final_all$UFP_CO2 <- as.numeric(as.character(Final_all$CPC/Final_all$CO2_c))
-
-cols <- c("Highway" = "maroon", "Arterial" = "orange", "Residential" = "steelblue")
-plot41 <- ggplot(data = Final_all, aes(x = Speed, y = UFP_CO2)) + 
-  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
-                labels = trans_format("log10", math_format(10^.x)),
-                limits = c(10^1, 10^5)) + geom_hex(bins = 35) + 
+p <- ggplot(data = subset(Final, Area == "All"), aes(x = Speed, y = as.numeric(as.character(BC_NR_LC/CO2_c)))) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + 
-  theme_ARU + 
-  scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
-  scale_fill_viridis(option = "plasma", limits = c(0, 200)) + 
-  theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) +
-  annotate(geom = 'text', label = 'd)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
-plot41
+       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", CO[2], " (ppm)")))) +
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x)), limits = c(10^-1, 10^1)) +
+  theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) + 
+  geom_smooth(data = subset(Final, Area == "All"), aes(color = Road_type, fill = Road_type), method = lm, 
+              size = 2, se = TRUE, formula = y ~ x) + scale_color_manual(values = cols) + 
+  scale_fill_manual(values = cols) +  
+  annotate(geom = 'text', label = "a) All", x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) +
+  geom_xsidedensity(data = subset(Final, Area == "All"), aes(y = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
+  geom_ysidedensity(data = subset(Final, Area == "All"), aes(x = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
+  scale_xsidey_continuous(breaks = NULL) +
+  scale_ysidex_continuous(guide = guide_axis(angle = 90), breaks = NULL) 
+p
+ggsave(here("Plots", "BC_CO2_All_D.jpg"), width = 45, height = 30, units = "cm")
 
-# geom_rug(data = subset(Final_all, (CO2_c != 0)), aes(colour = Road_type)) +  
-# scale_color_manual(values = cols) +
+p <- ggplot(data = subset(Final, Area == "MAL"), aes(x = Speed, y = as.numeric(as.character(BC_NR_LC/CO2_c)))) +
+  labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
+       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", CO[2], " (ppm)")))) +
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x)), limits = c(10^-1, 10^1)) +
+  theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) + 
+  geom_smooth(data = subset(Final, Area == "MAL"), aes(color = Road_type, fill = Road_type), method = lm, 
+              size = 2, se = TRUE, formula = y ~ x) + scale_color_manual(values = cols) + 
+  scale_fill_manual(values = cols) +  
+  annotate(geom = 'text', label = "a) MAL", x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) +
+  geom_xsidedensity(data = subset(Final, Area == "MAL"), aes(y = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
+  geom_ysidedensity(data = subset(Final, Area == "MAL"), aes(x = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
+  scale_xsidey_continuous(breaks = NULL) +
+  scale_ysidex_continuous(guide = guide_axis(angle = 90), breaks = NULL) 
+p
+ggsave(here("Plots", "BC_CO2_MAL_D.jpg"), width = 45, height = 30, units = "cm")
+
+
+p <- ggplot(data = subset(Final, Area == "All"), aes(x = Speed, y = as.numeric(as.character(CPC/CO2_c)))) +
+  labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
+       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) +
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x)), limits = c(10^2, 10^4)) +
+  theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) + 
+  geom_smooth(data = subset(Final, Area == "All"), aes(color = Road_type, fill = Road_type), method = lm, 
+              size = 2, se = TRUE, formula = y ~ x) + scale_color_manual(values = cols) + 
+  scale_fill_manual(values = cols) +  
+  annotate(geom = 'text', label = "b) All", x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) +
+  geom_xsidedensity(data = subset(Final, Area == "All"), aes(y = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
+  geom_ysidedensity(data = subset(Final, Area == "All"), aes(x = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
+  scale_xsidey_continuous(breaks = NULL) +
+  scale_ysidex_continuous(guide = guide_axis(angle = 90), breaks = NULL) 
+p
+ggsave(here("Plots", "UFPs_CO2_All_D.jpg"), width = 45, height = 30, units = "cm")
+
+p <- ggplot(data = subset(Final, Area == "MAL"), aes(x = Speed, y = as.numeric(as.character(CPC/CO2_c)))) +
+  labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
+       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) +
+  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+                labels = trans_format("log10", math_format(10^.x)), limits = c(10^2, 10^4)) +
+  theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) + 
+  geom_smooth(data = subset(Final, Area == "MAL"), aes(color = Road_type, fill = Road_type), method = lm, 
+              size = 2, se = TRUE, formula = y ~ x) + scale_color_manual(values = cols) + 
+  scale_fill_manual(values = cols) +  
+  annotate(geom = 'text', label = "b) MAL", x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) +
+  geom_xsidedensity(data = subset(Final, Area == "MAL"), aes(y = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
+  geom_ysidedensity(data = subset(Final, Area == "MAL"), aes(x = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
+  scale_xsidey_continuous(breaks = NULL) +
+  scale_ysidex_continuous(guide = guide_axis(angle = 90), breaks = NULL) 
+p
+ggsave(here("Plots", "UFPs_CO2_MAL_D.jpg"), width = 45, height = 30, units = "cm")
