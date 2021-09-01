@@ -104,4 +104,3 @@ PR for suggestions and feedback.
 
 ⚡ Fun fact: Its a tidy code!
 
-🔭 Looking for better ggplot2 themes!
