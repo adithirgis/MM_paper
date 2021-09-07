@@ -239,6 +239,7 @@ ggsave(here("Plots", "CO2_MAL_empper.jpg"), width = 45, height = 30, units = "cm
 p4 + theme(legend.text = element_text(size = 14, colour = "black"),
            legend.position = "bottom", legend.key.width = unit(2.5, "cm"))
 
+cols <- c("Highway" = "maroon", "Arterial" = "orange", "Residential" = "steelblue")
 fin_df <- fin_df %>%
   dplyr::select("Road_type" = Rod_typ, BC_LC_md, CPC_md)
 
@@ -250,7 +251,8 @@ plot <- ggplot(fin_df_all, aes(x = BC_NR_LC, y = as.numeric(CPC) / 1000)) +
   scale_y_continuous() +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) +  geom_hex(bins = 30) + 
   scale_fill_viridis(option = "plasma", limits = c(0, 250)) + 
-  geom_smooth(aes(color = Road_type), method = lm, size = 2, se = TRUE, formula = y ~ x) 
+  geom_smooth(aes(color = Road_type), method = mgcv::gam, size = 2, se = TRUE, formula = y ~ s(x)) +
+  scale_color_manual(values = cols) 
 plot
 ggsave(here("Plots", "BC_vs_UFPs_All_hex.jpg"), width = 45, height = 30, units = "cm")
 
@@ -262,7 +264,7 @@ plot <- ggplot(data = subset(fin_df_all, Area == "KAN"), aes(x = BC_NR_LC, y = a
   scale_y_continuous() +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) +  geom_hex(bins = 30) + 
   scale_fill_viridis(option = "plasma", limits = c(0, 250)) + 
-  geom_smooth(data = subset(fin_df_all, Area == "KAN"), aes(color = Road_type), method = lm, size = 2, se = TRUE, formula = y ~ x) 
+  geom_smooth(data = subset(fin_df_all, Area == "KAN"), aes(color = Road_type), method = mgcv::gam, size = 2, se = TRUE, formula = y ~ s(x)) 
 plot
 ggsave(here("Plots", "BC_vs_UFPs_KAN_hex.jpg"), width = 45, height = 30, units = "cm")
 
@@ -275,7 +277,7 @@ plot <- ggplot(data = subset(fin_df_all, Area == "CBD"), aes(x = BC_NR_LC, y = a
   scale_y_continuous() +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) +  geom_hex(bins = 30) + 
   scale_fill_viridis(option = "plasma", limits = c(0, 250)) + 
-  geom_smooth(data = subset(fin_df_all, Area == "CBD"), aes(color = Road_type), method = lm, size = 2, se = TRUE, formula = y ~ x)  
+  geom_smooth(data = subset(fin_df_all, Area == "CBD"), aes(color = Road_type), method = mgcv::gam, size = 2, se = TRUE, formula = y ~ s(x))  
 plot
 ggsave(here("Plots", "BC_vs_UFPs_CBD_hex.jpg"), width = 45, height = 30, units = "cm")
 
@@ -288,7 +290,7 @@ plot <- ggplot(data = subset(fin_df_all, Area == "MAL1" | Area == "MAL2"), aes(x
   scale_y_continuous() +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) +  geom_hex(bins = 30) + 
   scale_fill_viridis(option = "plasma", limits = c(0, 250)) + 
-  geom_smooth(data = subset(fin_df_all, Area == "MAL1" | Area == "MAL2"), aes(color = Road_type), method = lm, size = 2, se = TRUE, formula = y ~ x)  
+  geom_smooth(data = subset(fin_df_all, Area == "MAL1" | Area == "MAL2"), aes(color = Road_type), method = mgcv::gam, size = 2, se = TRUE, formula = y ~ s(x))  
 plot
 ggsave(here("Plots", "BC_vs_UFPs_MAL_hex.jpg"), width = 45, height = 30, units = "cm")
 
@@ -418,4 +420,43 @@ plo3
 ggsave(here("Plots", "CO2_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
 
 
+fin_mal <- bind(mal1, mal2)
+fin_df_mal <- st_as_sf(fin_mal)
+layer_final <- as(fin_df_mal, "Spatial")
+# dsn <- "D:/Dropbox/APMfull/MAL_CNG_Paper/Final_layers/Combined_layers"
+# layer <- "Corrected_Final_Layer"
+# writeOGR(layer_final, dsn, layer, driver = "ESRI Shapefile", overwrite_layer = T)
+
+
+
+fin_df_mal_p <- fin_df_mal %>%
+  dplyr::select("Road_type" = Rod_typ, UID, "BC" = BC_md, "BC_NR" = BC_NR_md, "BC_NR_LC" = BC_LC_md, 
+                "BC_c" = BC_c_md, "BC_CF" = BC_CF_md, "CPC" = CPC_md, "CO2_c" = CO2_c_md, 
+                "CO2" = CO2_md, "PM2_5" = PM2_5_md, "PM_c" = PM_c_md, "RH" = RH_md, 
+                "Speed" = Spd_md, "PM_CF" = PM_CF_md) %>%
+  mutate(Area = gsub("_", "", substr(UID, 1, 3)))
+fin_df_mal_p[ , c('geometry', 'UID')] <- list(NULL)
+fin_df_mal_p <- data.frame(fin_df_mal_p)
+fin_df_mal_p$Road_type <- factor(fin_df_mal_p$Road_type, levels = c("Highway", "Arterial",
+                                                                    "Residential"))
+
+
+plo3 <- ggplot(data = subset(fin_df_mal_p, Area == "MAL"), aes(x = Road_type, y = BC_NR_LC/CO2_c))+ 
+  labs(x = "", y = expression(bold(paste("BC /", CO[2])))) +
+  stat_summary(fun.data = f, geom = "boxplot", width = 0.2, size = 1.5) +  
+  stat_summary(fun.y = mean, colour = "black", geom = "point",size = 4) +
+  scale_y_continuous() + theme_ARU +
+  annotate(geom = 'text', label = 'c)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
+plo3
+ggsave(here("Plots", "BC_CO2_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
+
+
+plo3 <- ggplot(data = subset(fin_df_mal_p, Area == "MAL"), aes(x = Road_type, y = CPC/CO2_c))+ 
+  labs(x = "", y = expression(bold(paste("UFPs /", CO[2])))) +
+  stat_summary(fun.data = f, geom = "boxplot", width = 0.2, size = 1.5) +  
+  stat_summary(fun.y = mean, colour = "black", geom = "point",size = 4) +
+  scale_y_continuous() + theme_ARU +
+  annotate(geom = 'text', label = 'd)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
+plo3
+ggsave(here("Plots", "UFPs_CO2_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
 
