@@ -243,6 +243,14 @@ cols <- c("Highway" = "maroon", "Arterial" = "orange", "Residential" = "steelblu
 fin_df <- fin_df %>%
   dplyr::select("Road_type" = Rod_typ, BC_LC_md, CPC_md)
 
+MAL_data <- subset(fin_df_all, (Area == "MAL1" | Area == "MAL2"))
+model_hw <- mgcv::gam(CPC ~ BC_NR_LC, data = subset(MAL_data, Road_type == "Highway"))
+summary(model_hw)
+model_art <- mgcv::gam(CPC ~ BC_NR_LC, data = subset(MAL_data, Road_type == "Arterial"))
+summary(model_art)
+model_res <- mgcv::gam(CPC ~ BC_NR_LC, data = subset(MAL_data, Road_type == "Residential"))
+summary(model_res)
+
 plot <- ggplot(fin_df_all, aes(x = BC_NR_LC, y = as.numeric(CPC) / 1000)) +
   geom_point(size = 2, alpha = 0.7) + 
   labs(x = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")"))), 
@@ -467,3 +475,5 @@ plo3
 ggsave(here("Plots", "UFPs_CO2_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
 
 # http://www.sthda.com/english/articles/40-regression-analysis/162-nonlinear-regression-essentials-in-r-polynomial-and-spline-regression-models/
+
+
