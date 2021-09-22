@@ -264,7 +264,9 @@ plot <- ggplot(data = subset(fin_df_all, Area == "KAN"), aes(x = BC_NR_LC, y = a
   scale_y_continuous() +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) +  geom_hex(bins = 30) + 
   scale_fill_viridis(option = "plasma", limits = c(0, 250)) + 
-  geom_smooth(data = subset(fin_df_all, Area == "KAN"), aes(color = Road_type), method = mgcv::gam, size = 2, se = TRUE, formula = y ~ s(x)) 
+  geom_smooth(data = subset(fin_df_all, Area == "KAN"), aes(color = Road_type), 
+              method = mgcv::gam, size = 2, se = TRUE, formula = y ~ s(x)) +
+  scale_color_manual(values = cols) 
 plot
 ggsave(here("Plots", "BC_vs_UFPs_KAN_hex.jpg"), width = 45, height = 30, units = "cm")
 
@@ -277,7 +279,9 @@ plot <- ggplot(data = subset(fin_df_all, Area == "CBD"), aes(x = BC_NR_LC, y = a
   scale_y_continuous() +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) +  geom_hex(bins = 30) + 
   scale_fill_viridis(option = "plasma", limits = c(0, 250)) + 
-  geom_smooth(data = subset(fin_df_all, Area == "CBD"), aes(color = Road_type), method = mgcv::gam, size = 2, se = TRUE, formula = y ~ s(x))  
+  geom_smooth(data = subset(fin_df_all, Area == "CBD"), aes(color = Road_type), 
+              method = mgcv::gam, size = 2, se = TRUE, formula = y ~ s(x)) +
+  scale_color_manual(values = cols) 
 plot
 ggsave(here("Plots", "BC_vs_UFPs_CBD_hex.jpg"), width = 45, height = 30, units = "cm")
 
@@ -290,7 +294,9 @@ plot <- ggplot(data = subset(fin_df_all, Area == "MAL1" | Area == "MAL2"), aes(x
   scale_y_continuous() +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) +  geom_hex(bins = 30) + 
   scale_fill_viridis(option = "plasma", limits = c(0, 250)) + 
-  geom_smooth(data = subset(fin_df_all, Area == "MAL1" | Area == "MAL2"), aes(color = Road_type), method = mgcv::gam, size = 2, se = TRUE, formula = y ~ s(x))  
+  geom_smooth(data = subset(fin_df_all, Area == "MAL1" | Area == "MAL2"), aes(color = Road_type), 
+              method = mgcv::gam, size = 2, se = TRUE, formula = y ~ s(x)) +
+  scale_color_manual(values = cols) 
 plot
 ggsave(here("Plots", "BC_vs_UFPs_MAL_hex.jpg"), width = 45, height = 30, units = "cm")
 
