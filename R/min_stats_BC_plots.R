@@ -838,7 +838,7 @@ p <- ggplot(data = subset(Final, Area == "All"), aes(x = Speed, y = as.numeric(a
   geom_smooth(data = subset(Final, Area == "All"), aes(color = Road_type, fill = Road_type), method = lm, 
               size = 2, se = TRUE, formula = y ~ x) + scale_color_manual(values = cols) + 
   scale_fill_manual(values = cols) +  
-  annotate(geom = 'text', label = "a) All", x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) +
+  annotate(geom = 'text', label = "a) ", x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) +
   geom_xsidedensity(data = subset(Final, Area == "All"), aes(y = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
   geom_ysidedensity(data = subset(Final, Area == "All"), aes(x = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
   scale_xsidey_continuous(breaks = NULL) +
@@ -855,7 +855,7 @@ p <- ggplot(data = subset(Final, Area == "MAL"), aes(x = Speed, y = as.numeric(a
   geom_smooth(data = subset(Final, Area == "MAL"), aes(color = Road_type, fill = Road_type), method = lm, 
               size = 2, se = TRUE, formula = y ~ x) + scale_color_manual(values = cols) + 
   scale_fill_manual(values = cols) +  
-  annotate(geom = 'text', label = "a) MAL", x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) +
+  annotate(geom = 'text', label = "a)", x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) +
   geom_xsidedensity(data = subset(Final, Area == "MAL"), aes(y = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
   geom_ysidedensity(data = subset(Final, Area == "MAL"), aes(x = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
   scale_xsidey_continuous(breaks = NULL) +
@@ -873,7 +873,7 @@ p <- ggplot(data = subset(Final, Area == "All"), aes(x = Speed, y = as.numeric(a
   geom_smooth(data = subset(Final, Area == "All"), aes(color = Road_type, fill = Road_type), method = lm, 
               size = 2, se = TRUE, formula = y ~ x) + scale_color_manual(values = cols) + 
   scale_fill_manual(values = cols) +  
-  annotate(geom = 'text', label = "b) All", x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) +
+  annotate(geom = 'text', label = "b)", x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) +
   geom_xsidedensity(data = subset(Final, Area == "All"), aes(y = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
   geom_ysidedensity(data = subset(Final, Area == "All"), aes(x = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
   scale_xsidey_continuous(breaks = NULL) +
@@ -890,7 +890,7 @@ p <- ggplot(data = subset(Final, Area == "MAL"), aes(x = Speed, y = as.numeric(a
   geom_smooth(data = subset(Final, Area == "MAL"), aes(color = Road_type, fill = Road_type), method = lm, 
               size = 2, se = TRUE, formula = y ~ x) + scale_color_manual(values = cols) + 
   scale_fill_manual(values = cols) +  
-  annotate(geom = 'text', label = "b) MAL", x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) +
+  annotate(geom = 'text', label = "b) ", x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) +
   geom_xsidedensity(data = subset(Final, Area == "MAL"), aes(y = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
   geom_ysidedensity(data = subset(Final, Area == "MAL"), aes(x = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
   scale_xsidey_continuous(breaks = NULL) +
