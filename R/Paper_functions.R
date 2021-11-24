@@ -80,7 +80,7 @@ BC_file_analysis <- function(z) {
            cev1 = ifelse((LD > 5 * LD75) |
                            (LD < 5 * LD25), BC1, NA))
   ATN <- ef_file[1, 2]
-  ef_file$ATN <- ef_file$ATN-(ATN) # for new filter
+  ef_file$ATN <- ef_file$ATN -(ATN) # for new filter
   BC_Final <- ef_file
   CEV <- data.frame(ef_file$Date, ef_file$cev1)
   CEV$ef_file.cev1[!is.na(CEV$ef_file.cev1)] <- 1
