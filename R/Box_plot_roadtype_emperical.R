@@ -52,6 +52,18 @@ fin_df_all <- data.frame(fin_df_all)
 fin_df_1 <- data.frame(fin_df_all) %>%
   mutate(Area = "All")
 
+fin_df_all_a <- as.data.frame(fin_df) %>%
+  dplyr::select("Road_type" = Rod_typ, UID, "BC" = BC_md, "BC_NR" = BC_NR_md, "BC_NR_LC" = BC_LC_md, 
+                "BC_c" = BC_c_md, "BC_CF" = BC_CF_md, "CPC" = CPC_md, "CO2_c" = CO2_c_md, 
+                "CO2" = CO2_md, "PM2_5" = PM2_5_md, "PM_c" = PM_c_md, "RH" = RH_md, 
+                "Speed" = Spd_md, "PM_CF" = PM_CF_md) %>%
+  mutate(Area = gsub("_", "", substr(UID, 1, 4)),
+         BC_CO = BC_c / CO2_c, CPC_CO = CPC / CO2_c) %>% 
+  filter(Area == "MAL1" | Area == "MAL2") %>% 
+  dplyr::select(Road_type, BC_CO, CPC_CO, Speed, BC_c, CPC) %>% 
+  group_by(Road_type) %>% 
+  summarise_all(funs(mean, sd), na.rm = TRUE)
+
 fin <- rbind(fin_df_all, fin_df_1)
 Final_stats1 <- fin %>%
   dplyr::select(Area, Road_type, BC, BC_NR, BC_NR_LC, BC_c, CO2, CO2_c, CPC, 
