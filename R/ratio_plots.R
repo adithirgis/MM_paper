@@ -362,9 +362,9 @@ ggsave(here("Plots", "UFPs_CO2_MAL_D_notlog.jpg"), width = 45, height = 30, unit
 
 library(magick)
 
-imgs_url <- c('D:/Dropbox/ILKConsultancy/MM_paper/Plots/BC_vs_UFPs_MAL_hex.jpg',
-              'D:/Dropbox/ILKConsultancy/MM_paper/Plots/BC_CO2_MAL_10.jpg',
-              'D:/Dropbox/ILKConsultancy/MM_paper/Plots/UFPs_CO2_MAL_10.jpg')
+imgs_url <- c('D:/Dropbox/ILKConsultancy/MM_paper/Plots/BC_vs_UFPs_MAL_hex_log.jpg',
+              'D:/Dropbox/ILKConsultancy/MM_paper/Plots/BC_CO2_MAL_10_log.jpg',
+              'D:/Dropbox/ILKConsultancy/MM_paper/Plots/UFPs_CO2_MAL_10_log.jpg')
 
 imgs <- image_read(imgs_url)
 imgs <- c(imgs[1:2], image_blank(width = 0, height = 0), imgs[3])
