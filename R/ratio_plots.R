@@ -3,28 +3,28 @@ library(here)
 library(ggside)
 library(cowplot)
 
-CBD <- fread("D:/Dropbox/APMfull/Phase_II/CBD/CBD_min.csv", sep = ",", 
+CBD <- fread("D:/Dropbox/APMfull/MAL_CNG_Paper/CBD/CBD_min.csv", sep = ",", 
              header = TRUE) %>%
   dplyr::select(Road_type, "BC_c" = BC_c_mean, "CPC" = CPC_mean, "CO2_c" = CO2_c_mean,
                 "Speed" = Speed_mean, "BC_NR_LC" = BC_NR_LC_mean) %>%
   mutate(Area = "CBD") %>%
   mutate(Speed = Speed * 3.6)
-KAN <- fread("D:/Dropbox/APMfull/Phase_II/KAN/KAN_min.csv", sep = ",", 
+KAN <- fread("D:/Dropbox/APMfull/MAL_CNG_Paper/KAN/KAN_min.csv", sep = ",", 
              header = TRUE) %>%
-  dplyr::select(Road_type, "BC_c" = BC_c_mean, "CPC" = CPC_mean, "CO2_c" = CO2_c_mean,
-                "Speed" = Speed_mean, "BC_NR_LC" = BC_NR_LC_mean) %>%
+  dplyr::select(Road_type, "BC_c" = BC_c_mn, "CPC" = CPC_mn, "CO2_c" = CO2_c_mn,
+                "Speed" = Speed_mn, "BC_NR_LC" = BC_NR_LC_mn) %>%
   mutate(Area = "KAN") %>%
   mutate(Speed = Speed * 3.6)
-MAL1 <- fread("D:/Dropbox/APMfull/Phase_II/MAL1/MAL1_min.csv", sep = ",", 
+MAL1 <- fread("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL1/MAL1_min.csv", sep = ",", 
               header = TRUE) %>%
-  dplyr::select(Road_type, "BC_c" = BC_c_mean, "CPC" = CPC_mean, "CO2_c" = CO2_c_mean,
-                "Speed" = Speed_mean, "BC_NR_LC" = BC_NR_LC_mean) %>%
+  dplyr::select(Road_type, "BC_c" = BC_c_mn, "CPC" = CPC_mn, "CO2_c" = CO2_c_mn,
+                "Speed" = Speed_mn, "BC_NR_LC" = BC_NR_LC_mn) %>%
   mutate(Area = "MAL1") %>%
   mutate(Speed = Speed * 3.6)
-MAL2 <- fread("D:/Dropbox/APMfull/Phase_II/MAL2/MAL2_min.csv", sep = ",", 
+MAL2 <- fread("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL2/MAL2_min.csv", sep = ",", 
               header = TRUE) %>%
-  dplyr::select(Road_type, "BC_c" = BC_c_mean, "CPC" = CPC_mean, "CO2_c" = CO2_c_mean,
-                "Speed" = Speed_mean, "BC_NR_LC" = BC_NR_LC_mean) %>%
+  dplyr::select(Road_type, "BC_c" = BC_c_mn, "CPC" = CPC_mn, "CO2_c" = CO2_c_mn,
+                "Speed" = Speed_mn, "BC_NR_LC" = BC_NR_LC_mn) %>%
   mutate(Area = "MAL2") %>%
   mutate(Speed = Speed * 3.6)
 
@@ -57,8 +57,8 @@ theme_ARU <- list(theme_classic(),
                         strip.background = element_blank(), strip.text = element_blank()))
 
 
-y_label_UFPs <- expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))
-y_label_BC <- expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", CO[2], " (ppm)")))
+y_label_UFPs <- expression(bold(paste("UFP" ," (", ~cm^{-3}, ")/", Delta, CO[2], " (ppm)")))
+y_label_BC <- expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", Delta, CO[2], " (ppm)")))
 cols <- c("Highway" = "maroon", "Arterial" = "orange", "Residential" = "steelblue", "All" = "black")
 
 plot_min_speed <- function(Final, Area_type, CPC, S_quartile, UFPs_CO2, UFPs_CO2_m, 
@@ -128,7 +128,7 @@ ggsave(here("Plots", "BC_CO2_MAL_20.jpg"), width = 45, height = 30, units = "cm"
 
 
 
-y_label_UFPs <- expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")")))
+y_label_UFPs <- expression(bold(paste("UFP" ," (", ~cm^{-3}, ")")))
 y_label_BC <- expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")")))
 
 
@@ -213,7 +213,7 @@ Final$Road_type <- factor(Final$Road_type,
 
 p <- ggplot(data = subset(Final, Area == "All"), aes(x = Speed, y = as.numeric(as.character(BC_NR_LC/CO2_c)))) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", CO[2], " (ppm)")))) +
+       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", Delta, CO[2], " (ppm)")))) +
   scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
                 labels = trans_format("log10", math_format(10^.x)), limits = c(10^-1, 10^1)) +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) + 
@@ -230,7 +230,7 @@ ggsave(here("Plots", "BC_CO2_All_D.jpg"), width = 45, height = 30, units = "cm")
 
 p <- ggplot(data = subset(Final, Area == "MAL"), aes(x = Speed, y = as.numeric(as.character(BC_NR_LC/CO2_c)))) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", CO[2], " (ppm)")))) +
+       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", Delta, CO[2], " (ppm)")))) +
   scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
                 labels = trans_format("log10", math_format(10^.x)), limits = c(10^-1, 10^1)) +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) + 
@@ -248,7 +248,7 @@ ggsave(here("Plots", "BC_CO2_MAL_D.jpg"), width = 45, height = 30, units = "cm")
 
 p <- ggplot(data = subset(Final, Area == "All"), aes(x = Speed, y = as.numeric(as.character(CPC/CO2_c)))) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) +
+       y = expression(bold(paste("UFP" ," (", ~cm^{-3}, ")/", Delta, CO[2], " (ppm)")))) +
   scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
                 labels = trans_format("log10", math_format(10^.x)), limits = c(10^2, 10^4)) +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) + 
@@ -265,7 +265,7 @@ ggsave(here("Plots", "UFPs_CO2_All_D.jpg"), width = 45, height = 30, units = "cm
 
 p <- ggplot(data = subset(Final, Area == "MAL"), aes(x = Speed, y = as.numeric(as.character(CPC/CO2_c)))) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) +
+       y = expression(bold(paste("UFP" ," (", ~cm^{-3}, ")/", Delta, CO[2], " (ppm)")))) +
   scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
                 labels = trans_format("log10", math_format(10^.x)), limits = c(10^2, 10^4)) +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) + 
@@ -299,7 +299,7 @@ Final$Road_type <- factor(Final$Road_type,
 
 p <- ggplot(data = subset(Final, Area == "All"), aes(x = Speed, y = as.numeric(as.character(BC_NR_LC/CO2_c)))) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", CO[2], " (ppm)")))) +
+       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", Delta, CO[2], " (ppm)")))) +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) + 
   geom_smooth(data = subset(Final, Area == "All"), aes(color = Road_type, fill = Road_type), method = lm, 
               size = 2, se = TRUE, formula = y ~ x) + scale_color_manual(values = cols) + 
@@ -314,7 +314,7 @@ ggsave(here("Plots", "BC_CO2_All_D_notlog.jpg"), width = 45, height = 30, units 
 
 p <- ggplot(data = subset(Final, Area == "MAL"), aes(x = Speed, y = as.numeric(as.character(BC_NR_LC/CO2_c)))) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", CO[2], " (ppm)")))) +
+       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", Delta, CO[2], " (ppm)")))) +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) + 
   geom_smooth(data = subset(Final, Area == "MAL"), aes(color = Road_type, fill = Road_type), method = lm, 
               size = 2, se = TRUE, formula = y ~ x) + scale_color_manual(values = cols) + 
@@ -330,7 +330,7 @@ ggsave(here("Plots", "BC_CO2_MAL_D_notlog.jpg"), width = 45, height = 30, units 
 
 p <- ggplot(data = subset(Final, Area == "All"), aes(x = Speed, y = as.numeric(as.character(CPC/CO2_c)))) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) +
+       y = expression(bold(paste("UFP" ," (", ~cm^{-3}, ")/", Delta, CO[2], " (ppm)")))) +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) + 
   geom_smooth(data = subset(Final, Area == "All"), aes(color = Road_type, fill = Road_type), method = lm, 
               size = 2, se = TRUE, formula = y ~ x) + scale_color_manual(values = cols) + 
@@ -345,7 +345,7 @@ ggsave(here("Plots", "UFPs_CO2_All_D_notlog.jpg"), width = 45, height = 30, unit
 
 p <- ggplot(data = subset(Final, Area == "MAL"), aes(x = Speed, y = as.numeric(as.character(CPC/CO2_c)))) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) +
+       y = expression(bold(paste("UFP" ," (", ~cm^{-3}, ")/", Delta, CO[2], " (ppm)")))) +
   scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
                 labels = trans_format("log10", math_format(10^.x)), limits = c(10^2, 10^4)) +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) + 

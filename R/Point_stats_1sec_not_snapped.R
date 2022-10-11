@@ -1,15 +1,5 @@
 source("D:/Dropbox/ILKConsultancy/MM_paper/R/Paper_functions.R")
 
-setwd("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL2/Joined_shp")  
-data_table <- data.frame()
-### For all shapefiles in a folder
-
-### OR try this 
-stderr <- function(col, na.rm = FALSE) {
-  if (na.rm) col <- na.omit(col)
-  sqrt(var(col) / length(col))
-}
-
 MAL1_sec <- read.csv("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL1/MAL1_sec.csv", sep = ",", 
                      header = TRUE) %>%
   mutate(Area = "MAL1")
@@ -24,7 +14,25 @@ KAN_sec <- read.csv("D:/Dropbox/APMfull/MAL_CNG_Paper/KAN/KAN_sec.csv", sep = ",
   mutate(Area = "KAN") 
 Final_sec <- rbind(MAL1_sec, MAL2_sec)
 Final_sec1 <- Final_sec %>%
-  mutate(Area = "MAL")
+  mutate(Area = "MAL",
+         date = as.POSIXct(date, format = "%Y-%m-%d %H:%M:%S", tz = "Asia/Kolkata")) %>% 
+  mutate(week = strftime(date, format = "%V")) 
+check_table <- Final_sec1 %>% 
+  mutate(day = as.Date(date)) %>% 
+  dplyr::select(week, day) %>% 
+  group_by(week)  %>% 
+  summarise(count_w = n_distinct(day))
+
+p <- ggplot(data = check_table, aes(x = week, y = count_w)) +
+  labs(x = expression(bold(paste("week of the year"))), 
+       y = expression(bold(paste("# of drive days")))) +
+  theme_ARU + geom_col(color = "black", fill = "steelblue", size = 1, width = 0.7) +
+  theme(axis.title = element_text(size = 22, face = "bold"), 
+        axis.text = element_text(size = 26, face = "bold")) 
+p
+ggsave(here("Plots", "MAL1_2_weekly_rides.jpg"), width = 45, height = 25, units = "cm")
+
+
 Final_all <- rbind(MAL1_sec, MAL2_sec, CBD_sec, KAN_sec, Final_sec1)
 Final_all_2 <- Final_all %>%
   mutate(Area = "All")

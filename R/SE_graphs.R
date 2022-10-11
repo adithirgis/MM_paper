@@ -98,7 +98,7 @@ Ref$Road_type <- factor(Ref$Road_type, levels = c("Highway", "Arterial", "Reside
 ggplot(Ref, aes(x = SE_median)) + 
   geom_histogram(aes(y = stat(count)/sum(stat(count))), fill = "deepskyblue", 
                  color = "black", bins = 30) +
-  labs(y = "", x = expression(bold(paste(CO[2], " SE of the  medians / median")))) +
+  labs(y = "", x = expression(bold(paste(Delta, CO[2], " SE of the  medians / median")))) +
   facet_grid(Road_type ~ Area) + theme_minimal() + 
   theme(panel.border = element_rect(colour = "black", fill = NA, size = 1),
         axis.title = element_text(size = 44, colour = "black", face = "bold"),
@@ -120,7 +120,7 @@ Ref$Road_type <- factor(Ref$Road_type, levels = c("Highway", "Arterial", "Reside
 ggplot(Ref, aes(x = SE_median)) + 
   geom_histogram(aes(y = stat(count)/sum(stat(count))), fill = "deepskyblue", 
                  color = "black", bins = 30) +
-  labs(y = "", x = expression(bold(paste(CO[2], " SE of the  medians / median")))) +
+  labs(y = "", x = expression(bold(paste(Delta, CO[2], " SE of the  medians / median")))) +
   facet_grid(Road_type ~ Area) + theme_minimal() + 
   theme(panel.border = element_rect(colour = "black", fill = NA, size = 1),
         axis.title = element_text(size = 44, colour = "black", face = "bold"),
@@ -141,7 +141,7 @@ Ref$Road_type <- factor(Ref$Road_type, levels = c("Highway", "Arterial", "Reside
 ggplot(Ref, aes(x = SE_median)) + 
   geom_histogram(aes(y = stat(count)/sum(stat(count))), fill = "deepskyblue", 
                  color = "black", bins = 30) +
-  labs(y = "", x = expression(bold(paste(CO[2], " SE of the  medians / median")))) +
+  labs(y = "", x = expression(bold(paste(Delta, CO[2], " SE of the  medians / median")))) +
   facet_grid(Road_type ~ Area) + theme_minimal() + 
   theme(panel.border = element_rect(colour = "black", fill = NA, size = 1),
         axis.title = element_text(size = 44, colour = "black", face = "bold"),
@@ -375,7 +375,7 @@ Ref2$Road_type <- factor(Ref2$Road_type, levels = c("Highway", "Arterial", "Resi
 ggplot(Ref2, aes(x = SE_median)) + 
   geom_histogram(aes(y = stat(count)/sum(stat(count))), fill = "deepskyblue", 
                  color = "black", bins = 30) +
-  labs(y = "", x = expression(bold(paste("UFPs SE of the  medians / median")))) +
+  labs(y = "", x = expression(bold(paste("UFP SE of the  medians / median")))) +
   facet_grid(Road_type ~ Area) + theme_minimal() + 
   theme(panel.border = element_rect(colour = "black", fill = NA, size = 1),
         axis.title = element_text(size = 44, colour = "black", face = "bold"),
@@ -393,7 +393,7 @@ Ref$Road_type <- factor(Ref$Road_type, levels = c("Highway", "Arterial", "Reside
 ggplot(Ref, aes(x = SE_median)) + 
   geom_histogram(aes(y = stat(count)/sum(stat(count))), fill = "deepskyblue", 
                  color = "black", bins = 30) +
-  labs(y = "", x = expression(bold(paste("UFPs SE of the  medians / median")))) +
+  labs(y = "", x = expression(bold(paste("UFP SE of the  medians / median")))) +
   facet_grid(Road_type ~ Area) + theme_minimal() + 
   theme(panel.border = element_rect(colour = "black", fill = NA, size = 1),
         axis.title = element_text(size = 44, colour = "black", face = "bold"),
@@ -414,7 +414,7 @@ Ref$Road_type <- factor(Ref$Road_type, levels = c("Highway", "Arterial", "Reside
 ggplot(Ref, aes(x = SE_median)) + 
   geom_histogram(aes(y = stat(count)/sum(stat(count))), fill = "deepskyblue", 
                  color = "black", bins = 30) +
-  labs(y = "", x = expression(bold(paste("UFPs SE of the  medians / median")))) +
+  labs(y = "", x = expression(bold(paste("UFP SE of the  medians / median")))) +
   facet_grid(Road_type ~ Area) + theme_minimal() + 
   theme(panel.border = element_rect(colour = "black", fill = NA, size = 1),
         axis.title = element_text(size = 44, colour = "black", face = "bold"),
@@ -435,7 +435,7 @@ Ref$Road_type <- factor(Ref$Road_type, levels = c("Highway", "Arterial", "Reside
 ggplot(Ref, aes(x = SE_median)) + 
   geom_histogram(aes(y = stat(count)/sum(stat(count))), fill = "deepskyblue", 
                  color = "black", bins = 30) +
-  labs(y = "", x = expression(bold(paste("UFPs SE of the  medians / median")))) +
+  labs(y = "", x = expression(bold(paste("UFP SE of the  medians / median")))) +
   facet_grid(Road_type ~ Area) + theme_minimal() + 
   theme(panel.border = element_rect(colour = "black", fill = NA, size = 1),
         axis.title = element_text(size = 44, colour = "black", face = "bold"),
@@ -456,7 +456,7 @@ Ref$Road_type <- factor(Ref$Road_type, levels = c("Highway", "Arterial", "Reside
 ggplot(Ref, aes(x = SE_median)) + 
   geom_histogram(aes(y = stat(count)/sum(stat(count))), fill = "deepskyblue", 
                  color = "black", bins = 30) +
-  labs(y = "", x = expression(paste("UFPs SE of the  medians / median"))) +
+  labs(y = "", x = expression(paste("UFP SE of the  medians / median"))) +
   facet_grid(Road_type ~ Area) + theme_minimal() + 
   theme(panel.border = element_rect(colour = "black", fill = NA, size = 1),
         axis.title = element_text(size = 44, colour = "black", face = "bold"),

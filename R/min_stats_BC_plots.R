@@ -68,28 +68,28 @@ CBD_min <- CBD_sec %>%
 
 # Final_sec <- rbind(CBD_sec, KAN_sec, MAL1_sec, MAL2_sec)
 
-CBD <- fread("D:/Dropbox/APMfull/Phase_II/CBD/CBD_min.csv", sep = ",", 
+CBD <- fread("D:/Dropbox/APMfull/MAL_CNG_Paper/CBD/CBD_min.csv", sep = ",", 
              header = TRUE) %>%
   dplyr::select(Road_type, "BC_c" = BC_c_mean, "CPC" = CPC_mean, "CO2_c" = CO2_c_mean,
                 "Speed" = Speed_mean, "BC_NR_LC" = BC_NR_LC_mean) %>%
   mutate(Area = "CBD") %>%
   mutate(Speed = Speed * 3.6)
-KAN <- fread("D:/Dropbox/APMfull/Phase_II/KAN/KAN_min.csv", sep = ",", 
+KAN <- fread("D:/Dropbox/APMfull/MAL_CNG_Paper/KAN/KAN_min.csv", sep = ",", 
              header = TRUE) %>%
-  dplyr::select(Road_type, "BC_c" = BC_c_mean, "CPC" = CPC_mean, "CO2_c" = CO2_c_mean,
-                "Speed" = Speed_mean, "BC_NR_LC" = BC_NR_LC_mean) %>%
+  dplyr::select(Road_type, "BC_c" = BC_c_mn, "CPC" = CPC_mn, "CO2_c" = CO2_c_mn,
+                "Speed" = Speed_mn, "BC_NR_LC" = BC_NR_LC_mn) %>%
   mutate(Area = "KAN") %>%
   mutate(Speed = Speed * 3.6)
-MAL1 <- fread("D:/Dropbox/APMfull/Phase_II/MAL1/MAL1_min.csv", sep = ",", 
+MAL1 <- fread("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL1/MAL1_min.csv", sep = ",", 
               header = TRUE) %>%
-  dplyr::select(Road_type, "BC_c" = BC_c_mean, "CPC" = CPC_mean, "CO2_c" = CO2_c_mean,
-                "Speed" = Speed_mean, "BC_NR_LC" = BC_NR_LC_mean) %>%
+  dplyr::select(Road_type, "BC_c" = BC_c_mn, "CPC" = CPC_mn, "CO2_c" = CO2_c_mn,
+                "Speed" = Speed_mn, "BC_NR_LC" = BC_NR_LC_mn) %>%
   mutate(Area = "MAL1") %>%
   mutate(Speed = Speed * 3.6)
-MAL2 <- fread("D:/Dropbox/APMfull/Phase_II/MAL2/MAL2_min.csv", sep = ",", 
+MAL2 <- fread("D:/Dropbox/APMfull/MAL_CNG_Paper/MAL2/MAL2_min.csv", sep = ",", 
               header = TRUE) %>%
-  dplyr::select(Road_type, "BC_c" = BC_c_mean, "CPC" = CPC_mean, "CO2_c" = CO2_c_mean,
-                "Speed" = Speed_mean, "BC_NR_LC" = BC_NR_LC_mean) %>%
+  dplyr::select(Road_type, "BC_c" = BC_c_mn, "CPC" = CPC_mn, "CO2_c" = CO2_c_mn,
+                "Speed" = Speed_mn, "BC_NR_LC" = BC_NR_LC_mn) %>%
   mutate(Area = "MAL2") %>%
   mutate(Speed = Speed * 3.6)
 
@@ -124,7 +124,7 @@ theme_ARU <- list(theme_classic(),
 plot3 <- ggplot(data = subset(Final_all, CO2_c != 0), aes(x = Speed, y = as.numeric(as.character(BC_NR_LC/CO2_c)), 
                               colour = Road_type)) + 
   geom_point(size = 3, alpha = 0.7) + scale_y_log10() +
-  labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), y = expression(paste("BC/", CO[2], "in log10 scale"))) + theme_ARU 
+  labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), y = expression(paste("BC/", Delta, CO[2], "in log10 scale"))) + theme_ARU 
 plot3
 ggsave(here("Plots", "BC_CO2_point_All.jpg"), width = 45, height = 30, units = "cm")
 
@@ -134,7 +134,7 @@ plot4 <- ggplot(data = subset(Final_all, CO2_c != 0), aes(x = Speed, y = as.nume
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^1, 10^5)) + geom_hex(bins = 30) + 
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
+       y = expression(bold(paste("UFP" ," (", ~cm^{-3}, ")/", Delta, CO[2], " (ppm)")))) + theme_ARU + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
   scale_fill_viridis(option = "plasma", limits = c(0, 200)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
@@ -161,7 +161,7 @@ plot41 <- ggplot(data = subset(Final_all, CO2_c != 0), aes(x = Speed,
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^1, 10^5)) + geom_hex(bins = 35) + 
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
+       y = expression(bold(paste("UFP" ," (", ~cm^{-3}, ")/", Delta, CO[2], " (ppm)")))) + theme_ARU + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
   scale_fill_viridis(option = "plasma", limits = c(0, 200)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) +
@@ -178,7 +178,7 @@ plot5 <- ggplot(data = subset(Final_all, CO2_c != 0), aes(x = Speed,
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^-2, 10^2)) + geom_hex(bins = 30) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU +  
+       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", Delta, CO[2], " (ppm)")))) + theme_ARU +  
   scale_fill_viridis(option = "plasma", limits = c(0, 150)) + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) 
@@ -206,7 +206,7 @@ plot51 <- ggplot(data = subset(Final_all, CO2_c != 0), aes(x = Speed,
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^-2, 10^2)) + geom_hex(bins = 35) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU +  
+       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", Delta, CO[2], " (ppm)")))) + theme_ARU +  
   scale_fill_viridis(option = "plasma", limits = c(0, 150)) + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) +
@@ -218,7 +218,7 @@ ggsave(here("Plots", "BC_CO2_all_All.jpg"), width = 45, height = 30, units = "cm
 
 plot3 <- ggplot(data = subset(Final_all, CO2_c != 0), aes(x = Speed, y = CO2_c)) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste(CO[2], "(ppm)")))) + 
+       y = expression(bold(paste(Delta, CO[2], "(ppm)")))) + 
   scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x), 
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^0, 10^4)) + geom_hex(bins = 30) +
@@ -243,7 +243,7 @@ plot3 %+% subset(Final_all, Road_type %in% c("Residential")) %+%
 ggsave(here("Plots", "CO2_resi_All.jpg"), width = 45, height = 30, units = "cm")
 
 plot31 <- ggplot(data = subset(Final_all, CO2_c != 0), aes(x = Speed, y = CO2_c)) +
-  labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), y = expression(bold(paste(CO[2], "(ppm)")))) + 
+  labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), y = expression(bold(paste(Delta, CO[2], "(ppm)")))) + 
   scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x), 
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^0, 10^4)) + geom_hex(bins = 45) +
@@ -263,7 +263,7 @@ plot3 <- ggplot(data = subset(Final_MAL, CO2_c != 0), aes(x = Speed, y = as.nume
                                                           colour = Road_type)) + 
   geom_point(size = 3, alpha = 0.7) + scale_y_log10() +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("BC/", CO[2], "in log10 scale")))) + theme_ARU 
+       y = expression(bold(paste("BC/", Delta, CO[2], "in log10 scale")))) + theme_ARU 
 plot3
 ggsave(here("Plots", "BC_CO2_point_MAL.jpg"), width = 45, height = 30, units = "cm")
 
@@ -274,7 +274,7 @@ plot4 <- ggplot(data = subset(Final_MAL, CO2_c != 0), aes(x = Speed,
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^1, 10^5)) + geom_hex(bins = 30) + 
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
+       y = expression(bold(paste("UFP" ," (", ~cm^{-3}, ")/", Delta, CO[2], " (ppm)")))) + theme_ARU + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
   scale_fill_viridis(option = "plasma", limits = c(0, 100)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
@@ -300,7 +300,7 @@ plot41 <- ggplot(subset(Final_MAL, CO2_c != 0), aes(x = Speed,
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^1, 10^5)) + geom_hex(bins = 35) + 
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
+       y = expression(bold(paste("UFP" ," (", ~cm^{-3}, ")/", Delta, CO[2], " (ppm)")))) + theme_ARU + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
   scale_fill_viridis(option = "plasma", limits = c(0, 100)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) +
@@ -315,7 +315,7 @@ plot5 <- ggplot(data = subset(Final_MAL, CO2_c != 0), aes(x = Speed,
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^-2, 10^2)) + geom_hex(bins = 30) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU +  
+       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", Delta, CO[2], " (ppm)")))) + theme_ARU +  
   scale_fill_viridis(option = "plasma", limits = c(0, 100)) + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
@@ -342,7 +342,7 @@ plot51 <- ggplot(data = subset(Final_MAL, CO2_c != 0), aes(x = Speed,
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^-2, 10^2)) + geom_hex(bins = 35) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU +  
+       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", Delta, CO[2], " (ppm)")))) + theme_ARU +  
   scale_fill_viridis(option = "plasma", limits = c(0, 100)) + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) +
@@ -354,7 +354,7 @@ ggsave(here("Plots", "BC_CO2_all_MAL.jpg"), width = 45, height = 30, units = "cm
 
 plot3 <- ggplot(data = subset(Final_MAL, CO2_c != 0), aes(x = Speed, y = CO2_c)) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste(CO[2], "(ppm)")))) + 
+       y = expression(bold(paste(Delta, CO[2], "(ppm)")))) + 
   scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x), 
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^0, 10^4)) + geom_hex(bins = 35) +
@@ -380,7 +380,7 @@ ggsave(here("Plots", "CO2_resi_MAL.jpg"), width = 45, height = 30, units = "cm")
 
 plot31 <- ggplot(data = subset(Final_MAL, CO2_c != 0), aes(x = Speed, y = CO2_c)) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste(CO[2], "(ppm)")))) + 
+       y = expression(bold(paste(Delta, CO[2], "(ppm)")))) + 
   scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x), 
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^0, 10^4)) + geom_hex(bins = 45) +
@@ -399,7 +399,7 @@ plot3 <- ggplot(data = subset(KAN, CO2_c != 0), aes(x = Speed, y = as.numeric(as
                                                     colour = Road_type)) + 
   geom_point(size = 3, alpha = 0.7) + scale_y_log10() +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("BC/", CO[2], "in log10 scale")))) + theme_ARU 
+       y = expression(bold(paste("BC/", Delta, CO[2], "in log10 scale")))) + theme_ARU 
 plot3
 ggsave(here("Plots", "BC_CO2_point_KAN.jpg"), width = 45, height = 30, units = "cm")
 
@@ -410,7 +410,7 @@ plot4 <- ggplot(data = subset(KAN, CO2_c != 0), aes(x = Speed,
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^1, 10^5)) + geom_hex(bins = 30) + 
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
+       y = expression(bold(paste("UFP" ," (", ~cm^{-3}, ")/", Delta, CO[2], " (ppm)")))) + theme_ARU + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
   scale_fill_viridis(option = "plasma", limits = c(0, 60)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
@@ -435,7 +435,7 @@ plot41 <- ggplot(subset(KAN, CO2_c != 0), aes(x = Speed, y = as.numeric(as.chara
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^1, 10^5)) + geom_hex(bins = 30) + 
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
+       y = expression(bold(paste("UFP" ," (", ~cm^{-3}, ")/", Delta, CO[2], " (ppm)")))) + theme_ARU + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
   scale_fill_viridis(option = "plasma", limits = c(0, 60)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) +
@@ -450,7 +450,7 @@ plot5 <- ggplot(data = subset(KAN, CO2_c != 0), aes(x = Speed,
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^-2, 10^2)) + geom_hex(bins = 30) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU +  
+       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", Delta, CO[2], " (ppm)")))) + theme_ARU +  
   scale_fill_viridis(option = "plasma", limits = c(0, 50)) + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm"))
@@ -478,7 +478,7 @@ plot51 <- ggplot(data = subset(KAN, CO2_c != 0), aes(x = Speed,
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^-2, 10^2)) + geom_hex(bins = 35) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU +  
+       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", Delta, CO[2], " (ppm)")))) + theme_ARU +  
   scale_fill_viridis(option = "plasma", limits = c(0, 50)) + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) +
@@ -490,7 +490,7 @@ ggsave(here("Plots", "BC_CO2_all_KAN.jpg"), width = 45, height = 30, units = "cm
 
 plot3 <- ggplot(data = subset(KAN, CO2_c != 0), aes(x = Speed, y = CO2_c)) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste(CO[2], "(ppm)")))) + 
+       y = expression(bold(paste(Delta, CO[2], "(ppm)")))) + 
   scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x), 
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^0, 10^4)) + geom_hex(bins = 30) +
@@ -516,7 +516,7 @@ ggsave(here("Plots", "CO2_resi_KAN.jpg"), width = 45, height = 30, units = "cm")
 
 plot31 <- ggplot(data = subset(KAN, CO2_c != 0), aes(x = Speed, y = CO2_c)) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste(CO[2], "(ppm)")))) + 
+       y = expression(bold(paste(Delta, CO[2], "(ppm)")))) + 
   scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x), 
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^0, 10^4)) + geom_hex(bins = 30) +
@@ -534,7 +534,7 @@ plot3 <- ggplot(data = subset(CBD, CO2_c != 0), aes(x = Speed, y = as.numeric(as
                                                     colour = Road_type)) + 
   geom_point(size = 3, alpha = 0.7) + scale_y_log10() +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("BC/", CO[2], "in log10 scale")))) + theme_ARU 
+       y = expression(bold(paste("BC/", Delta, CO[2], "in log10 scale")))) + theme_ARU 
 plot3
 ggsave(here("Plots", "BC_CO2_point_CBD.jpg"), width = 45, height = 30, units = "cm")
 
@@ -544,7 +544,7 @@ plot4 <- ggplot(data = subset(CBD, CO2_c != 0), aes(x = Speed, y = as.numeric(as
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^1, 10^5)) + geom_hex(bins = 35) + 
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
+       y = expression(bold(paste("UFP" ," (", ~cm^{-3}, ")/", Delta, CO[2], " (ppm)")))) + theme_ARU + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
   scale_fill_viridis(option = "plasma", limits = c(0, 60)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) 
@@ -568,7 +568,7 @@ plot41 <- ggplot(subset(CBD, CO2_c != 0), aes(x = Speed, y = as.numeric(as.chara
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^1, 10^5)) + geom_hex(bins = 35) + 
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU + 
+       y = expression(bold(paste("UFP" ," (", ~cm^{-3}, ")/", Delta, CO[2], " (ppm)")))) + theme_ARU + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) +
   scale_fill_viridis(option = "plasma", limits = c(0, 60)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) +
@@ -583,7 +583,7 @@ plot5 <- ggplot(data = subset(CBD, CO2_c != 0), aes(x = Speed,
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^-2, 10^2)) + geom_hex(bins = 30) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU +  
+       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", Delta, CO[2], " (ppm)")))) + theme_ARU +  
   scale_fill_viridis(option = "plasma", limits = c(0, 70)) + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) 
@@ -610,7 +610,7 @@ plot51 <- ggplot(data = subset(CBD, CO2_c != 0), aes(x = Speed,
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^-2, 10^2)) + geom_hex(bins = 30) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", CO[2], " (ppm)")))) + theme_ARU +  
+       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", Delta, CO[2], " (ppm)")))) + theme_ARU +  
   scale_fill_viridis(option = "plasma", limits = c(0, 70)) + 
   scale_x_continuous(limits = c(0, 72), breaks = c(0, 20, 40, 60)) + 
   theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) +
@@ -622,7 +622,7 @@ ggsave(here("Plots", "BC_CO2_all_CBD.jpg"), width = 45, height = 30, units = "cm
 
 plot3 <- ggplot(data = subset(CBD, CO2_c != 0), aes(x = Speed, y = CO2_c)) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste(CO[2], "(ppm)")))) + 
+       y = expression(bold(paste(Delta, CO[2], "(ppm)")))) + 
   scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x), 
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^0, 10^4)) + geom_hex(bins = 30) +
@@ -647,7 +647,7 @@ ggsave(here("Plots", "CO2_art_CBD.jpg"), width = 45, height = 30, units = "cm")
 
 plot31 <- ggplot(data = subset(CBD, CO2_c != 0), aes(x = Speed, y = CO2_c)) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste(CO[2], "(ppm)")))) + 
+       y = expression(bold(paste(Delta, CO[2], "(ppm)")))) + 
   scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x), 
                 labels = trans_format("log10", math_format(10^.x)),
                 limits = c(10^0, 10^4)) + geom_hex(bins = 30) +
@@ -662,8 +662,8 @@ ggsave(here("Plots", "CO2_all_CBD.jpg"), width = 45, height = 30, units = "cm")
 
 ###########
 
-y_label_UFPs <- expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))
-y_label_BC <- expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", CO[2], " (ppm)")))
+y_label_UFPs <- expression(bold(paste("UFP" ," (", ~cm^{-3}, ")/", Delta, CO[2], " (ppm)")))
+y_label_BC <- expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", Delta, CO[2], " (ppm)")))
 cols <- c("Highway" = "maroon", "Arterial" = "orange", "Residential" = "steelblue", "All" = "black")
 
 plot_min_speed <- function(Final, Area_type, CPC, S_quartile, UFPs_CO2, UFPs_CO2_m, 
@@ -740,7 +740,7 @@ ggsave(here("Plots", "BC_CO2_MAL.jpg"), width = 45, height = 30, units = "cm")
 
 
 
-y_label_UFPs <- expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")")))
+y_label_UFPs <- expression(bold(paste("UFP" ," (", ~cm^{-3}, ")")))
 y_label_BC <- expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")")))
 
 
@@ -831,7 +831,7 @@ Final$Road_type <- factor(Final$Road_type,
 
 p <- ggplot(data = subset(Final, Area == "All"), aes(x = Speed, y = as.numeric(as.character(BC_NR_LC/CO2_c)))) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", CO[2], " (ppm)")))) +
+       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", Delta, CO[2], " (ppm)")))) +
   scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
                 labels = trans_format("log10", math_format(10^.x)), limits = c(10^-1, 10^1)) +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) + 
@@ -848,7 +848,7 @@ ggsave(here("Plots", "BC_CO2_All_D.jpg"), width = 45, height = 30, units = "cm")
 
 p <- ggplot(data = subset(Final, Area == "MAL"), aes(x = Speed, y = as.numeric(as.character(BC_NR_LC/CO2_c)))) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", CO[2], " (ppm)")))) +
+       y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")/", Delta, CO[2], " (ppm)")))) +
   scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
                 labels = trans_format("log10", math_format(10^.x)), limits = c(10^-1, 10^1)) +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) + 
@@ -866,7 +866,7 @@ ggsave(here("Plots", "BC_CO2_MAL_D.jpg"), width = 45, height = 30, units = "cm")
 
 p <- ggplot(data = subset(Final, Area == "All"), aes(x = Speed, y = as.numeric(as.character(CPC/CO2_c)))) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) +
+       y = expression(bold(paste("UFP" ," (", ~cm^{-3}, ")/", Delta, CO[2], " (ppm)")))) +
   scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
                 labels = trans_format("log10", math_format(10^.x)), limits = c(10^2, 10^4)) +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) + 
@@ -883,7 +883,7 @@ ggsave(here("Plots", "UFPs_CO2_All_D.jpg"), width = 45, height = 30, units = "cm
 
 p <- ggplot(data = subset(Final, Area == "MAL"), aes(x = Speed, y = as.numeric(as.character(CPC/CO2_c)))) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-       y = expression(bold(paste("UFPs" ," (", ~cm^{-3}, ")/", CO[2], " (ppm)")))) +
+       y = expression(bold(paste("UFP" ," (", ~cm^{-3}, ")/", Delta, CO[2], " (ppm)")))) +
   scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
                 labels = trans_format("log10", math_format(10^.x)), limits = c(10^2, 10^4)) +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) + 

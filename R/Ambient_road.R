@@ -57,9 +57,9 @@ box$size_f = factor(box$month, levels = c('Jul', 'Aug', 'Sep', 'Oct',
                                           'Nov', 'Dec', 'Jan', 'Feb'))
 
 p1 <- ggplot(box, aes(size_f, BC_NR_L_md)) + 
-  labs(x = "", y = "") + theme_ARU + theme(axis.text.x = element_blank()) +
-  scale_y_continuous(limits = c(0, 180), expand = c(0, 0),breaks = seq(0, 150, by = 50)) + 
-  annotate("text", label = "On Road", x = "Sep", y = 160, size = 12, face = "bold")
+  labs(x = "", y = expression(paste("BC" ," (", mu, "g",~m^{-3}, ")"))) + theme_ARU + theme(axis.text.x = element_blank()) +
+  scale_y_continuous(limits = c(0, 130), expand = c(0, 0),breaks = seq(0, 130, by = 50)) + 
+  annotate("text", label = "On Road", x = "Sep", y = 120, size = 12, face = "bold")
 p1
 
 
@@ -121,7 +121,11 @@ p3 <- ggplot(ae33_cstep, aes(size_f1, AE33_cstep))+
   annotate("text", label = "Ambient", x = "Sep", y = 14, size = 12, face = "bold")
 p3
 
-y <- gridExtra::grid.arrange(p1, p3, nrow = 2, heights = c(1/2, 1/2))
+ylab <- p1$labels$y
+p1$labels$y <- p3$labels$y <- " "
+library(patchwork)
+p1 / p3
+grid::grid.draw(grid::textGrob(ylab, x = 0.0, rot = 90))
 
 # write.csv(box, "BC_MM.csv")
 # write.csv(ae33_cstep, "BC_CSTEP.csv")

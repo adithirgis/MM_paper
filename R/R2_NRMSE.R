@@ -28,7 +28,7 @@ plo <- ggplot(df, aes(x = as.numeric(as.character(layer_N)),
                       y = as.numeric(as.character(nrmse_mean_not_sum)))) + 
   stat_smooth() + geom_point(colour = "blue", size = 1.5) + 
   xlab("number of drive days") + scale_x_continuous(limits = c(0, 20)) + 
-  ylab("NRMSE") + ggtitle("NRMSE in Data Only Analysis in Malleshwaram 2 for UFPs") + 
+  ylab("NRMSE") + ggtitle("NRMSE in Data Only Analysis in Malleshwaram 2 for UFP") + 
   theme(legend.text = element_text(size = 18),
         plot.title = element_text(size = 24, face = "bold"), 
         axis.title = element_text(size = 18),
@@ -42,7 +42,7 @@ plo1 <- ggplot(df, aes(x = as.numeric(as.character(layer_N)),
   stat_smooth() + geom_point(colour = "blue", size = 1.5) + 
   theme_minimal() + scale_y_continuous(limits = c(0,1)) + 
   scale_x_continuous(limits = c(0,25)) + xlab("number of drive days") +
-  ylab(expression(bold(paste(~R^{2})))) + ggtitle("Monte Carlo Analysis in Malleshwaram 2 for UFPs") + 
+  ylab(expression(bold(paste(~R^{2})))) + ggtitle("Monte Carlo Analysis in Malleshwaram 2 for UFP") + 
   theme(legend.text = element_text(size=18),
         plot.title = element_text(size =18, face = "bold"), 
         axis.title = element_text(size=20),
@@ -187,7 +187,7 @@ plo1 <- ggplot(MAL_UFPs, aes(x = as.numeric(as.character(Numeric.Layer)),
   scale_y_continuous(limits = c(0, 1)) +
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab(expression(bold(paste(~R^{2})))) + theme_MC + stat_smooth(method = "loess", colour = "red", size = 2) +
-  annotate(geom = 'text', label = 'c) UFPs', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
+  annotate(geom = 'text', label = 'c) UFP', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 
 
 plo1
@@ -211,7 +211,7 @@ plo1 <- ggplot(All_UFPs, aes(x = as.numeric(as.character(Numeric.Layer)),
   scale_y_continuous(limits = c(0, 1)) +
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab(expression(bold(paste(~R^{2})))) + theme_MC +
-  annotate(geom = 'text', label = 'c) UFPs', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
+  annotate(geom = 'text', label = 'c) UFP', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 
 plo1
 ggsave(here("Plots", "UFPs_All_MC_Rsq.jpg"), width = 30, height = 20, units = "cm")
@@ -323,7 +323,7 @@ plo1 <- ggplot(MAL_UFPs, aes(x = as.numeric(as.character(Numeric.Layer)),
   scale_y_continuous() +
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC + stat_smooth(method = "loess", colour = "red", size = 2) +
-  annotate(geom = 'text', label = 'd) UFPs', x = Inf, y = Inf, hjust = 1.0, vjust = 1.5, size = 20)
+  annotate(geom = 'text', label = 'd) UFP', x = Inf, y = Inf, hjust = 1.0, vjust = 1.5, size = 20)
 
 
 plo1
@@ -345,7 +345,7 @@ plo1 <- ggplot(All_UFPs, aes(x = as.numeric(as.character(Numeric.Layer)),
   scale_y_continuous() +
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC +
-  annotate(geom = 'text', label = 'd) UFPs', x = Inf, y = Inf, hjust = 1.0, vjust = 1.5, size = 20)
+  annotate(geom = 'text', label = 'd) UFP', x = Inf, y = Inf, hjust = 1.0, vjust = 1.5, size = 20)
 
 plo1
 ggsave(here("Plots", "UFPs_All_MC_NRMSE.jpg"), width = 30, height = 20, units = "cm")
