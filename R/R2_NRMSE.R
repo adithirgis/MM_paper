@@ -180,7 +180,7 @@ plo1 <- ggplot(MAL_UFPs, aes(x = as.numeric(as.character(Numeric.Layer)),
 
 
 plo1
-ggsave(here("Plots", "UFPs_MAL_MC_Rsq_smooth.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "UFPs_MAL_MC_Rsq_smooth.pdf"), width = 30, height = 20, units = "cm")
 
 plo1 <- ggplot(MAL_UFPs, aes(x = as.numeric(as.character(Numeric.Layer)), 
                               y = as.numeric(as.character(R.Squared)))) + 
@@ -191,7 +191,7 @@ plo1 <- ggplot(MAL_UFPs, aes(x = as.numeric(as.character(Numeric.Layer)),
 
 
 plo1
-ggsave(here("Plots", "UFPs_MAL_MC_Rsq.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "UFPs_MAL_MC_Rsq.pdf"), width = 30, height = 20, units = "cm")
 
 
 All_UFPs <- rbind(MAL1_UFPs, MAL2_UFPs, KAN_UFPs, CBD_UFPs)
@@ -316,7 +316,7 @@ plo1 <- ggplot(MAL_UFPs, aes(x = as.numeric(as.character(Numeric.Layer)),
 
 
 plo1
-ggsave(here("Plots", "UFPs_MAL_MC_NRMSE_smooth.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "UFPs_MAL_MC_NRMSE_smooth.pdf"), width = 30, height = 20, units = "cm")
 
 plo1 <- ggplot(MAL_UFPs, aes(x = as.numeric(as.character(Numeric.Layer)), 
                              y = as.numeric(as.character(NRMSE)))) + 
@@ -327,7 +327,7 @@ plo1 <- ggplot(MAL_UFPs, aes(x = as.numeric(as.character(Numeric.Layer)),
 
 
 plo1
-ggsave(here("Plots", "UFPs_MAL_MC_NRMSE.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "UFPs_MAL_MC_NRMSE.pdf"), width = 30, height = 20, units = "cm")
 
 
 plo1 <- ggplot(All_UFPs, aes(x = as.numeric(as.character(Numeric.Layer)), 
@@ -455,7 +455,7 @@ plo2 <- ggplot(MAL_BC, aes(x = as.numeric(as.character(Numeric.Layer)),
 
 
 plo2
-ggsave(here("Plots", "BC_MAL_MC_Rsq_smooth.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "BC_MAL_MC_Rsq_smooth.pdf"), width = 30, height = 20, units = "cm")
 
 plo3 <- ggplot(MAL_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 
                              y = as.numeric(as.character(R.Squared)))) + 
@@ -466,7 +466,7 @@ plo3 <- ggplot(MAL_BC, aes(x = as.numeric(as.character(Numeric.Layer)),
 
 
 plo3
-ggsave(here("Plots", "BC_MAL_MC_Rsq.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "BC_MAL_MC_Rsq.pdf"), width = 30, height = 20, units = "cm")
 
 
 All_BC <- rbind(MAL1_BC, MAL2_BC, KAN_BC, CBD_BC)
@@ -594,7 +594,7 @@ plo6 <- ggplot(MAL_BC, aes(x = as.numeric(as.character(Numeric.Layer)),
 
 
 plo6
-ggsave(here("Plots", "BC_MAL_MC_NRMSE_smooth.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "BC_MAL_MC_NRMSE_smooth.pdf"), width = 30, height = 20, units = "cm")
 
 plo7 <- ggplot(MAL_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 
                              y = as.numeric(as.character(NRMSE)))) + 
@@ -605,7 +605,7 @@ plo7 <- ggplot(MAL_BC, aes(x = as.numeric(as.character(Numeric.Layer)),
 
 
 plo7
-ggsave(here("Plots", "BC_MAL_MC_NRMSE.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "BC_MAL_MC_NRMSE.pdf"), width = 30, height = 20, units = "cm")
 
 
 plo1 <- ggplot(All_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 

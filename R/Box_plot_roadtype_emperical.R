@@ -398,7 +398,7 @@ plo1 <- ggplot(data = subset(datah, (Area == "MAL1" | Area == "MAL2")), aes(Road
                      expand = c(0, 0)) + theme_ARU +
   annotate(geom = 'text', label = 'a)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20) 
 plo1
-ggsave(here("Plots", "BC_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "BC_MAL_boxplot.pdf"), width = 30, height = 20, units = "cm")
 
 
 
@@ -443,7 +443,7 @@ plo2 <- ggplot(data = subset(datah, Area == "MAL1" | Area == "MAL2"), aes(Road_t
                      expand = c(0, 0)) + theme_ARU  +
   annotate(geom = 'text', label = 'b)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plo2
-ggsave(here("Plots", "UFPs_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "UFPs_MAL_boxplot.pdf"), width = 30, height = 20, units = "cm")
 
 
 plo3 <- ggplot(datah, aes(Road_type, CO2_c))+ 
@@ -483,7 +483,7 @@ plo3 <- ggplot(data = subset(datah, Area == "MAL1" | Area == "MAL2"), aes(Road_t
                      expand = c(0, 0)) + theme_ARU +
   annotate(geom = 'text', label = 'c)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plo3
-ggsave(here("Plots", "CO2_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "CO2_MAL_boxplot.pdf"), width = 30, height = 20, units = "cm")
 
 
 fin_mal <- bind(mal1, mal2)
