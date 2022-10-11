@@ -45,11 +45,7 @@ Ref2 <- rbind(Ref, Ref1)
 Ref2 <- Ref2 %>%
   group_by(Area, Road_type) %>%
   mutate(name = sum(!is.na(Road_type)))
-Ref2_sum <- Ref2 %>%
-  dplyr::select(Area, Road_type, SE_median) %>%
-  group_by(Area, Road_type) %>%
-  summarise_all(funs(Median = median, p10 = quantile(., .1), 
-                     p90 = quantile(., .9)), na.rm = TRUE)
+
 Ref1 <- data.frame(Ref1)
 Ref2_sum1 <- Ref1 %>%
   dplyr::select(Area, SE_median) %>%
@@ -60,7 +56,7 @@ Ref2 <- data.frame(Ref2)
 ggplot(Ref2, aes(x = SE_median)) + 
   geom_histogram(aes(y = stat(count)/sum(stat(count))), fill = "deepskyblue", 
                  color = "black", bins = 30) +
-  labs(y = "", x = expression(bold(paste(CO[2], " SE of the  medians / median")))) +
+  labs(y = "", x = expression(bold(paste(Delta, CO[2], " SE of the  medians / median")))) +
   facet_grid(Road_type ~ Area) + theme_minimal() + 
   theme(panel.border = element_rect(colour = "black", fill = NA, size = 1),
         axis.title = element_text(size = 44, colour = "black", face = "bold"),
@@ -77,7 +73,7 @@ Ref <- data.frame(Ref)
 ggplot(Ref, aes(x = SE_median)) + 
   geom_histogram(aes(y = stat(count)/sum(stat(count))), fill = "deepskyblue", 
                  color = "black", bins = 30) +
-  labs(y = "", x = expression(bold(paste(CO[2], " SE of the  medians / median")))) +
+  labs(y = "", x = expression(bold(paste(Delta, CO[2], " SE of the  medians / median")))) +
   facet_grid(Road_type ~ Area) + theme_minimal() + 
   theme(panel.border = element_rect(colour = "black", fill = NA, size = 1),
         axis.title = element_text(size = 44, colour = "black", face = "bold"),
@@ -154,12 +150,6 @@ ggsave(here("Plots", "SE_CO2_CBD.jpg"), width = 30, height = 35, units = "cm")
 
 
 
-############################### BC Analysis ####################################
-
-source("D:/Dropbox/ILKConsultancy/MM_paper/R/Paper_functions.R")
-set.seed(108)
-library(here)
-
 ################################ BC_LC analysis #################################3
 
 setwd("D:/Dropbox/APMfull/MAL_CNG_Paper/")  
@@ -180,18 +170,6 @@ Sec <- Sec %>%
   dplyr::select(UID, Area, No_of_observations, Median_N_Observations, Stddev_M_subsamples,
                 StdError_N_Observations, Lower_25_M_subsamples, Upper_975_M_subsamples) %>%
   mutate(SE_median = Stddev_M_subsamples / Median_N_Observations)
-MAL1_Ref <- readOGR("D:/Dropbox/APMfull/MAL_CNG_Paper/Roads/MAL1_F_Road_type.shp", 
-                    layer = "MAL1_F_Road_type")
-MAL1_Ref <- spTransform(MAL1_Ref, CRS("+proj=utm +zone=43 ellps=WGS84"))
-MAL2_Ref <- readOGR("D:/Dropbox/APMfull/MAL_CNG_Paper/Roads/MAL2_F_Road_type.shp", 
-                    layer = "MAL2_F_Road_type")
-MAL2_Ref <- spTransform(MAL2_Ref, CRS("+proj=utm +zone=43 ellps=WGS84"))
-KAN_Ref <- readOGR("D:/Dropbox/APMfull/MAL_CNG_Paper/Roads/KAN_F_Road_type.shp", 
-                   layer = "KAN_F_Road_type")
-KAN_Ref <- spTransform(KAN_Ref, CRS("+proj=utm +zone=43 ellps=WGS84"))
-CBD_Ref <- readOGR("D:/Dropbox/APMfull/MAL_CNG_Paper/Roads/CBD_F_Road_type.shp", 
-                   layer = "CBD_F_Road_type")
-CBD_Ref <- spTransform(CBD_Ref, CRS("+proj=utm +zone=43 ellps=WGS84"))
 Ref <- bind(MAL1_Ref, MAL2_Ref, KAN_Ref, CBD_Ref)
 
 Ref <- left_join(st_as_sf(Ref), Sec, by = "UID")
@@ -202,11 +180,7 @@ Ref2 <- rbind(Ref, Ref1)
 Ref2 <- Ref2 %>%
   group_by(Area, Road_type) %>%
   mutate(name = sum(!is.na(Road_type)))
-Ref2_sum <- Ref2 %>%
-  dplyr::select(Area, Road_type, SE_median) %>%
-  group_by(Area, Road_type) %>%
-  summarise_all(funs(Median = median, p10 = quantile(., .1), 
-                     p90 = quantile(., .9)), na.rm = TRUE)
+
 Ref1 <- data.frame(Ref1)
 Ref2_sum1 <- Ref1 %>%
   dplyr::select(Area, SE_median) %>%
@@ -314,10 +288,6 @@ ggsave(here("Plots", "SE_BC_LC_CBD.jpg"), width = 30, height = 35, units = "cm")
 
 ################################ CPC analysis #################################3
 
-source("D:/Dropbox/ILKConsultancy/MM_paper/R/Paper_functions.R")
-set.seed(108)
-library(here)
-
 
 setwd("D:/Dropbox/APMfull/MAL_CNG_Paper/")  
 CBD_sec <- fread("D:/Dropbox/APMfull/MAL_CNG_Paper/CBD/CBD_Bootstrap_CPC_median_drive_pass_means.csv", sep = ",", 
@@ -337,18 +307,7 @@ Sec <- Sec %>%
   dplyr::select(UID, Area, No_of_observations, Median_N_Observations, Stddev_M_subsamples,
                 StdError_N_Observations, Lower_25_M_subsamples, Upper_975_M_subsamples) %>%
   mutate(SE_median = Stddev_M_subsamples / Median_N_Observations)
-MAL1_Ref <- readOGR("D:/Dropbox/APMfull/MAL_CNG_Paper/Roads/MAL1_F_Road_type.shp", 
-                    layer = "MAL1_F_Road_type")
-MAL1_Ref <- spTransform(MAL1_Ref, CRS("+proj=utm +zone=43 ellps=WGS84"))
-MAL2_Ref <- readOGR("D:/Dropbox/APMfull/MAL_CNG_Paper/Roads/MAL2_F_Road_type.shp", 
-                    layer = "MAL2_F_Road_type")
-MAL2_Ref <- spTransform(MAL2_Ref, CRS("+proj=utm +zone=43 ellps=WGS84"))
-KAN_Ref <- readOGR("D:/Dropbox/APMfull/MAL_CNG_Paper/Roads/KAN_F_Road_type.shp", 
-                   layer = "KAN_F_Road_type")
-KAN_Ref <- spTransform(KAN_Ref, CRS("+proj=utm +zone=43 ellps=WGS84"))
-CBD_Ref <- readOGR("D:/Dropbox/APMfull/MAL_CNG_Paper/Roads/CBD_F_Road_type.shp", 
-                   layer = "CBD_F_Road_type")
-CBD_Ref <- spTransform(CBD_Ref, CRS("+proj=utm +zone=43 ellps=WGS84"))
+
 Ref <- bind(MAL1_Ref, MAL2_Ref, KAN_Ref, CBD_Ref)
 
 Ref <- left_join(st_as_sf(Ref), Sec, by = "UID")
@@ -359,11 +318,7 @@ Ref2 <- rbind(Ref, Ref1)
 Ref2 <- Ref2 %>%
   group_by(Area, Road_type) %>%
   mutate(name = sum(!is.na(Road_type)))
-Ref2_sum <- Ref2 %>%
-  dplyr::select(Area, Road_type, SE_median) %>%
-  group_by(Area, Road_type) %>%
-  summarise_all(funs(Median = median, p10 = quantile(., .1), 
-                     p90 = quantile(., .9)), na.rm = TRUE)
+
 Ref1 <- data.frame(Ref1)
 Ref2_sum1 <- Ref1 %>%
   dplyr::select(Area, SE_median) %>%
