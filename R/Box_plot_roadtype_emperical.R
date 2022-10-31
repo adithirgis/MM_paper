@@ -538,4 +538,12 @@ ggsave(here("Plots", "UFPs_BC_MAL_boxplot.jpg"), width = 30, height = 20, units 
 
 # http://www.sthda.com/english/articles/40-regression-analysis/162-nonlinear-regression-essentials-in-r-polynomial-and-spline-regression-models/
 
-
+fin_df_stats <- as.data.frame(fin) %>%
+  mutate(BC_CO = BC_c / CO2_c, CPC_CO = CPC / CO2_c, CPC_BC = CPC / BC_c) %>% 
+  dplyr::select(Road_type, BC_CO, CPC_CO, Area, CPC_BC) %>% 
+  group_by(Road_type, Area) %>% 
+  summarise_all(funs(ma = max, mi = min, mn = mean, md = median, sd, CV = CV1,
+                     q05 = quantile(., .05), q10 = quantile(., .1), 
+                     q25 = quantile(., .25), se = stderr,
+                     q75 = quantile(., .75), q90 = quantile(., .9), q95 = quantile(., .95),
+                     n = sum(!is.na(.))), na.rm = TRUE)
