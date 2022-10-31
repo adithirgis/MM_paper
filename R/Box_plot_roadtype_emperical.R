@@ -547,3 +547,4 @@ fin_df_stats <- as.data.frame(fin) %>%
                      q25 = quantile(., .25), se = stderr,
                      q75 = quantile(., .75), q90 = quantile(., .9), q95 = quantile(., .95),
                      n = sum(!is.na(.))), na.rm = TRUE)
+write.csv(fin_df_stats, "quasi_emission_factors.csv")
