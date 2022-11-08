@@ -548,3 +548,14 @@ fin_df_stats <- as.data.frame(fin) %>%
                      q75 = quantile(., .75), q90 = quantile(., .9), q95 = quantile(., .95),
                      n = sum(!is.na(.))), na.rm = TRUE)
 write.csv(fin_df_stats, "quasi_emission_factors.csv")
+
+fin_df_stats_n <- as.data.frame(fin) %>%
+  mutate(BC_CO = BC_c / CO2_c, CPC_CO = CPC / CO2_c, CPC_BC = CPC / BC_c) %>% 
+  dplyr::select(BC_CO, CPC_CO, Area, CPC_BC) %>% 
+  group_by(Area) %>% 
+  summarise_all(funs(ma = max, mi = min, mn = mean, md = median, sd, CV = CV1,
+                     q05 = quantile(., .05), q10 = quantile(., .1), 
+                     q25 = quantile(., .25), se = stderr,
+                     q75 = quantile(., .75), q90 = quantile(., .9), q95 = quantile(., .95),
+                     n = sum(!is.na(.))), na.rm = TRUE)
+write.csv(fin_df_stats_n, "quasi_emission_factors_all.csv")
