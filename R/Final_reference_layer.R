@@ -142,21 +142,6 @@ write.csv(layer_final_df, "D:/Dropbox/APMfull/MAL_CNG_Paper/CBD/Final_layer.csv"
 # writeOGR(layer_final, dsn, layer, driver = "ESRI Shapefile", overwrite_layer = T)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # windowsFonts(Times = windowsFont("Comic Sans MS"))
 # theme_ARU <- list(theme_minimal(),
 #                   labs(x = "Road Segment ID"),
