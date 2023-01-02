@@ -223,7 +223,7 @@ ggsave(here("Plots", "UFPs_All_MC_Rsq.jpg"), width = 30, height = 20, units = "c
 
 plo1 <- ggplot(CBD_UFPs, aes(x = as.numeric(as.character(Numeric.Layer)), 
                              y = as.numeric(as.character(NRMSE)))) + 
-  scale_y_continuous() + geom_point(colour = "blue", size = 1.5) +
+  scale_y_continuous(limits = c(0, NA)) + geom_point(colour = "blue", size = 1.5) +
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC
 
@@ -233,7 +233,7 @@ ggsave(here("Plots", "UFPs_CBD_MC_NRMSE_smooth.jpg"), width = 30, height = 20, u
 
 plo1 <- ggplot(CBD_UFPs, aes(x = as.numeric(as.character(Numeric.Layer)), 
                              y = as.numeric(as.character(NRMSE)))) + 
-  scale_y_continuous() + 
+  scale_y_continuous(limits = c(0, NA)) + 
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC
 
@@ -245,7 +245,7 @@ ggsave(here("Plots", "UFPs_CBD_MC_NRMSE.jpg"), width = 30, height = 20, units = 
 
 plo1 <- ggplot(KAN_UFPs, aes(x = as.numeric(as.character(Numeric.Layer)), 
                              y = as.numeric(as.character(NRMSE)))) + 
-  scale_y_continuous() + geom_point(colour = "blue", size = 1.5) +
+  scale_y_continuous(limits = c(0, NA)) + geom_point(colour = "blue", size = 1.5) +
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC
 
@@ -255,7 +255,7 @@ ggsave(here("Plots", "UFPs_KAN_MC_NRMSE_smooth.jpg"), width = 30, height = 20, u
 
 plo1 <- ggplot(KAN_UFPs, aes(x = as.numeric(as.character(Numeric.Layer)), 
                              y = as.numeric(as.character(NRMSE)))) + 
-  scale_y_continuous() + 
+  scale_y_continuous(limits = c(0, NA)) + 
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC
 
@@ -267,7 +267,7 @@ ggsave(here("Plots", "UFPs_KAN_MC_NRMSE.jpg"), width = 30, height = 20, units = 
 
 plo1 <- ggplot(MAL1_UFPs, aes(x = as.numeric(as.character(Numeric.Layer)), 
                               y = as.numeric(as.character(NRMSE)))) + 
-  scale_y_continuous() + geom_point(colour = "blue", size = 1.5) +
+  scale_y_continuous(limits = c(0, NA)) + geom_point(colour = "blue", size = 1.5) +
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC
 
@@ -276,7 +276,7 @@ ggsave(here("Plots", "UFPs_MAL1_MC_NRMSE_smooth.jpg"), width = 30, height = 20, 
 
 plo1 <- ggplot(MAL1_UFPs, aes(x = as.numeric(as.character(Numeric.Layer)), 
                               y = as.numeric(as.character(NRMSE)))) + 
-  scale_y_continuous() + 
+  scale_y_continuous(limits = c(0, NA)) + 
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC
 
@@ -289,7 +289,7 @@ ggsave(here("Plots", "UFPs_MAL1_MC_NRMSE.jpg"), width = 30, height = 20, units =
 
 plo1 <- ggplot(MAL2_UFPs, aes(x = as.numeric(as.character(Numeric.Layer)), 
                               y = as.numeric(as.character(NRMSE)))) + 
-  scale_y_continuous() + geom_point(colour = "blue", size = 1.5) +
+  scale_y_continuous(limits = c(0, NA)) + geom_point(colour = "blue", size = 1.5) +
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC
 
@@ -299,7 +299,7 @@ ggsave(here("Plots", "UFPs_MAL2_MC_NRMSE_smooth.jpg"), width = 30, height = 20, 
 
 plo1 <- ggplot(MAL2_UFPs, aes(x = as.numeric(as.character(Numeric.Layer)), 
                               y = as.numeric(as.character(NRMSE)))) + 
-  scale_y_continuous() + 
+  scale_y_continuous(limits = c(0, NA)) + 
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC 
 
@@ -310,7 +310,7 @@ ggsave(here("Plots", "UFPs_MAL2_MC_NRMSE.jpg"), width = 30, height = 20, units =
 
 plo1 <- ggplot(MAL_UFPs, aes(x = as.numeric(as.character(Numeric.Layer)), 
                              y = as.numeric(as.character(NRMSE)))) + 
-  scale_y_continuous() + geom_point(colour = "blue", size = 1.5) +
+  scale_y_continuous(limits = c(0, NA)) + geom_point(colour = "blue", size = 1.5) +
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC + stat_smooth(method = "loess", colour = "red", size = 2)
 
@@ -320,7 +320,7 @@ ggsave(here("Plots", "UFPs_MAL_MC_NRMSE_smooth.pdf"), width = 30, height = 20, u
 
 plo1 <- ggplot(MAL_UFPs, aes(x = as.numeric(as.character(Numeric.Layer)), 
                              y = as.numeric(as.character(NRMSE)))) + 
-  scale_y_continuous() +
+  scale_y_continuous(limits = c(0, NA)) +
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC + stat_smooth(method = "loess", colour = "red", size = 2) +
   annotate(geom = 'text', label = 'd) UFP', x = Inf, y = Inf, hjust = 1.0, vjust = 1.5, size = 20)
@@ -332,7 +332,7 @@ ggsave(here("Plots", "UFPs_MAL_MC_NRMSE.pdf"), width = 30, height = 20, units = 
 
 plo1 <- ggplot(All_UFPs, aes(x = as.numeric(as.character(Numeric.Layer)), 
                              y = as.numeric(as.character(NRMSE)))) + 
-  scale_y_continuous() + geom_point(colour = "blue", size = 1.5) +
+  scale_y_continuous(limits = c(0, NA)) + geom_point(colour = "blue", size = 1.5) +
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC 
 
@@ -342,7 +342,7 @@ ggsave(here("Plots", "UFPs_All_MC_NRMSE_smooth.jpg"), width = 30, height = 20, u
 
 plo1 <- ggplot(All_UFPs, aes(x = as.numeric(as.character(Numeric.Layer)), 
                              y = as.numeric(as.character(NRMSE)))) + 
-  scale_y_continuous() +
+  scale_y_continuous(limits = c(0, NA)) +
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC +
   annotate(geom = 'text', label = 'd) UFP', x = Inf, y = Inf, hjust = 1.0, vjust = 1.5, size = 20)
@@ -500,7 +500,7 @@ ggsave(here("Plots", "BC_All_MC_Rsq.jpg"), width = 30, height = 20, units = "cm"
 
 plo1 <- ggplot(CBD_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 
                              y = as.numeric(as.character(NRMSE)))) + 
-  scale_y_continuous() + geom_point(colour = "blue", size = 1.5) +
+  scale_y_continuous(limits = c(0, NA)) + geom_point(colour = "blue", size = 1.5) +
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC
 
@@ -510,7 +510,7 @@ ggsave(here("Plots", "BC_CBD_MC_NRMSE_smooth.jpg"), width = 30, height = 20, uni
 
 plo1 <- ggplot(CBD_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 
                              y = as.numeric(as.character(NRMSE)))) + 
-  scale_y_continuous() + 
+  scale_y_continuous(limits = c(0, NA)) + 
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC
 
@@ -522,7 +522,7 @@ ggsave(here("Plots", "BC_CBD_MC_NRMSE.jpg"), width = 30, height = 20, units = "c
 
 plo1 <- ggplot(KAN_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 
                              y = as.numeric(as.character(NRMSE)))) + 
-  scale_y_continuous() + geom_point(colour = "blue", size = 1.5) +
+  scale_y_continuous(limits = c(0, NA)) + geom_point(colour = "blue", size = 1.5) +
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC
 
@@ -532,7 +532,7 @@ ggsave(here("Plots", "BC_KAN_MC_NRMSE_smooth.jpg"), width = 30, height = 20, uni
 
 plo1 <- ggplot(KAN_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 
                              y = as.numeric(as.character(NRMSE)))) + 
-  scale_y_continuous() + 
+  scale_y_continuous(limits = c(0, NA)) + 
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC
 
@@ -544,7 +544,7 @@ ggsave(here("Plots", "BC_KAN_MC_NRMSE.jpg"), width = 30, height = 20, units = "c
 
 plo1 <- ggplot(MAL1_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 
                               y = as.numeric(as.character(NRMSE)))) + 
-  scale_y_continuous() + geom_point(colour = "blue", size = 1.5) +
+  scale_y_continuous(limits = c(0, NA)) + geom_point(colour = "blue", size = 1.5) +
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC
 
@@ -554,7 +554,7 @@ ggsave(here("Plots", "BC_MAL1_MC_NRMSE_smooth.jpg"), width = 30, height = 20, un
 
 plo1 <- ggplot(MAL1_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 
                               y = as.numeric(as.character(NRMSE)))) + 
-  scale_y_continuous() + 
+  scale_y_continuous(limits = c(0, NA)) + 
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC
 
@@ -567,7 +567,7 @@ ggsave(here("Plots", "BC_MAL1_MC_NRMSE.jpg"), width = 30, height = 20, units = "
 
 plo1 <- ggplot(MAL2_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 
                               y = as.numeric(as.character(NRMSE)))) + 
-  scale_y_continuous() + geom_point(colour = "blue", size = 1.5) +
+  scale_y_continuous(limits = c(0, NA)) + geom_point(colour = "blue", size = 1.5) +
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC
 
@@ -577,7 +577,7 @@ ggsave(here("Plots", "BC_MAL2_MC_NRMSE_smooth.jpg"), width = 30, height = 20, un
 
 plo1 <- ggplot(MAL2_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 
                               y = as.numeric(as.character(NRMSE)))) + 
-  scale_y_continuous() + 
+  scale_y_continuous(limits = c(0, NA)) + 
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC
 
@@ -588,7 +588,7 @@ ggsave(here("Plots", "BC_MAL2_MC_NRMSE.jpg"), width = 30, height = 20, units = "
 
 plo6 <- ggplot(MAL_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 
                              y = as.numeric(as.character(NRMSE)))) + 
-  scale_y_continuous() + geom_point(colour = "blue", size = 1.5) +
+  scale_y_continuous(limits = c(0, NA)) + geom_point(colour = "blue", size = 1.5) +
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC + stat_smooth(method = "loess", colour = "red", size = 2)
 
@@ -598,7 +598,7 @@ ggsave(here("Plots", "BC_MAL_MC_NRMSE_smooth.pdf"), width = 30, height = 20, uni
 
 plo7 <- ggplot(MAL_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 
                              y = as.numeric(as.character(NRMSE)))) + 
-  scale_y_continuous() +
+  scale_y_continuous(limits = c(0, NA)) +
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC + stat_smooth(method = "loess", colour = "red", size = 2) +
   annotate(geom = 'text', label = 'b) BC', x = Inf, y = Inf, hjust = 1.0, vjust = 1.5, size = 20)
@@ -610,7 +610,7 @@ ggsave(here("Plots", "BC_MAL_MC_NRMSE.pdf"), width = 30, height = 20, units = "c
 
 plo1 <- ggplot(All_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 
                              y = as.numeric(as.character(NRMSE)))) + 
-  scale_y_continuous() + geom_point(colour = "blue", size = 1.5) +
+  scale_y_continuous(limits = c(0, NA)) + geom_point(colour = "blue", size = 1.5) +
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC + stat_smooth(method = "loess", colour = "red", size = 2)
 
@@ -619,7 +619,7 @@ ggsave(here("Plots", "BC_All_MC_NRMSE_smooth.jpg"), width = 30, height = 20, uni
 
 plo1 <- ggplot(All_BC, aes(x = as.numeric(as.character(Numeric.Layer)), 
                              y = as.numeric(as.character(NRMSE)))) + 
-  scale_y_continuous() +
+  scale_y_continuous(limits = c(0, NA)) +
   scale_x_continuous(limits = c(0, 22)) + xlab("number of drive days") +
   ylab("NRMSE") + theme_MC + stat_smooth(method = "loess", colour = "red", size = 2) +
   annotate(geom = 'text', label = 'b) BC', x = Inf, y = Inf, hjust = 1.0, vjust = 1.5, size = 20)

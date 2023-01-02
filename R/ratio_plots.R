@@ -75,7 +75,7 @@ plot_min_speed <- function(Final, Area_type, CPC, S_quartile, UFPs_CO2, UFPs_CO2
   Final_for_graph$Road_type <- factor(Final_for_graph$Road_type, 
                                       levels = c("All", "Highway", "Arterial", "Residential"))
   plot4 <- ggplot(Final_for_graph, aes(x = Speed_m, y = UFPs_CO2_m, colour = Road_type, fill = Road_type)) + 
-    geom_line(size = 1.5) +
+    geom_line(size = 1.5) + scale_y_continuous(limits = c(0, NA)) + 
     labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
          y = y_label) + 
     theme_ARU + scale_color_manual(values = cols) + scale_fill_manual(values = cols) + 
@@ -110,7 +110,7 @@ plot_min_speed_C <- function(Final, Area_type, BC_NR_LC, S_quartile, BC_CO2, BC_
   plot4 <- ggplot(Final_for_graph, aes(x = Speed_m, y = BC_CO2_m, colour = Road_type, fill = Road_type)) + 
     geom_line(size = 1.5) + 
     labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-         y = y_label) + 
+         y = y_label) + scale_y_continuous(limits = c(0, NA)) + 
     theme_ARU + scale_color_manual(values = cols) + scale_fill_manual(values = cols) + 
     theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) + 
     annotate(geom = 'text', label = label_paper, x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) 
@@ -146,7 +146,7 @@ plot_min_speed_BC <- function(Final, Area_type, BC_NR_LC, S_quartile, BC_CO2, BC
   plot4 <- ggplot(Final_for_graph, aes(x = Speed_m, y = BC_m, colour = Road_type, fill = Road_type)) + 
     geom_line(size = 1.5) + 
     labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
-         y = y_label) + 
+         y = y_label) + scale_y_continuous(limits = c(0, NA)) + 
     theme_ARU + scale_color_manual(values = cols) + scale_fill_manual(values = cols) + 
     theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) + 
     annotate(geom = 'text', label = label_paper, x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) 
@@ -174,7 +174,7 @@ plot_min_speed_CPC <- function(Final, Area_type, CPC, S_quartile, UFPs_CO2, UFPs
   Final_for_graph$Road_type <- factor(Final_for_graph$Road_type, 
                                       levels = c("All", "Highway", "Arterial", "Residential"))
   plot4 <- ggplot(Final_for_graph, aes(x = Speed_m, y = (CPC_m / 1000), colour = Road_type, fill = Road_type)) + 
-    geom_line(size = 1.5) + 
+    geom_line(size = 1.5) + scale_y_continuous(limits = c(0, NA)) + 
     labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
          y = y_label, 
          subtitle = expression(bold(paste(~x10^{3})))) + 

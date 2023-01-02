@@ -112,7 +112,7 @@ p2 <- ggplot(fin_df_all, aes(sample = log(BC_NR_LC), color = Road_type)) +
   labs(x = "Emperical percentile",
        y = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")")))) + theme_ARU +
   theme(legend.text = element_text(size = 32)) +
-  annotate(geom = 'text', label = 'a)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
+  annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 p2
 ggsave(here("Plots", "BC_All_empper.jpg"), width = 45, height = 30, units = "cm")
 
@@ -144,7 +144,7 @@ p2 <- ggplot(data = subset(fin_df_all, Area == "MA1" | Area == "MAL2"), aes(samp
   labs(x = "Emperical percentile",
        y = expression(bold(paste("BC" ," (", mu, "g",~m^{-3}, ")")))) + theme_ARU +
   theme(legend.text = element_text(size = 32)) +
-  annotate(geom = 'text', label = 'a)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
+  annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 
 p2
 ggsave(here("Plots", "BC_MAL_empper.jpg"), width = 45, height = 30, units = "cm")
@@ -159,7 +159,7 @@ p3 <- ggplot(fin_df_all, aes(sample = log(CPC), color = Road_type)) +
        y = expression(bold(paste("UFP" ," (", ~cm^{-3}, ")")))) + 
   theme_ARU +
   theme(legend.text = element_text(size = 32)) +
-  annotate(geom = 'text', label = 'b)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
+  annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 p3
 ggsave(here("Plots", "UFPs_All_empper.jpg"), width = 45, height = 30, units = "cm")
 
@@ -196,7 +196,7 @@ p3 <- ggplot(data = subset(fin_df_all, Area == "MAL1" | Area == "MAL2"), aes(sam
        y = expression(bold(paste("UFP" ," (", ~cm^{-3}, ")")))) + 
   theme_ARU +
   theme(legend.text = element_text(size = 32)) +
-  annotate(geom = 'text', label = 'b)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
+  annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 
 p3
 ggsave(here("Plots", "UFPs_MAL_empper.jpg"), width = 45, height = 30, units = "cm")
@@ -209,7 +209,7 @@ p4 <- ggplot(fin_df_all, aes(sample = log(CO2_c), color = Road_type)) +
   labs(x = "Emperical percentile",
        y = expression(bold(paste(Delta, CO[2], " (ppm)")))) + theme_ARU +
   theme(legend.text = element_text(size = 32)) +
-  annotate(geom = 'text', label = 'c)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
+  annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 p4
 ggsave(here("Plots", "CO2_All_empper.jpg"), width = 45, height = 30, units = "cm")
 
@@ -244,7 +244,7 @@ p4 <- ggplot(data = subset(fin_df_all, Area == "MAL1" | Area == "MAL2"), aes(sam
   labs(x = "Emperical percentile",
        y = expression(bold(paste(Delta, CO[2], " (ppm)")))) + theme_ARU +
   theme(legend.text = element_text(size = 32)) +
-  annotate(geom = 'text', label = 'c)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
+  annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 
 p4
 ggsave(here("Plots", "CO2_MAL_empper.jpg"), width = 45, height = 30, units = "cm")
@@ -396,7 +396,7 @@ plo1 <- ggplot(data = subset(datah, (Area == "MAL1" | Area == "MAL2")), aes(Road
   stat_summary(fun.y = mean, colour = "black", geom = "point",size = 4) +
   scale_y_continuous(limits = c(0, 130), breaks = c(0, 25, 50, 75, 100, 125), 
                      expand = c(0, 0)) + theme_ARU +
-  annotate(geom = 'text', label = 'a)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20) 
+  annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20) 
 plo1
 ggsave(here("Plots", "BC_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
 
@@ -441,7 +441,7 @@ plo2 <- ggplot(data = subset(datah, Area == "MAL1" | Area == "MAL2"), aes(Road_t
   stat_summary(fun.y = mean, colour = "black", geom = "point",size = 4) +
   scale_y_continuous(limits = c(0, 275), breaks = c(0, 50, 100, 150, 200, 250), 
                      expand = c(0, 0)) + theme_ARU  +
-  annotate(geom = 'text', label = 'b)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
+  annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plo2
 ggsave(here("Plots", "UFPs_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
 
@@ -481,7 +481,7 @@ plo3 <- ggplot(data = subset(datah, Area == "MAL1" | Area == "MAL2"), aes(Road_t
   stat_summary(fun.y = mean, colour = "black", geom = "point",size = 4) +
   scale_y_continuous(limits = c(0, 150), breaks = c(0, 25, 50, 75, 100, 125), 
                      expand = c(0, 0)) + theme_ARU +
-  annotate(geom = 'text', label = 'c)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
+  annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plo3
 ggsave(here("Plots", "CO2_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
 
@@ -511,8 +511,8 @@ plo3 <- ggplot(data = subset(fin_df_mal_p, Area == "MAL"), aes(x = Road_type, y 
   labs(x = "", y = expression(bold(paste("BC /", Delta, CO[2])))) +
   stat_summary(fun.data = f, geom = "boxplot", width = 0.2, size = 1.5) +  
   stat_summary(fun.y = mean, colour = "black", geom = "point",size = 4) +
-  scale_y_continuous() + theme_ARU +
-  annotate(geom = 'text', label = 'd)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
+  scale_y_continuous(limits = c(0, NA)) + theme_ARU +
+  annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plo3
 ggsave(here("Plots", "BC_CO2_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
 
@@ -521,8 +521,8 @@ plo3 <- ggplot(data = subset(fin_df_mal_p, Area == "MAL"), aes(x = Road_type, y 
   labs(x = "", y = expression(bold(paste("UFP /", Delta, CO[2])))) +
   stat_summary(fun.data = f, geom = "boxplot", width = 0.2, size = 1.5) +  
   stat_summary(fun.y = mean, colour = "black", geom = "point",size = 4) +
-  scale_y_continuous() + theme_ARU +
-  annotate(geom = 'text', label = 'e)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
+  scale_y_continuous(limits = c(0, NA)) + theme_ARU +
+  annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plo3
 ggsave(here("Plots", "UFPs_CO2_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
 
@@ -531,8 +531,8 @@ plo4 <- ggplot(data = subset(fin_df_mal_p, Area == "MAL"), aes(x = Road_type, y 
   labs(x = "", y = expression(bold(paste("UFP / BC")))) +
   stat_summary(fun.data = f, geom = "boxplot", width = 0.2, size = 1.5) +  
   stat_summary(fun.y = mean, colour = "black", geom = "point",size = 4) +
-  scale_y_continuous(breaks = c(2000, 4000, 6000)) + theme_ARU +
-  annotate(geom = 'text', label = 'f)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
+  scale_y_continuous(breaks = c(0, 2000, 4000, 6000), limits = c(0, 6000)) + theme_ARU +
+  annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plo4
 ggsave(here("Plots", "UFPs_BC_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
 
