@@ -396,7 +396,7 @@ plo1 <- ggplot(data = subset(datah, (Area == "MAL1" | Area == "MAL2")), aes(Road
   stat_summary(fun.y = mean, colour = "black", geom = "point",size = 4) +
   scale_y_continuous(limits = c(0, 130), breaks = c(0, 25, 50, 75, 100, 125), 
                      expand = c(0, 0)) + theme_ARU +
-  annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20) 
+  annotate(geom = 'text', label = '  a)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20) 
 plo1
 ggsave(here("Plots", "BC_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
 
@@ -441,7 +441,7 @@ plo2 <- ggplot(data = subset(datah, Area == "MAL1" | Area == "MAL2"), aes(Road_t
   stat_summary(fun.y = mean, colour = "black", geom = "point",size = 4) +
   scale_y_continuous(limits = c(0, 275), breaks = c(0, 50, 100, 150, 200, 250), 
                      expand = c(0, 0)) + theme_ARU  +
-  annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
+  annotate(geom = 'text', label = '  b)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plo2
 ggsave(here("Plots", "UFPs_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
 
@@ -481,7 +481,7 @@ plo3 <- ggplot(data = subset(datah, Area == "MAL1" | Area == "MAL2"), aes(Road_t
   stat_summary(fun.y = mean, colour = "black", geom = "point",size = 4) +
   scale_y_continuous(limits = c(0, 150), breaks = c(0, 25, 50, 75, 100, 125), 
                      expand = c(0, 0)) + theme_ARU +
-  annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
+  annotate(geom = 'text', label = '  c)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plo3
 ggsave(here("Plots", "CO2_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
 
@@ -512,7 +512,7 @@ plo3 <- ggplot(data = subset(fin_df_mal_p, Area == "MAL"), aes(x = Road_type, y 
   stat_summary(fun.data = f, geom = "boxplot", width = 0.2, size = 1.5) +  
   stat_summary(fun.y = mean, colour = "black", geom = "point",size = 4) +
   scale_y_continuous(limits = c(0, NA)) + theme_ARU +
-  annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
+  annotate(geom = 'text', label = '  d)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plo3
 ggsave(here("Plots", "BC_CO2_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
 
@@ -522,7 +522,7 @@ plo3 <- ggplot(data = subset(fin_df_mal_p, Area == "MAL"), aes(x = Road_type, y 
   stat_summary(fun.data = f, geom = "boxplot", width = 0.2, size = 1.5) +  
   stat_summary(fun.y = mean, colour = "black", geom = "point",size = 4) +
   scale_y_continuous(limits = c(0, NA)) + theme_ARU +
-  annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
+  annotate(geom = 'text', label = '  e)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plo3
 ggsave(here("Plots", "UFPs_CO2_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
 
@@ -532,7 +532,7 @@ plo4 <- ggplot(data = subset(fin_df_mal_p, Area == "MAL"), aes(x = Road_type, y 
   stat_summary(fun.data = f, geom = "boxplot", width = 0.2, size = 1.5) +  
   stat_summary(fun.y = mean, colour = "black", geom = "point",size = 4) +
   scale_y_continuous(breaks = c(0, 2000, 4000, 6000), limits = c(0, 6000)) + theme_ARU +
-  annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
+  annotate(geom = 'text', label = '  f)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plo4
 ggsave(here("Plots", "UFPs_BC_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
 

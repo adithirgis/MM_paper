@@ -80,18 +80,18 @@ plot_min_speed <- function(Final, Area_type, CPC, S_quartile, UFPs_CO2, UFPs_CO2
          y = y_label) + 
     theme_ARU + scale_color_manual(values = cols) + scale_fill_manual(values = cols) + 
     theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) + 
-    annotate(geom = 'text', label = label_paper, x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) 
+    annotate(geom = 'text', label = label_paper, x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20) 
   plot4
 }
 
 
 
 plot_min_speed(Final, "All", CPC, 
-               S_quartile, UFPs_CO2, UFPs_CO2_m, 'b)', y_label_UFPs)
+               S_quartile, UFPs_CO2, UFPs_CO2_m, '  b)', y_label_UFPs)
 ggsave(here("Plots", "UFPs_CO2_All_20.jpg"), width = 45, height = 30, units = "cm")
 
 plot_min_speed(Final, "MAL", CPC, 
-               S_quartile, UFPs_CO2, UFPs_CO2_m, 'b)', y_label_UFPs)
+               S_quartile, UFPs_CO2, UFPs_CO2_m, '  b)', y_label_UFPs)
 ggsave(here("Plots", "UFPs_CO2_MAL_20.jpg"), width = 45, height = 30, units = "cm")
 
 plot_min_speed_C <- function(Final, Area_type, BC_NR_LC, S_quartile, BC_CO2, BC_CO2_m, 
@@ -113,17 +113,17 @@ plot_min_speed_C <- function(Final, Area_type, BC_NR_LC, S_quartile, BC_CO2, BC_
          y = y_label) + scale_y_continuous(limits = c(0, NA)) + 
     theme_ARU + scale_color_manual(values = cols) + scale_fill_manual(values = cols) + 
     theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) + 
-    annotate(geom = 'text', label = label_paper, x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) 
+    annotate(geom = 'text', label = label_paper, x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20) 
   # annotate("text", x = 60, y = 10, label = "Highway", size = 20) + 
   plot4
 }
 
 plot_min_speed_C(Final, "All", BC_NR_LC, 
-                 S_quartile, BC_CO2, BC_CO2_m, 'a)', y_label_BC)
+                 S_quartile, BC_CO2, BC_CO2_m, '  a)', y_label_BC)
 ggsave(here("Plots", "BC_CO2_All_20.jpg"), width = 45, height = 30, units = "cm")
 
 plot_min_speed_C(Final, "MAL", BC_NR_LC, 
-                 S_quartile, BC_CO2, BC_CO2_m, 'a)', y_label_BC)
+                 S_quartile, BC_CO2, BC_CO2_m, '  a)', y_label_BC)
 ggsave(here("Plots", "BC_CO2_MAL_20.jpg"), width = 45, height = 30, units = "cm")
 
 
@@ -149,17 +149,17 @@ plot_min_speed_BC <- function(Final, Area_type, BC_NR_LC, S_quartile, BC_CO2, BC
          y = y_label) + scale_y_continuous(limits = c(0, NA)) + 
     theme_ARU + scale_color_manual(values = cols) + scale_fill_manual(values = cols) + 
     theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) + 
-    annotate(geom = 'text', label = label_paper, x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) 
+    annotate(geom = 'text', label = label_paper, x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20) 
   # annotate("text", x = 60, y = 10, label = "Highway", size = 20) + 
   plot4
 }
 
 plot_min_speed_BC(Final, "All", BC_NR_LC, 
-                  S_quartile, BC_CO2, BC_CO2_m, 'a)', y_label_BC)
+                  S_quartile, BC_CO2, BC_CO2_m, '  a)', y_label_BC)
 ggsave(here("Plots", "BC_S_All_20.jpg"), width = 45, height = 30, units = "cm")
 
 plot_min_speed_BC(Final, "MAL", BC_NR_LC, 
-                  S_quartile, BC_CO2, BC_CO2_m, 'a)', y_label_BC)
+                  S_quartile, BC_CO2, BC_CO2_m, '  a)', y_label_BC)
 ggsave(here("Plots", "BC_S_MAL_20.jpg"), width = 45, height = 30, units = "cm")
 
 plot_min_speed_CPC <- function(Final, Area_type, CPC, S_quartile, UFPs_CO2, UFPs_CO2_m, 
@@ -180,7 +180,7 @@ plot_min_speed_CPC <- function(Final, Area_type, CPC, S_quartile, UFPs_CO2, UFPs
          subtitle = expression(bold(paste(~x10^{3})))) + 
     theme_ARU + scale_color_manual(values = cols) + scale_fill_manual(values = cols) + 
     theme(legend.position = "right", legend.key.height = unit(2.5, "cm")) + 
-    annotate(geom = 'text', label = label_paper, x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) 
+    annotate(geom = 'text', label = label_paper, x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20) 
   # annotate("text", x = 60, y = 10, label = "Highway", size = 20) + 
   plot4
 }
@@ -188,11 +188,11 @@ plot_min_speed_CPC <- function(Final, Area_type, CPC, S_quartile, UFPs_CO2, UFPs
 
 
 plot_min_speed_CPC(Final, "All", CPC, 
-                   S_quartile, UFPs_CO2, UFPs_CO2_m, 'b)', y_label_UFPs)
+                   S_quartile, UFPs_CO2, UFPs_CO2_m, '  b)', y_label_UFPs)
 ggsave(here("Plots", "UFPs_S_All_20.jpg"), width = 45, height = 30, units = "cm")
 
 plot_min_speed_CPC(Final, "MAL", CPC, 
-                   S_quartile, UFPs_CO2, UFPs_CO2_m, 'b)', y_label_UFPs)
+                   S_quartile, UFPs_CO2, UFPs_CO2_m, '  b)', y_label_UFPs)
 ggsave(here("Plots", "UFPs_S_MAL_20.jpg"), width = 45, height = 30, units = "cm")
 
 
@@ -220,7 +220,7 @@ p <- ggplot(data = subset(Final, Area == "All"), aes(x = Speed, y = as.numeric(a
   geom_smooth(data = subset(Final, Area == "All"), aes(color = Road_type, fill = Road_type), method = lm, 
               size = 2, se = TRUE, formula = y ~ x) + scale_color_manual(values = cols) + 
   scale_fill_manual(values = cols) +  
-  annotate(geom = 'text', label = "a)", x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) +
+  annotate(geom = 'text', label = "a)", x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20) +
   geom_xsidedensity(data = subset(Final, Area == "All"), aes(y = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
   geom_ysidedensity(data = subset(Final, Area == "All"), aes(x = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
   scale_xsidey_continuous(breaks = NULL) +
@@ -237,7 +237,7 @@ p <- ggplot(data = subset(Final, Area == "MAL"), aes(x = Speed, y = as.numeric(a
   geom_smooth(data = subset(Final, Area == "MAL"), aes(color = Road_type, fill = Road_type), method = lm, 
               size = 2, se = TRUE, formula = y ~ x) + scale_color_manual(values = cols) + 
   scale_fill_manual(values = cols) +  
-  annotate(geom = 'text', label = "a)", x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) +
+  annotate(geom = 'text', label = "a)", x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20) +
   geom_xsidedensity(data = subset(Final, Area == "MAL"), aes(y = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
   geom_ysidedensity(data = subset(Final, Area == "MAL"), aes(x = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
   scale_xsidey_continuous(breaks = NULL) +
@@ -255,7 +255,7 @@ p <- ggplot(data = subset(Final, Area == "All"), aes(x = Speed, y = as.numeric(a
   geom_smooth(data = subset(Final, Area == "All"), aes(color = Road_type, fill = Road_type), method = lm, 
               size = 2, se = TRUE, formula = y ~ x) + scale_color_manual(values = cols) + 
   scale_fill_manual(values = cols) +  
-  annotate(geom = 'text', label = "b)", x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) +
+  annotate(geom = 'text', label = "b)", x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20) +
   geom_xsidedensity(data = subset(Final, Area == "All"), aes(y = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
   geom_ysidedensity(data = subset(Final, Area == "All"), aes(x = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
   scale_xsidey_continuous(breaks = NULL) +
@@ -272,7 +272,7 @@ p <- ggplot(data = subset(Final, Area == "MAL"), aes(x = Speed, y = as.numeric(a
   geom_smooth(data = subset(Final, Area == "MAL"), aes(color = Road_type, fill = Road_type), method = lm, 
               size = 2, se = TRUE, formula = y ~ x) + scale_color_manual(values = cols) + 
   scale_fill_manual(values = cols) +  
-  annotate(geom = 'text', label = "b)", x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) +
+  annotate(geom = 'text', label = "b)", x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20) +
   geom_xsidedensity(data = subset(Final, Area == "MAL"), aes(y = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
   geom_ysidedensity(data = subset(Final, Area == "MAL"), aes(x = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
   scale_xsidey_continuous(breaks = NULL) +
@@ -304,7 +304,7 @@ p <- ggplot(data = subset(Final, Area == "All"), aes(x = Speed, y = as.numeric(a
   geom_smooth(data = subset(Final, Area == "All"), aes(color = Road_type, fill = Road_type), method = lm, 
               size = 2, se = TRUE, formula = y ~ x) + scale_color_manual(values = cols) + 
   scale_fill_manual(values = cols) +  
-  annotate(geom = 'text', label = "a)", x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) +
+  annotate(geom = 'text', label = "a)", x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20) +
   geom_xsidedensity(data = subset(Final, Area == "All"), aes(y = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
   geom_ysidedensity(data = subset(Final, Area == "All"), aes(x = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
   scale_xsidey_continuous(breaks = NULL) +
@@ -319,7 +319,7 @@ p <- ggplot(data = subset(Final, Area == "MAL"), aes(x = Speed, y = as.numeric(a
   geom_smooth(data = subset(Final, Area == "MAL"), aes(color = Road_type, fill = Road_type), method = lm, 
               size = 2, se = TRUE, formula = y ~ x) + scale_color_manual(values = cols) + 
   scale_fill_manual(values = cols) +  
-  annotate(geom = 'text', label = "a)", x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) +
+  annotate(geom = 'text', label = "a)", x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20) +
   geom_xsidedensity(data = subset(Final, Area == "MAL"), aes(y = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
   geom_ysidedensity(data = subset(Final, Area == "MAL"), aes(x = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
   scale_xsidey_continuous(breaks = NULL) +
@@ -335,7 +335,7 @@ p <- ggplot(data = subset(Final, Area == "All"), aes(x = Speed, y = as.numeric(a
   geom_smooth(data = subset(Final, Area == "All"), aes(color = Road_type, fill = Road_type), method = lm, 
               size = 2, se = TRUE, formula = y ~ x) + scale_color_manual(values = cols) + 
   scale_fill_manual(values = cols) +  
-  annotate(geom = 'text', label = "b)", x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) +
+  annotate(geom = 'text', label = "b)", x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20) +
   geom_xsidedensity(data = subset(Final, Area == "All"), aes(y = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
   geom_ysidedensity(data = subset(Final, Area == "All"), aes(x = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
   scale_xsidey_continuous(breaks = NULL) +
@@ -352,7 +352,7 @@ p <- ggplot(data = subset(Final, Area == "MAL"), aes(x = Speed, y = as.numeric(a
   geom_smooth(data = subset(Final, Area == "MAL"), aes(color = Road_type, fill = Road_type), method = lm, 
               size = 2, se = TRUE, formula = y ~ x) + scale_color_manual(values = cols) + 
   scale_fill_manual(values = cols) +  
-  annotate(geom = 'text', label = "b)", x = Inf, y = Inf, hjust = 1, vjust = 1.5, size = 20) +
+  annotate(geom = 'text', label = "b)", x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20) +
   geom_xsidedensity(data = subset(Final, Area == "MAL"), aes(y = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
   geom_ysidedensity(data = subset(Final, Area == "MAL"), aes(x = stat(density), colour = Road_type, fill = Road_type), alpha = 0.5) +
   scale_xsidey_continuous(breaks = NULL) +
@@ -370,8 +370,3 @@ imgs <- image_read(imgs_url)
 imgs <- c(imgs[1:2], image_blank(width = 0, height = 0), imgs[3])
 
 image_montage(imgs, tile = '2x2', geometry = "x300+3+10")
-
-
-
-
-
