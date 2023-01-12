@@ -73,6 +73,7 @@ beepr::beep()
 theme_MC <- list(stat_smooth(colour = "red", size = 2),  
                  theme_classic(), theme(legend.text = element_text(size = 32),
                                         axis.ticks = element_line(size = 2),
+                                        axis.ticks.length = unit(.3, "cm"),
                                         plot.title = element_text(size = 44, face = "bold"), 
                                         axis.title = element_text(size = 44, colour = "black", face = "bold"),
                                         axis.text = element_text(size = 40, colour = "black", face = "bold"), 
