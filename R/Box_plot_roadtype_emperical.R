@@ -156,7 +156,7 @@ p3 <- ggplot(fin_df_all, aes(sample = log(CPC), color = Road_type)) +
   stat_qq_line(size = 2, linetype = 2) + scale_color_manual(values = cols) + 
   scale_x_continuous(breaks = ticks, labels = labels) + 
   labs(x = "Emperical percentile",
-       y = expression(bold(paste("UFP" ," (", ~cm^{-3}, ")")))) + 
+       y = expression(bold(paste("UFP" ," (#", ~cm^{-3}, ")")))) + 
   theme_ARU +
   theme(legend.text = element_text(size = 32)) +
   annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
@@ -169,7 +169,7 @@ p3 <- ggplot(data = subset(fin_df_all, Area == "KAN"), aes(sample = log(CPC), co
   scale_color_manual(values = cols) + 
   scale_x_continuous(breaks = ticks, labels = labels) + 
   labs(x = "Emperical percentile",
-       y = expression(bold(paste("UFP" ," (", ~cm^{-3}, ")")))) + 
+       y = expression(bold(paste("UFP" ," (#", ~cm^{-3}, ")")))) + 
   theme_ARU +
   theme(legend.text = element_text(size = 32))
 p3
@@ -181,7 +181,7 @@ p3 <- ggplot(data = subset(fin_df_all, Area == "CBD"), aes(sample = log(CPC), co
   stat_qq_line(size = 2, linetype = 2) + scale_color_manual(values = cols) + 
   scale_x_continuous(breaks = ticks, labels = labels) + 
   labs(x = "Emperical percentile",
-       y = expression(bold(paste("UFP" ," (", ~cm^{-3}, ")")))) + 
+       y = expression(bold(paste("UFP" ," (#", ~cm^{-3}, ")")))) + 
   theme_ARU +
   theme(legend.text = element_text(size = 32))
 p3
@@ -193,7 +193,7 @@ p3 <- ggplot(data = subset(fin_df_all, Area == "MAL1" | Area == "MAL2"), aes(sam
   stat_qq_line(size = 2, linetype = 2) + scale_color_manual(values = cols) + 
   scale_x_continuous(breaks = ticks, labels = labels) + 
   labs(x = "Emperical percentile",
-       y = expression(bold(paste("UFP" ," (", ~cm^{-3}, ")")))) + 
+       y = expression(bold(paste("UFP" ," (#", ~cm^{-3}, ")")))) + 
   theme_ARU +
   theme(legend.text = element_text(size = 32)) +
   annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
@@ -269,7 +269,7 @@ summary(model_res)
 plot <- ggplot(fin_df_all, aes(x = BC_NR_LC, y = as.numeric(CPC) / 1000)) +
   geom_point(size = 2, alpha = 0.7) + 
   labs(x = expression(bold(paste("BC" ," (", mu, "g", ~m^{-3}, ")"))), 
-       y = expression(bold(paste("UFP (", ~cm^{-3}, ")"))), 
+       y = expression(bold(paste("UFP (#", ~cm^{-3}, ")"))), 
        subtitle = expression(bold(paste(~x10^{3})))) +
   scale_y_continuous() +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) +  geom_hex(bins = 30) + 
@@ -282,7 +282,7 @@ ggsave(here("Plots", "BC_vs_UFPs_All_hex.jpg"), width = 45, height = 30, units =
 plot <- ggplot(data = subset(fin_df_all, Area == "KAN"), aes(x = BC_NR_LC, y = as.numeric(CPC) / 1000)) +
   geom_point(size = 2, alpha = 0.7) + 
   labs(x = expression(bold(paste("BC" ," (", mu, "g",~m^{-3}, ")"))), 
-       y = expression(bold(paste("UFP (", ~cm^{-3}, ")"))), 
+       y = expression(bold(paste("UFP (#", ~cm^{-3}, ")"))), 
        subtitle = expression(bold(paste(~x10^{3})))) +
   scale_y_continuous() +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) +  geom_hex(bins = 30) + 
@@ -297,7 +297,7 @@ ggsave(here("Plots", "BC_vs_UFPs_KAN_hex.jpg"), width = 45, height = 30, units =
 plot <- ggplot(data = subset(fin_df_all, Area == "CBD"), aes(x = BC_NR_LC, y = as.numeric(CPC) / 1000)) +
   geom_point(size = 2, alpha = 0.7) + 
   labs(x = expression(bold(paste("BC" ," (", mu, "g",~m^{-3}, ")"))), 
-       y = expression(bold(paste("UFP (", ~cm^{-3}, ")"))), 
+       y = expression(bold(paste("UFP (#", ~cm^{-3}, ")"))), 
        subtitle = expression(bold(paste(~x10^{3})))) +
   scale_y_continuous() +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) +  geom_hex(bins = 30) + 
@@ -313,7 +313,7 @@ plot <- ggplot(data = subset(fin_df_all, Area == "MAL1" | Area == "MAL2"),
                aes(x = BC_NR_LC, y = as.numeric(CPC) / 1000)) +
   geom_point(size = 2, alpha = 0.7) + 
   labs(x = expression(bold(paste("BC" ," (", mu, "g",~m^{-3}, ")"))), 
-       y = expression(bold(paste("UFP (", ~cm^{-3}, ")"))), 
+       y = expression(bold(paste("UFP (#", ~cm^{-3}, ")"))), 
        subtitle = expression(bold(paste(~x10^{3})))) +
   scale_y_continuous() +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) +  
@@ -330,7 +330,7 @@ plot1 <- ggplot(data = subset(fin_df_all, Area == "MAL1" | Area == "MAL2"),
                aes(x = BC_NR_LC, y = as.numeric(CPC) / 1000)) +
   geom_point(size = 2, alpha = 0.7) + 
   labs(x = expression(bold(paste("log 10 BC" ," (", mu, "g",~m^{-3}, ")"))), 
-       y = expression(bold(paste("log 10 UFP (", ~cm^{-3}, ")")))) +
+       y = expression(bold(paste("log 10 UFP (#", ~cm^{-3}, ")")))) +
   scale_y_log10() + scale_x_log10() +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) +  
   geom_hex(bins = 30) + 
@@ -347,7 +347,7 @@ plot2 <- ggplot(data = subset(fin_df_all, Area == "MAL1" | Area == "MAL2"),
                 aes(x = BC_NR_LC, y = as.numeric(CPC) / 1000)) +
   geom_point(size = 2, alpha = 0.7) + 
   labs(x = expression(bold(paste("log 10 BC" ," (", mu, "g",~m^{-3}, ")"))), 
-       y = expression(bold(paste("log 10 UFP (", ~cm^{-3}, ")")))) +
+       y = expression(bold(paste("log 10 UFP (#", ~cm^{-3}, ")")))) +
   scale_y_log10() + scale_x_log10() +
   theme_ARU + theme(legend.position = "bottom", legend.key.width = unit(2.5, "cm")) +  
   geom_hex(bins = 30) + 
@@ -403,7 +403,7 @@ ggsave(here("Plots", "BC_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm
 
 
 plo2 <- ggplot(datah, aes(Road_type, as.numeric(CPC) / 1000))+ 
-  labs(x = "", y = expression(bold(paste("UFP (", ~cm^{-3}, ")"))), 
+  labs(x = "", y = expression(bold(paste("UFP (#", ~cm^{-3}, ")"))), 
        subtitle = expression(bold(paste(~x10^{3})))) +
   stat_summary(fun.data = f, geom = "boxplot", width = 0.2, size = 1.5) +  
   stat_summary(fun.y = mean, colour = "black", geom = "point",size = 4) +
@@ -414,7 +414,7 @@ ggsave(here("Plots", "UFPs_All_boxplot.jpg"), width = 30, height = 20, units = "
 
 
 plo2 <- ggplot(data = subset(datah, Area == "KAN"), aes(Road_type, as.numeric(CPC) / 1000)) + 
-  labs(x = "", y = expression(bold(paste("UFP (", ~cm^{-3}, ")"))), 
+  labs(x = "", y = expression(bold(paste("UFP (#", ~cm^{-3}, ")"))), 
        subtitle = expression(bold(paste(~x10^{3})))) +
   stat_summary(fun.data = f, geom = "boxplot", width = 0.2, size = 1.5) +  
   stat_summary(fun.y = mean, colour = "black", geom = "point",size = 4) +
@@ -425,7 +425,7 @@ ggsave(here("Plots", "UFPs_KAN_boxplot.jpg"), width = 30, height = 20, units = "
 
 
 plo2 <- ggplot(data = subset(datah, Area == "CBD"), aes(Road_type, as.numeric(CPC) / 1000))+ 
-  labs(x = "", y = expression(bold(paste("UFP (", ~cm^{-3}, ")"))), 
+  labs(x = "", y = expression(bold(paste("UFP (#", ~cm^{-3}, ")"))), 
        subtitle = expression(bold(paste(~x10^{3})))) + 
   stat_summary(fun.data = f, geom = "boxplot", width = 0.2, size = 1.5) +  
   stat_summary(fun.y = mean, colour = "black", geom = "point",size = 4) +
@@ -435,7 +435,7 @@ plo2
 ggsave(here("Plots", "UFPs_CBD_boxplot.jpg"), width = 30, height = 20, units = "cm")
 
 plo2 <- ggplot(data = subset(datah, Area == "MAL1" | Area == "MAL2"), aes(Road_type, as.numeric(CPC) / 1000))+ 
-  labs(x = "", y = expression(bold(paste("UFP (", ~cm^{-3}, ")"))), 
+  labs(x = "", y = expression(bold(paste("UFP (#", ~cm^{-3}, ")"))), 
        subtitle = expression(bold(paste(~x10^{3})))) +
   stat_summary(fun.data = f, geom = "boxplot", width = 0.2, size = 1.5) +  
   stat_summary(fun.y = mean, colour = "black", geom = "point",size = 4) +
