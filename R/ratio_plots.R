@@ -88,11 +88,11 @@ plot_min_speed <- function(Final, Area_type, CPC, S_quartile, UFPs_CO2, UFPs_CO2
 
 plot_min_speed(Final, "All", CPC, 
                S_quartile, UFPs_CO2, UFPs_CO2_m, '  b)', y_label_UFPs)
-ggsave(here("Plots", "UFPs_CO2_All_20.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "UFPs_CO2_All_20.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 plot_min_speed(Final, "MAL", CPC, 
                S_quartile, UFPs_CO2, UFPs_CO2_m, '  b)', y_label_UFPs)
-ggsave(here("Plots", "UFPs_CO2_MAL_20.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "UFPs_CO2_MAL_20.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 plot_min_speed_C <- function(Final, Area_type, BC_NR_LC, S_quartile, BC_CO2, BC_CO2_m, 
                              label_paper, y_label) {
@@ -120,11 +120,11 @@ plot_min_speed_C <- function(Final, Area_type, BC_NR_LC, S_quartile, BC_CO2, BC_
 
 plot_min_speed_C(Final, "All", BC_NR_LC, 
                  S_quartile, BC_CO2, BC_CO2_m, '  a)', y_label_BC)
-ggsave(here("Plots", "BC_CO2_All_20.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "BC_CO2_All_20.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 plot_min_speed_C(Final, "MAL", BC_NR_LC, 
                  S_quartile, BC_CO2, BC_CO2_m, '  a)', y_label_BC)
-ggsave(here("Plots", "BC_CO2_MAL_20.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "BC_CO2_MAL_20.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 
 
@@ -156,11 +156,11 @@ plot_min_speed_BC <- function(Final, Area_type, BC_NR_LC, S_quartile, BC_CO2, BC
 
 plot_min_speed_BC(Final, "All", BC_NR_LC, 
                   S_quartile, BC_CO2, BC_CO2_m, '  a)', y_label_BC)
-ggsave(here("Plots", "BC_S_All_20.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "BC_S_All_20.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 plot_min_speed_BC(Final, "MAL", BC_NR_LC, 
                   S_quartile, BC_CO2, BC_CO2_m, '  a)', y_label_BC)
-ggsave(here("Plots", "BC_S_MAL_20.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "BC_S_MAL_20.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 plot_min_speed_CPC <- function(Final, Area_type, CPC, S_quartile, UFPs_CO2, UFPs_CO2_m, 
                                label_paper, y_label) {
@@ -189,11 +189,11 @@ plot_min_speed_CPC <- function(Final, Area_type, CPC, S_quartile, UFPs_CO2, UFPs
 
 plot_min_speed_CPC(Final, "All", CPC, 
                    S_quartile, UFPs_CO2, UFPs_CO2_m, '  b)', y_label_UFPs)
-ggsave(here("Plots", "UFPs_S_All_20.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "UFPs_S_All_20.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 plot_min_speed_CPC(Final, "MAL", CPC, 
                    S_quartile, UFPs_CO2, UFPs_CO2_m, '  b)', y_label_UFPs)
-ggsave(here("Plots", "UFPs_S_MAL_20.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "UFPs_S_MAL_20.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 
 
@@ -226,7 +226,7 @@ p <- ggplot(data = subset(Final, Area == "All"), aes(x = Speed, y = as.numeric(a
   scale_xsidey_continuous(breaks = NULL) +
   scale_ysidex_continuous(guide = guide_axis(angle = 90), breaks = NULL) 
 p
-ggsave(here("Plots", "BC_CO2_All_D.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "BC_CO2_All_D.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 p <- ggplot(data = subset(Final, Area == "MAL"), aes(x = Speed, y = as.numeric(as.character(BC_NR_LC/CO2_c)))) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
@@ -243,7 +243,7 @@ p <- ggplot(data = subset(Final, Area == "MAL"), aes(x = Speed, y = as.numeric(a
   scale_xsidey_continuous(breaks = NULL) +
   scale_ysidex_continuous(guide = guide_axis(angle = 90), breaks = NULL) 
 p
-ggsave(here("Plots", "BC_CO2_MAL_D.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "BC_CO2_MAL_D.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 
 p <- ggplot(data = subset(Final, Area == "All"), aes(x = Speed, y = as.numeric(as.character(CPC/CO2_c)))) +
@@ -261,7 +261,7 @@ p <- ggplot(data = subset(Final, Area == "All"), aes(x = Speed, y = as.numeric(a
   scale_xsidey_continuous(breaks = NULL) +
   scale_ysidex_continuous(guide = guide_axis(angle = 90), breaks = NULL) 
 p
-ggsave(here("Plots", "UFPs_CO2_All_D.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "UFPs_CO2_All_D.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 p <- ggplot(data = subset(Final, Area == "MAL"), aes(x = Speed, y = as.numeric(as.character(CPC/CO2_c)))) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
@@ -278,7 +278,7 @@ p <- ggplot(data = subset(Final, Area == "MAL"), aes(x = Speed, y = as.numeric(a
   scale_xsidey_continuous(breaks = NULL) +
   scale_ysidex_continuous(guide = guide_axis(angle = 90), breaks = NULL) 
 p
-ggsave(here("Plots", "UFPs_CO2_MAL_D.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "UFPs_CO2_MAL_D.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 
 
@@ -310,7 +310,7 @@ p <- ggplot(data = subset(Final, Area == "All"), aes(x = Speed, y = as.numeric(a
   scale_xsidey_continuous(breaks = NULL) +
   scale_ysidex_continuous(guide = guide_axis(angle = 90), breaks = NULL) 
 p
-ggsave(here("Plots", "BC_CO2_All_D_notlog.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "BC_CO2_All_D_notlog.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 p <- ggplot(data = subset(Final, Area == "MAL"), aes(x = Speed, y = as.numeric(as.character(BC_NR_LC/CO2_c)))) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
@@ -325,7 +325,7 @@ p <- ggplot(data = subset(Final, Area == "MAL"), aes(x = Speed, y = as.numeric(a
   scale_xsidey_continuous(breaks = NULL) +
   scale_ysidex_continuous(guide = guide_axis(angle = 90), breaks = NULL) 
 p
-ggsave(here("Plots", "BC_CO2_MAL_D_notlog.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "BC_CO2_MAL_D_notlog.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 
 p <- ggplot(data = subset(Final, Area == "All"), aes(x = Speed, y = as.numeric(as.character(CPC/CO2_c)))) +
@@ -341,7 +341,7 @@ p <- ggplot(data = subset(Final, Area == "All"), aes(x = Speed, y = as.numeric(a
   scale_xsidey_continuous(breaks = NULL) +
   scale_ysidex_continuous(guide = guide_axis(angle = 90), breaks = NULL) 
 p
-ggsave(here("Plots", "UFPs_CO2_All_D_notlog.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "UFPs_CO2_All_D_notlog.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 p <- ggplot(data = subset(Final, Area == "MAL"), aes(x = Speed, y = as.numeric(as.character(CPC/CO2_c)))) +
   labs(x = expression(bold(paste("Speed (km", ~h^{-1}, ")"))), 
@@ -358,7 +358,7 @@ p <- ggplot(data = subset(Final, Area == "MAL"), aes(x = Speed, y = as.numeric(a
   scale_xsidey_continuous(breaks = NULL) +
   scale_ysidex_continuous(guide = guide_axis(angle = 90), breaks = NULL) 
 p
-ggsave(here("Plots", "UFPs_CO2_MAL_D_notlog.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "UFPs_CO2_MAL_D_notlog.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 library(magick)
 

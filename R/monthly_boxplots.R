@@ -66,8 +66,8 @@ plo1 <- ggplot(datah, aes(month, BC_NR_L_mn))+
   scale_y_continuous(limits = c(0, NA), 
                      expand = c(0, 0)) + theme_ARU 
 plo1
-ggsave(here("Plots", "month_BC_All_boxplot.jpg"), width = 30, height = 20, units = "cm")
-ggsave(here("Plots", "month_BC_All_boxplot.pdf"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "month_BC_All_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "month_BC_All_boxplot.pdf"), dpi = 300, width = 30, height = 20, units = "cm")
 
 plo1 <- ggplot(data = subset(datah, Area == "KAN"), aes(month, BC_NR_L_mn))+ 
   labs(x = "", y = expression(bold(paste("BC" ," (", mu, "g",~m^{-3}, ")")))) +
@@ -76,8 +76,8 @@ plo1 <- ggplot(data = subset(datah, Area == "KAN"), aes(month, BC_NR_L_mn))+
   scale_y_continuous(limits = c(0, NA),
                      expand = c(0, 0)) + theme_ARU 
 plo1
-ggsave(here("Plots", "month_BC_KAN_boxplot.jpg"), width = 30, height = 20, units = "cm")
-ggsave(here("Plots", "month_BC_KAN_boxplot.pdf"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "month_BC_KAN_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "month_BC_KAN_boxplot.pdf"), dpi = 300, width = 30, height = 20, units = "cm")
 
 plo1 <- ggplot(data = subset(datah, Area == "CBD"), aes(month, BC_NR_L_mn))+ 
   labs(x = "", y = expression(bold(paste("BC" ," (", mu, "g",~m^{-3}, ")")))) +
@@ -86,8 +86,8 @@ plo1 <- ggplot(data = subset(datah, Area == "CBD"), aes(month, BC_NR_L_mn))+
   scale_y_continuous(limits = c(0, NA), 
                      expand = c(0, 0)) + theme_ARU 
 plo1
-ggsave(here("Plots", "month_BC_CBD_boxplot.jpg"), width = 30, height = 20, units = "cm")
-ggsave(here("Plots", "month_BC_CBD_boxplot.pdf"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "month_BC_CBD_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "month_BC_CBD_boxplot.pdf"), dpi = 300, width = 30, height = 20, units = "cm")
 
 plo1 <- ggplot(data = subset(datah, (Area == "MAL1" | Area == "MAL2")), aes(month, BC_NR_L_mn))+ 
   labs(x = "", y = expression(bold(paste("BC" ," (", mu, "g",~m^{-3}, ")")))) +
@@ -97,8 +97,8 @@ plo1 <- ggplot(data = subset(datah, (Area == "MAL1" | Area == "MAL2")), aes(mont
                      expand = c(0, 0)) + theme_ARU +
   annotate(geom = 'text', label = '  a)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20) 
 plo1
-ggsave(here("Plots", "month_BC_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
-ggsave(here("Plots", "month_BC_MAL_boxplot.pdf"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "month_BC_MAL_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "month_BC_MAL_boxplot.pdf"), dpi = 300, width = 30, height = 20, units = "cm")
 
 
 
@@ -110,8 +110,8 @@ plo2 <- ggplot(datah, aes(month, as.numeric(CPC_mn) / 1000))+
   scale_y_continuous(limits = c(0, NA),  
                      expand = c(0, 0)) + theme_ARU 
 plo2
-ggsave(here("Plots", "month_UFPs_All_boxplot.jpg"), width = 30, height = 20, units = "cm")
-ggsave(here("Plots", "month_UFPs_All_boxplot.pdf"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "month_UFPs_All_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "month_UFPs_All_boxplot.pdf"), dpi = 300, width = 30, height = 20, units = "cm")
 
 
 plo2 <- ggplot(data = subset(datah, Area == "KAN"), aes(month, as.numeric(CPC_mn) / 1000)) + 
@@ -122,8 +122,8 @@ plo2 <- ggplot(data = subset(datah, Area == "KAN"), aes(month, as.numeric(CPC_mn
   scale_y_continuous(limits = c(0, NA), 
                      expand = c(0, 0)) + theme_ARU 
 plo2
-ggsave(here("Plots", "month_UFPs_KAN_boxplot.jpg"), width = 30, height = 20, units = "cm")
-ggsave(here("Plots", "month_UFPs_KAN_boxplot.pdf"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "month_UFPs_KAN_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "month_UFPs_KAN_boxplot.pdf"), dpi = 300, width = 30, height = 20, units = "cm")
 
 
 plo2 <- ggplot(data = subset(datah, Area == "CBD"), aes(month, as.numeric(CPC_mn) / 1000))+ 
@@ -134,8 +134,8 @@ plo2 <- ggplot(data = subset(datah, Area == "CBD"), aes(month, as.numeric(CPC_mn
   scale_y_continuous(limits = c(0, NA), 
                      expand = c(0, 0)) + theme_ARU 
 plo2
-ggsave(here("Plots", "month_UFPs_CBD_boxplot.jpg"), width = 30, height = 20, units = "cm")
-ggsave(here("Plots", "month_UFPs_CBD_boxplot.pdf"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "month_UFPs_CBD_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "month_UFPs_CBD_boxplot.pdf"), dpi = 300, width = 30, height = 20, units = "cm")
 
 plo2 <- ggplot(data = subset(datah, Area == "MAL1" | Area == "MAL2"), aes(month, as.numeric(CPC_mn) / 1000))+ 
   labs(x = "", y = expression(bold(paste("UFP (#", ~cm^{-3}, ")"))), 
@@ -146,8 +146,8 @@ plo2 <- ggplot(data = subset(datah, Area == "MAL1" | Area == "MAL2"), aes(month,
                      expand = c(0, 0)) + theme_ARU  +
   annotate(geom = 'text', label = '  b)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plo2
-ggsave(here("Plots", "month_UFPs_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
-ggsave(here("Plots", "month_UFPs_MAL_boxplot.pdf"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "month_UFPs_MAL_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "month_UFPs_MAL_boxplot.pdf"), dpi = 300, width = 30, height = 20, units = "cm")
 
 
 plo3 <- ggplot(datah, aes(month, CO2_c_mn))+ 
@@ -157,8 +157,8 @@ plo3 <- ggplot(datah, aes(month, CO2_c_mn))+
   scale_y_continuous(limits = c(0, NA), 
                      expand = c(0, 0)) + theme_ARU
 plo3
-ggsave(here("Plots", "month_CO2_All_boxplot.jpg"), width = 30, height = 20, units = "cm")
-ggsave(here("Plots", "month_CO2_All_boxplot.pdf"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "month_CO2_All_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "month_CO2_All_boxplot.pdf"), dpi = 300, width = 30, height = 20, units = "cm")
 
 plo3 <- ggplot(data = subset(datah, Area == "KAN"), aes(month, CO2_c_mn))+ 
   labs(x = "", y = expression(bold(paste(Delta, CO[2], " (ppm)")))) +
@@ -167,8 +167,8 @@ plo3 <- ggplot(data = subset(datah, Area == "KAN"), aes(month, CO2_c_mn))+
   scale_y_continuous(limits = c(0, NA), 
                      expand = c(0, 0)) + theme_ARU
 plo3
-ggsave(here("Plots", "month_CO2_KAN_boxplot.jpg"), width = 30, height = 20, units = "cm")
-ggsave(here("Plots", "month_CO2_KAN_boxplot.pdf"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "month_CO2_KAN_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "month_CO2_KAN_boxplot.pdf"), dpi = 300, width = 30, height = 20, units = "cm")
 
 
 plo3 <- ggplot(data = subset(datah, Area == "CBD"), aes(month, CO2_c_mn))+ 
@@ -178,8 +178,8 @@ plo3 <- ggplot(data = subset(datah, Area == "CBD"), aes(month, CO2_c_mn))+
   scale_y_continuous(limits = c(0, NA), 
                      expand = c(0, 0)) + theme_ARU
 plo3
-ggsave(here("Plots", "month_CO2_CBD_boxplot.jpg"), width = 30, height = 20, units = "cm")
-ggsave(here("Plots", "month_CO2_CBD_boxplot.pdf"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "month_CO2_CBD_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "month_CO2_CBD_boxplot.pdf"), dpi = 300, width = 30, height = 20, units = "cm")
 
 
 plo3 <- ggplot(data = subset(datah, Area == "MAL1" | Area == "MAL2"), aes(month, CO2_c_mn))+ 
@@ -190,5 +190,5 @@ plo3 <- ggplot(data = subset(datah, Area == "MAL1" | Area == "MAL2"), aes(month,
                      expand = c(0, 0)) + theme_ARU +
   annotate(geom = 'text', label = '  c)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plo3
-ggsave(here("Plots", "month_CO2_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
-ggsave(here("Plots", "month_CO2_MAL_boxplot.pdf"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "month_CO2_MAL_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "month_CO2_MAL_boxplot.pdf"), dpi = 300, width = 30, height = 20, units = "cm")

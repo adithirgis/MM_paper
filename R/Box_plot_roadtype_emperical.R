@@ -114,7 +114,7 @@ p2 <- ggplot(fin_df_all, aes(sample = log(BC_NR_LC), color = Road_type)) +
   theme(legend.text = element_text(size = 32)) +
   annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 p2
-ggsave(here("Plots", "BC_All_empper.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "BC_All_empper.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 p2 <- ggplot(data = subset(fin_df_all, Area == "KAN"), aes(sample = log(BC_NR_LC), color = Road_type)) + 
   stat_qq(size = 3, geom = 'point') + 
@@ -124,7 +124,7 @@ p2 <- ggplot(data = subset(fin_df_all, Area == "KAN"), aes(sample = log(BC_NR_LC
        y = expression(bold(paste("BC" ," (", mu, "g",~m^{-3}, ")")))) + theme_ARU +
   theme(legend.text = element_text(size = 32))
 p2
-ggsave(here("Plots", "BC_KAN_empper.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "BC_KAN_empper.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 p2 <- ggplot(data = subset(fin_df_all, Area == "CBD"), aes(sample = log(BC_NR_LC), color = Road_type)) + 
   stat_qq(size = 3, geom = 'point') + 
@@ -134,7 +134,7 @@ p2 <- ggplot(data = subset(fin_df_all, Area == "CBD"), aes(sample = log(BC_NR_LC
        y = expression(bold(paste("BC" ," (", mu, "g",~m^{-3}, ")")))) + theme_ARU +
   theme(legend.text = element_text(size = 32))
 p2
-ggsave(here("Plots", "BC_CBD_empper.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "BC_CBD_empper.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 
 p2 <- ggplot(data = subset(fin_df_all, Area == "MA1" | Area == "MAL2"), aes(sample = log(BC_NR_LC), color = Road_type)) + 
@@ -147,7 +147,7 @@ p2 <- ggplot(data = subset(fin_df_all, Area == "MA1" | Area == "MAL2"), aes(samp
   annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 
 p2
-ggsave(here("Plots", "BC_MAL_empper.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "BC_MAL_empper.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 
 
@@ -161,7 +161,7 @@ p3 <- ggplot(fin_df_all, aes(sample = log(CPC), color = Road_type)) +
   theme(legend.text = element_text(size = 32)) +
   annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 p3
-ggsave(here("Plots", "UFPs_All_empper.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "UFPs_All_empper.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 p3 <- ggplot(data = subset(fin_df_all, Area == "KAN"), aes(sample = log(CPC), color = Road_type)) + 
   stat_qq(size = 3, geom = 'point') + 
@@ -173,7 +173,7 @@ p3 <- ggplot(data = subset(fin_df_all, Area == "KAN"), aes(sample = log(CPC), co
   theme_ARU +
   theme(legend.text = element_text(size = 32))
 p3
-ggsave(here("Plots", "UFPs_KAN_empper.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "UFPs_KAN_empper.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 
 p3 <- ggplot(data = subset(fin_df_all, Area == "CBD"), aes(sample = log(CPC), color = Road_type)) + 
@@ -185,7 +185,7 @@ p3 <- ggplot(data = subset(fin_df_all, Area == "CBD"), aes(sample = log(CPC), co
   theme_ARU +
   theme(legend.text = element_text(size = 32))
 p3
-ggsave(here("Plots", "UFPs_CBD_empper.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "UFPs_CBD_empper.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 
 p3 <- ggplot(data = subset(fin_df_all, Area == "MAL1" | Area == "MAL2"), aes(sample = log(CPC), color = Road_type)) + 
@@ -199,7 +199,7 @@ p3 <- ggplot(data = subset(fin_df_all, Area == "MAL1" | Area == "MAL2"), aes(sam
   annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 
 p3
-ggsave(here("Plots", "UFPs_MAL_empper.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "UFPs_MAL_empper.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 
 p4 <- ggplot(fin_df_all, aes(sample = log(CO2_c), color = Road_type)) + 
@@ -211,7 +211,7 @@ p4 <- ggplot(fin_df_all, aes(sample = log(CO2_c), color = Road_type)) +
   theme(legend.text = element_text(size = 32)) +
   annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 p4
-ggsave(here("Plots", "CO2_All_empper.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "CO2_All_empper.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 
 p4 <- ggplot(data = subset(fin_df_all, Area == "KAN"), aes(sample = log(CO2_c), color = Road_type)) + 
@@ -222,7 +222,7 @@ p4 <- ggplot(data = subset(fin_df_all, Area == "KAN"), aes(sample = log(CO2_c), 
        y = expression(bold(paste(Delta, CO[2], " (ppm)")))) + theme_ARU +
   theme(legend.text = element_text(size = 32))
 p4
-ggsave(here("Plots", "CO2_KAN_empper.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "CO2_KAN_empper.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 
 p4 <- ggplot(data = subset(fin_df_all, Area == "CBD"), aes(sample = log(CO2_c), color = Road_type)) + 
@@ -233,7 +233,7 @@ p4 <- ggplot(data = subset(fin_df_all, Area == "CBD"), aes(sample = log(CO2_c), 
        y = expression(bold(paste(Delta, CO[2], " (ppm)")))) + theme_ARU +
   theme(legend.text = element_text(size = 32))
 p4
-ggsave(here("Plots", "CO2_CBD_empper.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "CO2_CBD_empper.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 
 
@@ -247,7 +247,7 @@ p4 <- ggplot(data = subset(fin_df_all, Area == "MAL1" | Area == "MAL2"), aes(sam
   annotate(geom = 'text', label = '', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 
 p4
-ggsave(here("Plots", "CO2_MAL_empper.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "CO2_MAL_empper.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 
 
@@ -277,7 +277,7 @@ plot <- ggplot(fin_df_all, aes(x = BC_NR_LC, y = as.numeric(CPC) / 1000)) +
   geom_smooth(aes(color = Road_type), method = mgcv::gam, size = 2, se = TRUE, formula = y ~ s(x)) +
   scale_color_manual(values = cols) 
 plot
-ggsave(here("Plots", "BC_vs_UFPs_All_hex.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "BC_vs_UFPs_All_hex.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 plot <- ggplot(data = subset(fin_df_all, Area == "KAN"), aes(x = BC_NR_LC, y = as.numeric(CPC) / 1000)) +
   geom_point(size = 2, alpha = 0.7) + 
@@ -291,7 +291,7 @@ plot <- ggplot(data = subset(fin_df_all, Area == "KAN"), aes(x = BC_NR_LC, y = a
               method = mgcv::gam, size = 2, se = TRUE, formula = y ~ s(x)) +
   scale_color_manual(values = cols) 
 plot
-ggsave(here("Plots", "BC_vs_UFPs_KAN_hex.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "BC_vs_UFPs_KAN_hex.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 
 plot <- ggplot(data = subset(fin_df_all, Area == "CBD"), aes(x = BC_NR_LC, y = as.numeric(CPC) / 1000)) +
@@ -306,7 +306,7 @@ plot <- ggplot(data = subset(fin_df_all, Area == "CBD"), aes(x = BC_NR_LC, y = a
               method = mgcv::gam, size = 2, se = TRUE, formula = y ~ s(x)) +
   scale_color_manual(values = cols) 
 plot
-ggsave(here("Plots", "BC_vs_UFPs_CBD_hex.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "BC_vs_UFPs_CBD_hex.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 
 plot <- ggplot(data = subset(fin_df_all, Area == "MAL1" | Area == "MAL2"), 
@@ -324,7 +324,7 @@ plot <- ggplot(data = subset(fin_df_all, Area == "MAL1" | Area == "MAL2"),
               method = mgcv::gam, size = 2, se = TRUE, formula = y ~ s(x)) +
   scale_color_manual(values = cols) 
 plot
-ggsave(here("Plots", "BC_vs_UFPs_MAL_hex.jpg"), width = 45, height = 40, units = "cm")
+ggsave(here("Plots", "BC_vs_UFPs_MAL_hex.jpg"), dpi = 300, width = 45, height = 40, units = "cm")
 
 plot1 <- ggplot(data = subset(fin_df_all, Area == "MAL1" | Area == "MAL2"), 
                aes(x = BC_NR_LC, y = as.numeric(CPC) / 1000)) +
@@ -340,7 +340,7 @@ plot1 <- ggplot(data = subset(fin_df_all, Area == "MAL1" | Area == "MAL2"),
               method = lm, size = 2, se = TRUE, formula = y ~ x) +
   scale_color_manual(values = cols) 
 plot1
-ggsave(here("Plots", "BC_vs_UFPs_MAL_hex_log_lm.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "BC_vs_UFPs_MAL_hex_log_lm.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 
 plot2 <- ggplot(data = subset(fin_df_all, Area == "MAL1" | Area == "MAL2"), 
@@ -357,7 +357,7 @@ plot2 <- ggplot(data = subset(fin_df_all, Area == "MAL1" | Area == "MAL2"),
               method = mgcv::gam, size = 2, se = TRUE, formula = y ~ s(x)) +
   scale_color_manual(values = cols) 
 plot2
-ggsave(here("Plots", "BC_vs_UFPs_MAL_hex_log.jpg"), width = 45, height = 30, units = "cm")
+ggsave(here("Plots", "BC_vs_UFPs_MAL_hex_log.jpg"), dpi = 300, width = 45, height = 30, units = "cm")
 
 
 
@@ -370,7 +370,7 @@ plo1 <- ggplot(datah, aes(Road_type, BC_NR_LC))+
   scale_y_continuous(limits = c(0, 130), breaks = c(0, 25, 50, 75, 100, 125), 
                      expand = c(0, 0)) + theme_ARU 
 plo1
-ggsave(here("Plots", "BC_All_boxplot.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "BC_All_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
 
 plo1 <- ggplot(data = subset(datah, Area == "KAN"), aes(Road_type, BC_NR_LC))+ 
   labs(x = "", y = expression(bold(paste("BC" ," (", mu, "g",~m^{-3}, ")")))) +
@@ -379,7 +379,7 @@ plo1 <- ggplot(data = subset(datah, Area == "KAN"), aes(Road_type, BC_NR_LC))+
   scale_y_continuous(limits = c(0, 130), breaks = c(0, 25, 50, 75, 100, 125), 
                      expand = c(0, 0)) + theme_ARU 
 plo1
-ggsave(here("Plots", "BC_KAN_boxplot.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "BC_KAN_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
 
 plo1 <- ggplot(data = subset(datah, Area == "CBD"), aes(Road_type, BC_NR_LC))+ 
   labs(x = "", y = expression(bold(paste("BC" ," (", mu, "g",~m^{-3}, ")")))) +
@@ -388,7 +388,7 @@ plo1 <- ggplot(data = subset(datah, Area == "CBD"), aes(Road_type, BC_NR_LC))+
   scale_y_continuous(limits = c(0, 130), breaks = c(0, 25, 50, 75, 100, 125), 
                      expand = c(0, 0)) + theme_ARU 
 plo1
-ggsave(here("Plots", "BC_CBD_boxplot.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "BC_CBD_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
 
 plo1 <- ggplot(data = subset(datah, (Area == "MAL1" | Area == "MAL2")), aes(Road_type, BC_NR_LC))+ 
   labs(x = "", y = expression(bold(paste("BC" ," (", mu, "g",~m^{-3}, ")")))) +
@@ -398,7 +398,7 @@ plo1 <- ggplot(data = subset(datah, (Area == "MAL1" | Area == "MAL2")), aes(Road
                      expand = c(0, 0)) + theme_ARU +
   annotate(geom = 'text', label = '  a)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20) 
 plo1
-ggsave(here("Plots", "BC_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "BC_MAL_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
 
 
 
@@ -410,7 +410,7 @@ plo2 <- ggplot(datah, aes(Road_type, as.numeric(CPC) / 1000))+
   scale_y_continuous(limits = c(0, 275), breaks = c(0, 50, 100, 150, 200, 250), 
                      expand = c(0, 0)) + theme_ARU 
 plo2
-ggsave(here("Plots", "UFPs_All_boxplot.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "UFPs_All_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
 
 
 plo2 <- ggplot(data = subset(datah, Area == "KAN"), aes(Road_type, as.numeric(CPC) / 1000)) + 
@@ -421,7 +421,7 @@ plo2 <- ggplot(data = subset(datah, Area == "KAN"), aes(Road_type, as.numeric(CP
   scale_y_continuous(limits = c(0, 275), breaks = c(0, 50, 100, 150, 200, 250), 
                      expand = c(0, 0)) + theme_ARU 
 plo2
-ggsave(here("Plots", "UFPs_KAN_boxplot.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "UFPs_KAN_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
 
 
 plo2 <- ggplot(data = subset(datah, Area == "CBD"), aes(Road_type, as.numeric(CPC) / 1000))+ 
@@ -432,7 +432,7 @@ plo2 <- ggplot(data = subset(datah, Area == "CBD"), aes(Road_type, as.numeric(CP
   scale_y_continuous(limits = c(0, 275), breaks = c(0, 50, 100, 150, 200, 250), 
                      expand = c(0, 0)) + theme_ARU 
 plo2
-ggsave(here("Plots", "UFPs_CBD_boxplot.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "UFPs_CBD_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
 
 plo2 <- ggplot(data = subset(datah, Area == "MAL1" | Area == "MAL2"), aes(Road_type, as.numeric(CPC) / 1000))+ 
   labs(x = "", y = expression(bold(paste("UFP (#", ~cm^{-3}, ")"))), 
@@ -443,7 +443,7 @@ plo2 <- ggplot(data = subset(datah, Area == "MAL1" | Area == "MAL2"), aes(Road_t
                      expand = c(0, 0)) + theme_ARU  +
   annotate(geom = 'text', label = '  b)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plo2
-ggsave(here("Plots", "UFPs_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "UFPs_MAL_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
 
 
 plo3 <- ggplot(datah, aes(Road_type, CO2_c))+ 
@@ -453,7 +453,7 @@ plo3 <- ggplot(datah, aes(Road_type, CO2_c))+
   scale_y_continuous(limits = c(0, 150), breaks = c(0, 25, 50, 75, 100, 125), 
                      expand = c(0, 0)) + theme_ARU
 plo3
-ggsave(here("Plots", "CO2_All_boxplot.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "CO2_All_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
 
 plo3 <- ggplot(data = subset(datah, Area == "KAN"), aes(Road_type, CO2_c))+ 
   labs(x = "", y = expression(bold(paste(Delta, CO[2], " (ppm)")))) +
@@ -462,7 +462,7 @@ plo3 <- ggplot(data = subset(datah, Area == "KAN"), aes(Road_type, CO2_c))+
   scale_y_continuous(limits = c(0, 150), breaks = c(0, 25, 50, 75, 100, 125), 
                      expand = c(0, 0)) + theme_ARU
 plo3
-ggsave(here("Plots", "CO2_KAN_boxplot.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "CO2_KAN_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
 
 
 plo3 <- ggplot(data = subset(datah, Area == "CBD"), aes(Road_type, CO2_c))+ 
@@ -472,7 +472,7 @@ plo3 <- ggplot(data = subset(datah, Area == "CBD"), aes(Road_type, CO2_c))+
   scale_y_continuous(limits = c(0, 150), breaks = c(0, 25, 50, 75, 100, 125), 
                      expand = c(0, 0)) + theme_ARU
 plo3
-ggsave(here("Plots", "CO2_CBD_boxplot.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "CO2_CBD_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
 
 
 plo3 <- ggplot(data = subset(datah, Area == "MAL1" | Area == "MAL2"), aes(Road_type, CO2_c))+ 
@@ -483,7 +483,7 @@ plo3 <- ggplot(data = subset(datah, Area == "MAL1" | Area == "MAL2"), aes(Road_t
                      expand = c(0, 0)) + theme_ARU +
   annotate(geom = 'text', label = '  c)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plo3
-ggsave(here("Plots", "CO2_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "CO2_MAL_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
 
 
 fin_mal <- bind(mal1, mal2)
@@ -514,7 +514,7 @@ plo3 <- ggplot(data = subset(fin_df_mal_p, Area == "MAL"), aes(x = Road_type, y 
   scale_y_continuous(limits = c(0, NA)) + theme_ARU +
   annotate(geom = 'text', label = '  d)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plo3
-ggsave(here("Plots", "BC_CO2_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "BC_CO2_MAL_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
 
 
 plo3 <- ggplot(data = subset(fin_df_mal_p, Area == "MAL"), aes(x = Road_type, y = CPC/CO2_c))+ 
@@ -524,7 +524,7 @@ plo3 <- ggplot(data = subset(fin_df_mal_p, Area == "MAL"), aes(x = Road_type, y 
   scale_y_continuous(limits = c(0, NA)) + theme_ARU +
   annotate(geom = 'text', label = '  e)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plo3
-ggsave(here("Plots", "UFPs_CO2_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "UFPs_CO2_MAL_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
 
 
 plo4 <- ggplot(data = subset(fin_df_mal_p, Area == "MAL"), aes(x = Road_type, y = CPC/BC_NR_LC))+ 
@@ -534,7 +534,7 @@ plo4 <- ggplot(data = subset(fin_df_mal_p, Area == "MAL"), aes(x = Road_type, y 
   scale_y_continuous(breaks = c(0, 2000, 4000, 6000), limits = c(0, 6000)) + theme_ARU +
   annotate(geom = 'text', label = '  f)', x = -Inf, y = Inf, hjust = 0, vjust = 1.5, size = 20)
 plo4
-ggsave(here("Plots", "UFPs_BC_MAL_boxplot.jpg"), width = 30, height = 20, units = "cm")
+ggsave(here("Plots", "UFPs_BC_MAL_boxplot.jpg"), dpi = 300, width = 30, height = 20, units = "cm")
 
 # http://www.sthda.com/english/articles/40-regression-analysis/162-nonlinear-regression-essentials-in-r-polynomial-and-spline-regression-models/
 
