@@ -376,4 +376,167 @@ plo1
 ggsave(here("Plots", paste0("CPC_", sel_road_type, "_NRMSE_smooth.jpg")), 
        width = 30, height = 20, units = "cm")
 
+## BC 
+
+sel_road_type <- "Highway"
+new_path <- here("road_type_sb/BC/", sel_road_type)
+list_files <- list.files(path = new_path)
+df <- data.frame()
+for (each_file in (list_files)) {
+  new_df <- R2_NRMSE_function(new_path, each_file, subset(bc_final,
+                                                          Rod_typ == sel_road_type), 
+                              "median", "median")
+  df <- rbind(df, new_df) 
+} 
+write.csv(df, paste0("BC_", sel_road_type, "_R2_NRMSE.csv"))
+
+names(df) <- c("Layer", "Numeric Layer", "Y Mean Using Sum", "Y Mean using Mean",
+               "RMSE using Sum", "RMSE using Mean", "Ymax-Ymin", "R Squared", 
+               "Y min", "Y max", "F_statistic", "NRMSE", "Reference_mean")
+
+plo1 <- ggplot(df, aes(x = as.numeric(as.character(`Numeric Layer`)), 
+                       y = as.numeric(as.character(`R Squared`)))) + 
+  scale_y_continuous(limits = c(0, 1), breaks = c(0, 0.25, 0.5, 0.75, 1), 
+                     labels = label_at(0.5)) + geom_point(colour = "blue", size = 1.5) +
+  scale_x_continuous(limits = c(0, 20)) + xlab("number of drive days") +
+  ylab(expression(bold(paste(~R^{2})))) + theme_MC
+plo1
+ggsave(here("Plots", paste0("BC_", sel_road_type, "_R2_smooth.jpg")), 
+       width = 30, height = 20, units = "cm")
+
+plo1 <- ggplot(df, aes(x = as.numeric(as.character(`Numeric Layer`)), 
+                       y = as.numeric(as.character(`R Squared`)))) + 
+  scale_y_continuous(limits = c(0, 1), breaks = c(0, 0.25, 0.5, 0.75, 1), 
+                     labels = label_at(0.5)) + 
+  scale_x_continuous(limits = c(0, 20)) + xlab("number of drive days") +
+  ylab(expression(bold(paste(~R^{2})))) + theme_MC
+plo1
+ggsave(here("Plots", paste0("BC_", sel_road_type, "_R2.jpg")), 
+       width = 30, height = 20, units = "cm")
+
+plo1 <- ggplot(df, aes(x = as.numeric(as.character(`Numeric Layer`)), 
+                       y = as.numeric(as.character(NRMSE)))) + 
+  scale_y_continuous(limits = c(0, NA)) + 
+  scale_x_continuous(limits = c(0, 20)) + xlab("number of drive days") +
+  ylab("NRMSE") + theme_MC
+plo1
+ggsave(here("Plots", paste0("BC_", sel_road_type, "_NRMSE.jpg")), 
+       width = 30, height = 20, units = "cm")
+
+plo1 <- ggplot(df, aes(x = as.numeric(as.character(`Numeric Layer`)), 
+                       y = as.numeric(as.character(NRMSE)))) + 
+  scale_y_continuous(limits = c(0, NA)) + geom_point(colour = "blue", size = 1.5) +
+  scale_x_continuous(limits = c(0, 20)) + xlab("number of drive days") +
+  ylab("NRMSE") + theme_MC
+plo1
+ggsave(here("Plots", paste0("BC_", sel_road_type, "_NRMSE_smooth.jpg")), 
+       width = 30, height = 20, units = "cm")
+
+sel_road_type <- "Arterial"
+new_path <- here("road_type_sb/BC/", sel_road_type)
+list_files <- list.files(path = new_path)
+df <- data.frame()
+for (each_file in (list_files)) {
+  new_df <- R2_NRMSE_function(new_path, each_file, subset(bc_final,
+                                                          Rod_typ == sel_road_type), 
+                              "median", "median")
+  df <- rbind(df, new_df) 
+} 
+write.csv(df, paste0("BC_", sel_road_type, "_R2_NRMSE.csv"))
+
+names(df) <- c("Layer", "Numeric Layer", "Y Mean Using Sum", "Y Mean using Mean",
+               "RMSE using Sum", "RMSE using Mean", "Ymax-Ymin", "R Squared", 
+               "Y min", "Y max", "F_statistic", "NRMSE", "Reference_mean")
+
+plo1 <- ggplot(df, aes(x = as.numeric(as.character(`Numeric Layer`)), 
+                       y = as.numeric(as.character(`R Squared`)))) + 
+  scale_y_continuous(limits = c(0, 1), breaks = c(0, 0.25, 0.5, 0.75, 1), 
+                     labels = label_at(0.5)) + geom_point(colour = "blue", size = 1.5) +
+  scale_x_continuous(limits = c(0, 20)) + xlab("number of drive days") +
+  ylab(expression(bold(paste(~R^{2})))) + theme_MC
+plo1
+ggsave(here("Plots", paste0("BC_", sel_road_type, "_R2_smooth.jpg")), 
+       width = 30, height = 20, units = "cm")
+
+plo1 <- ggplot(df, aes(x = as.numeric(as.character(`Numeric Layer`)), 
+                       y = as.numeric(as.character(`R Squared`)))) + 
+  scale_y_continuous(limits = c(0, 1), breaks = c(0, 0.25, 0.5, 0.75, 1), 
+                     labels = label_at(0.5)) + 
+  scale_x_continuous(limits = c(0, 20)) + xlab("number of drive days") +
+  ylab(expression(bold(paste(~R^{2})))) + theme_MC
+plo1
+ggsave(here("Plots", paste0("BC_", sel_road_type, "_R2.jpg")), 
+       width = 30, height = 20, units = "cm")
+
+plo1 <- ggplot(df, aes(x = as.numeric(as.character(`Numeric Layer`)), 
+                       y = as.numeric(as.character(NRMSE)))) + 
+  scale_y_continuous(limits = c(0, NA)) + 
+  scale_x_continuous(limits = c(0, 20)) + xlab("number of drive days") +
+  ylab("NRMSE") + theme_MC
+plo1
+ggsave(here("Plots", paste0("BC_", sel_road_type, "_NRMSE.jpg")), 
+       width = 30, height = 20, units = "cm")
+
+plo1 <- ggplot(df, aes(x = as.numeric(as.character(`Numeric Layer`)), 
+                       y = as.numeric(as.character(NRMSE)))) + 
+  scale_y_continuous(limits = c(0, NA)) + geom_point(colour = "blue", size = 1.5) +
+  scale_x_continuous(limits = c(0, 20)) + xlab("number of drive days") +
+  ylab("NRMSE") + theme_MC
+plo1
+ggsave(here("Plots", paste0("BC_", sel_road_type, "_NRMSE_smooth.jpg")), 
+       width = 30, height = 20, units = "cm")
+
+sel_road_type <- "Residential"
+new_path <- here("road_type_sb/BC/", sel_road_type)
+list_files <- list.files(path = new_path)
+df <- data.frame()
+for (each_file in (list_files)) {
+  new_df <- R2_NRMSE_function(new_path, each_file, subset(bc_final,
+                                                          Rod_typ == sel_road_type), 
+                              "median", "median")
+  df <- rbind(df, new_df) 
+} 
+write.csv(df, paste0("BC_", sel_road_type, "_R2_NRMSE.csv"))
+
+names(df) <- c("Layer", "Numeric Layer", "Y Mean Using Sum", "Y Mean using Mean",
+               "RMSE using Sum", "RMSE using Mean", "Ymax-Ymin", "R Squared", 
+               "Y min", "Y max", "F_statistic", "NRMSE", "Reference_mean")
+
+plo1 <- ggplot(df, aes(x = as.numeric(as.character(`Numeric Layer`)), 
+                       y = as.numeric(as.character(`R Squared`)))) + 
+  scale_y_continuous(limits = c(0, 1), breaks = c(0, 0.25, 0.5, 0.75, 1), 
+                     labels = label_at(0.5)) + geom_point(colour = "blue", size = 1.5) +
+  scale_x_continuous(limits = c(0, 20)) + xlab("number of drive days") +
+  ylab(expression(bold(paste(~R^{2})))) + theme_MC
+plo1
+ggsave(here("Plots", paste0("BC_", sel_road_type, "_R2_smooth.jpg")), 
+       width = 30, height = 20, units = "cm")
+
+plo1 <- ggplot(df, aes(x = as.numeric(as.character(`Numeric Layer`)), 
+                       y = as.numeric(as.character(`R Squared`)))) + 
+  scale_y_continuous(limits = c(0, 1), breaks = c(0, 0.25, 0.5, 0.75, 1), 
+                     labels = label_at(0.5)) + 
+  scale_x_continuous(limits = c(0, 20)) + xlab("number of drive days") +
+  ylab(expression(bold(paste(~R^{2})))) + theme_MC
+plo1
+ggsave(here("Plots", paste0("BC_", sel_road_type, "_R2.jpg")), 
+       width = 30, height = 20, units = "cm")
+
+plo1 <- ggplot(df, aes(x = as.numeric(as.character(`Numeric Layer`)), 
+                       y = as.numeric(as.character(NRMSE)))) + 
+  scale_y_continuous(limits = c(0, NA)) + 
+  scale_x_continuous(limits = c(0, 20)) + xlab("number of drive days") +
+  ylab("NRMSE") + theme_MC
+plo1
+ggsave(here("Plots", paste0("BC_", sel_road_type, "_NRMSE.jpg")), 
+       width = 30, height = 20, units = "cm")
+
+plo1 <- ggplot(df, aes(x = as.numeric(as.character(`Numeric Layer`)), 
+                       y = as.numeric(as.character(NRMSE)))) + 
+  scale_y_continuous(limits = c(0, NA)) + geom_point(colour = "blue", size = 1.5) +
+  scale_x_continuous(limits = c(0, 20)) + xlab("number of drive days") +
+  ylab("NRMSE") + theme_MC
+plo1
+ggsave(here("Plots", paste0("BC_", sel_road_type, "_NRMSE_smooth.jpg")), 
+       width = 30, height = 20, units = "cm")
 

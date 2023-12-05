@@ -147,17 +147,17 @@ cpc <- rbind(setDT(mal1_cpc), setDT(mal2_cpc), setDT(kan_cpc),
   mutate(across(-c(UID, Rod_typ, Hghw_US), as.numeric)) %>% 
   janitor::remove_empty(which = c("cols"))
 
-sel_road_type <- "Residential"
+sel_road_type <- "Arterial"
 
 draw <- 1 
 roads_used <- bc %>% 
   filter(Rod_typ == sel_road_type) 
 # Highway 12 - 7; 14 - 12; 16 - 17; 18 - 30
 # Arterial 16 - 10; 18 - 20
-# Residential 16 - 12; 18 > 30 
+# Residential 16 - 12; 18 - 40 
 
 while(draw <= 100) {   
-  upper_limit <- 30 ## Change this 
+  upper_limit <- 20 ## Change this 
   no_times <- 18 ## Change this 
   big_data_N <- data.frame() 
   row_no_road <- as.numeric(as.character(nrow(roads_used)))
@@ -191,22 +191,22 @@ while(draw <= 100) {
     dplyr::select(everything(), - ride) %>% 
     group_by(UID) %>% 
     summarise(median = median(value, na.rm = T))
-  write.csv(final_df, here("road_type_sb/BC/Residential/",
+  write.csv(final_df, here("road_type_sb/BC/Arterial/",
                            paste0(no_times, "_", draw, ".csv")))
   draw <- draw + 1
 }
 beepr::beep()
 
 # Highway 16 - 10; 18 - 25
-# Arterial 16 - 10; 18 > 30 so not applied 
-# Residential 16 - 7; 18 > 30
+# Arterial 16 - 10; 18 - 40 
+# Residential 16 - 7; 18 - 70
 
 draw <- 1 
 roads_used <- cpc %>% 
   filter(Rod_typ == sel_road_type) 
 
 while(draw <= 100) {   
-  upper_limit <- 30 ## Change this 
+  upper_limit <- 40 ## Change this 
   no_times <- 18 ## Change this 
   big_data_N <- data.frame() 
   row_no_road <- as.numeric(as.character(nrow(roads_used)))
@@ -240,7 +240,7 @@ while(draw <= 100) {
     dplyr::select(everything(), - ride) %>% 
     group_by(UID) %>% 
     summarise(median = median(value, na.rm = T))
-  write.csv(final_df, here("road_type_sb/CPC/Residential/", 
+  write.csv(final_df, here("road_type_sb/CPC/Arterial/", 
                            paste0(no_times, "_", draw, ".csv")))
   draw <- draw + 1
 }
